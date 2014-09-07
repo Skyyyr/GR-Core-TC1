@@ -210,26 +210,26 @@ function TatooineMosEisleyScreenPlay:spawnMobiles()
 	--{"commoner_tatooine",60,3268.7,5,-4851.2,194,0, "npc_sitting_chair", ""},
 
 	--Imperial Npc's Outside
-	spawnMobile("tatooine", "crackdown_comm_operator",400,3410.5,5,-4735.8,-154,0)
-	spawnMobile("tatooine", "crackdown_elite_sand_trooper",400,3500.8,8,-4683.9,143,0)
-	--{"crackdown_elite_sand_trooper",400,3496.81,5.52789,-4923.13,352.589,0, "neutral", ""},
-	spawnMobile("tatooine", "crackdown_imperial_noncom",400,3760.6,5,-4802,68,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3322.23,4.77649,-4623.57,331.647,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3304.54,5,-4602.49,86.0652,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3288.68,4.72215,-4636.09,61.7463,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3278.49,4.75246,-4676.19,22.0117,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3290.4,5,-4696.4,137,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3427.14,5,-4952.92,91.6772,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3417.99,5,-4974.46,-54,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper",400,3538.04,5.12541,-4806.46,312.721,0)
-	--{"crackdown_sand_trooper",400,3516.17,5,-4879.7,80,0, "neutral", ""},
-	spawnMobile("tatooine", "crackdown_sand_trooper_hard",400,3279.95,5,-4835.74,40,0)
-	spawnMobile("tatooine", "crackdown_sand_trooper_hard",400,3341.8,5,-4750.9,124,0)
-	spawnMobile("tatooine", "crackdown_scout_trooper",400,3585.84,5,-4719.95,281.969,0)
-	spawnMobile("tatooine", "crackdown_scout_trooper_hard",400,3288.12,4.9981,-4842.11,27.4222,0)
-	spawnMobile("tatooine", "crackdown_scout_trooper_hard",400,3377.5,0,-4709,156,0)
-	--{"crackdown_stormtrooper",400,3242.3,5,-4532.3,151,0, "npc_imperial", ""},
-	spawnMobile("tatooine", "crackdown_stormtrooper_rifleman",400,3756.71,5,-4845.03,78.2181,0)
+	spawnMobile("tatooine", "comm_operator",400,3410.5,5,-4735.8,-154,0)
+	spawnMobile("tatooine", "elite_sand_trooper",400,3500.8,8,-4683.9,143,0)
+	--{"elite_sand_trooper",400,3496.81,5.52789,-4923.13,352.589,0, "neutral", ""},
+	spawnMobile("tatooine", "imperial_noncom",400,3760.6,5,-4802,68,0)
+	spawnMobile("tatooine", "sand_trooper",400,3322.23,4.77649,-4623.57,331.647,0)
+	spawnMobile("tatooine", "sand_trooper",400,3304.54,5,-4602.49,86.0652,0)
+	spawnMobile("tatooine", "sand_trooper",400,3288.68,4.72215,-4636.09,61.7463,0)
+	spawnMobile("tatooine", "sand_trooper",400,3278.49,4.75246,-4676.19,22.0117,0)
+	spawnMobile("tatooine", "sand_trooper",400,3290.4,5,-4696.4,137,0)
+	spawnMobile("tatooine", "sand_trooper",400,3427.14,5,-4952.92,91.6772,0)
+	spawnMobile("tatooine", "sand_trooper",400,3417.99,5,-4974.46,-54,0)
+	spawnMobile("tatooine", "sand_trooper",400,3538.04,5.12541,-4806.46,312.721,0)
+	--{"sand_trooper",400,3516.17,5,-4879.7,80,0, "neutral", ""},
+	spawnMobile("tatooine", "sand_trooper",400,3279.95,5,-4835.74,40,0)
+	spawnMobile("tatooine", "sand_trooper",400,3341.8,5,-4750.9,124,0)
+	spawnMobile("tatooine", "scout_trooper",400,3585.84,5,-4719.95,281.969,0)
+	spawnMobile("tatooine", "scout_trooper",400,3288.12,4.9981,-4842.11,27.4222,0)
+	spawnMobile("tatooine", "scout_trooper",400,3377.5,0,-4709,156,0)
+	--{"stormtrooper",400,3242.3,5,-4532.3,151,0, "npc_imperial", ""},
+	spawnMobile("tatooine", "stormtrooper_rifleman",400,3756.71,5,-4845.03,78.2181,0)
 	--{"imperial_colonel",400,3490.5,5,-4733.94,305,0, "npc_imperial", ""},
 
 	--More Misc Outside
@@ -243,20 +243,20 @@ function TatooineMosEisleyScreenPlay:spawnMobiles()
 	spawnMobile("tatooine", "informant_npc_lvl_1",0,3447,5,-4850,135,0)
 	spawnMobile("tatooine", "informant_npc_lvl_1",0,3253,5,-4923,180,0)
 	spawnMobile("tatooine", "informant_npc_lvl_1",0,3488,5,-4782,135,0)
-	--{"jawa",60,3472.22,5,-4918.59,270.008,0, "conversation", ""},
-	--{"jawa",60,3470.22,5,-4918.59,90.0027,0, "conversation", ""},
-	--{"jawa",60,3471.22,5,-4919.59,0,0, "conversation", ""},
-	--{"jawa",60,3488.01,5,-4884.73,270.008,0, "conversation", ""},
-	--{"jawa",60,3486.01,5,-4884.73,90.0027,0, "conversation", ""},
-	--{"jawa",60,3487.01,5,-4885.73,0,0, "conversation", ""},
-	--{"jawa",60,3739.55,4.3966,-4837.28,269.541,0, "conversation", ""},
-	--{"jawa",60,3737.55,4.03113,-4837.28,90.4693,0, "conversation", ""},
-	--{"jawa",60,3738.55,4.29151,-4838.28,35.3182,0, "conversation", ""},
-	spawnMobile("tatooine", "jawa",60,3475.25,4.93605,-4852.73,96.6921,0)
-	spawnMobile("tatooine", "jawa",60,3451.49,4.87154,-4524.17,186.748,0)
-	spawnMobile("tatooine", "jawa",60,3654.1,5,-4784.9,150,0)
-	spawnMobile("tatooine", "jawa",60,3655.6,5,-4785,-116,0)
-	spawnMobile("tatooine", "jawa",60,3654.8,5,-4786.2,-25,0)
+	--{"jawa",300,3472.22,5,-4918.59,270.008,0, "conversation", ""},
+	--{"jawa",300,3470.22,5,-4918.59,90.0027,0, "conversation", ""},
+	--{"jawa",300,3471.22,5,-4919.59,0,0, "conversation", ""},
+	--{"jawa",300,3488.01,5,-4884.73,270.008,0, "conversation", ""},
+	--{"jawa",300,3486.01,5,-4884.73,90.0027,0, "conversation", ""},
+	--{"jawa",300,3487.01,5,-4885.73,0,0, "conversation", ""},
+	--{"jawa",300,3739.55,4.3966,-4837.28,269.541,0, "conversation", ""},
+	--{"jawa",300,3737.55,4.03113,-4837.28,90.4693,0, "conversation", ""},
+	--{"jawa",300,3738.55,4.29151,-4838.28,35.3182,0, "conversation", ""},
+	spawnMobile("tatooine", "jawa",300,3475.25,4.93605,-4852.73,96.6921,0)
+	spawnMobile("tatooine", "jawa",300,3451.49,4.87154,-4524.17,186.748,0)
+	spawnMobile("tatooine", "jawa",300,3654.1,5,-4784.9,150,0)
+	spawnMobile("tatooine", "jawa",300,3655.6,5,-4785,-116,0)
+	spawnMobile("tatooine", "jawa",300,3654.8,5,-4786.2,-25,0)
 	--{"jawa_engineer",300,3661.1,5,-4748.9,230,0, "npc_use_terminal_high", ""},
 	spawnMobile("tatooine", "jawa_henchman",300,3663,5,-4858.6,348,0)
 	spawnMobile("tatooine", "jawa_henchman",300,3658,5,-4748.7,135,0)

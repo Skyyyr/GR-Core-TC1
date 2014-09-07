@@ -184,6 +184,8 @@ public:
 	const static int SKILLBUFF = 0x4000042;
 	const static int DROIDDEED = 0x4000043;
 	const static int DROIDCUSTOMKIT = 0x4000044;
+	const static int DROIDCOMPONENT = 0x4000045;
+	const static int EVENTPERKDEED = 0x4000046;
 
 public:
 	SharedObjectTemplate();
@@ -703,6 +705,9 @@ public:
 		return false;
 	}
 	virtual bool isDroidCustomKitTemplate() {
+	    	return false;
+	}
+	virtual bool isDroidComponentTemplate() {
 	    	return false;
 	}
 };

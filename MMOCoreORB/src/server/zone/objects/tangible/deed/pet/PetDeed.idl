@@ -52,19 +52,168 @@ import server.zone.packets.object.ObjectMenuResponse;
 include server.zone.objects.manufactureschematic.craftingvalues.CraftingValues;
 include server.zone.packets.scene.AttributeListMessage;
 import server.zone.objects.creature.CreatureObject;
-
+include server.zone.objects.creature.variables.CreatureAttackMap;
 import server.zone.templates.SharedObjectTemplate;
 
 class PetDeed extends Deed {
-	protected int hitPoints;
+	// Pet Level
+	protected int level;
+	// Crafted pets have their own attack speed and chance to hit
+	protected float chanceHit;
+	protected float attackSpeed;
+	// Damage min/mac for the pet
+	protected int damageMin;	
+	protected int damageMax;
+	// Armor value of the pet
+	protected int armor;
+	// resists of the pet
+	protected float kinResist;
+	protected float energyResist;
+	protected float blastResist;
+	protected float coldResist;
+	protected float heatResist;
+	protected float elecResist;
+	protected float acidResist;
+	protected float stunResist;
+	protected float saberResist;
+	// ham of the pet
+	protected int health;
+	protected int action;
+	protected int mind;
+	// specials
+	protected string special1;
+	protected string special2;
+	protected boolean ranged;
+		
 	protected string controlDeviceObjectTemplate;
+	protected string mobileTemplate;
+	
+	@dereferenced
+	protected CreatureAttackMap attacks;
 	
 	public PetDeed() {
 		Logger.setLoggingName("PetDeed");
-		hitPoints = 1500;
+		damageMin = 20;
+		damageMax = 20;
+		armor = 0;
+		kinResist = 0;
+		blastResist = 0;
+		coldResist = 0;
+		heatResist = 0;
+		elecResist = 0;
+		acidResist = 0;
+		stunResist = 0;
+		saberResist = -1;
+		health = 10;
+		action = 10;
+		mind = 10;
+		special1 = "none";
+		special2 = "none";
+		ranged = false;
+		chanceHit = 0;
+		attackSpeed = 0;
+		level = 1;
 	}
 	
 	public native void initializeTransientMembers();
+	
+	@local
+	public native CreatureAttackMap getAttacks();
+	
+	@dirty
+	public int getLevel() { 
+		return level; 
+	}
+	
+	@dirty
+	public float getAttackSpeed() { 
+		return attackSpeed; 
+	}
+
+	@dirty
+	public float getHitChance() { 
+		return chanceHit; 
+	}
+
+	@dirty
+	public int getHealth() { 
+		return health; 
+	}
+
+	@dirty
+	public int getAction() { 
+		return action; 
+	}
+
+	@dirty
+	public int getMind() { 
+		return mind; 
+	}
+
+	@dirty
+	public int getMinDamage() { 
+		return damageMin; 
+	}
+
+	@dirty
+	public int getMaxDamage() { 
+		return damageMax; 
+	}
+
+	@dirty
+	public float getKinetic() { 
+		return kinResist; 
+	}
+
+	@dirty
+	public float getEnergy() { 
+		return energyResist; 
+	}
+
+	@dirty
+	public float getBlast() { 
+		return blastResist; 
+	}
+
+	@dirty
+	public float getCold() { 
+		return coldResist; 
+	}
+
+	@dirty
+	public float getHeat() { 
+		return heatResist; 
+	}
+
+	@dirty
+	public float getElectric() { 
+		return elecResist; 
+	}
+
+	@dirty
+	public float getAcid() { 
+		return acidResist; 
+	}
+
+	@dirty
+	public float getStun() { 
+		return stunResist; 
+	}
+
+	@dirty
+	public float getSaber() { 
+		return saberResist; 
+	}
+
+	@dirty
+	public boolean getRanged() { 
+		return ranged; 
+	}
+
+	@dirty
+	public int getArmor() { 
+		return armor; 
+	}
 	
 	/**
 	 * Reads and sets the template data from a SharedTangibleObjectTemplate LuaObject
@@ -76,9 +225,11 @@ class PetDeed extends Deed {
 	public native void loadTemplateData(SharedObjectTemplate templateData);
 	
 	@local
+	@dirty
 	public native void fillAttributeList(AttributeListMessage alm, CreatureObject object);
 	
 	@local
+	@dirty
 	public native void fillObjectMenuResponse(ObjectMenuResponse menuResponse, CreatureObject player);
 	
 	/**
@@ -92,7 +243,8 @@ class PetDeed extends Deed {
 	@local
 	public native void updateCraftingValues(CraftingValues values, boolean firstUpdate);
 	
+	@dirty
 	public boolean isPetDeedObject() {
 		return true;
-	}
+	}	
 }

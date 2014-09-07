@@ -285,13 +285,18 @@ void GeneticLabratory::setInitialCraftingValues(TangibleObject* prototype, Manuf
 	genetic->setSpecialAttackTwo(sp2);
 	genetic->setRanged(ranged);
 	genetic->setQuality(quality);
+	// determine avg sample levels to choose a level of this template for output generation
+	int level = (phy->getLevel() + pro->getLevel() + men->getLevel() + psy->getLevel() + agr->getLevel()) / 5;
+	genetic->setLevel(level);
 	craftingValues->recalculateValues(true);
-
 }
 
 void GeneticLabratory::initialize(ZoneServer* server) {
 	SharedLabratory::initialize(server);
 
+}
+int GeneticLabratory::getCreationCount(ManufactureSchematic* manufactureSchematic) {
+	return 1;
 }
 
 bool GeneticLabratory::allowFactoryRun(ManufactureSchematic* manufactureSchematic) {

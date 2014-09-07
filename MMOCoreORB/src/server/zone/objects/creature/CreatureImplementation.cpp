@@ -21,7 +21,6 @@
 #include "server/zone/objects/tangible/threat/ThreatMap.h"
 #include "server/zone/managers/collision/CollisionManager.h"
 #include "server/zone/managers/components/ComponentManager.h"
-#include "server/zone/objects/creature/components/AiCreatureComponent.h"
 #include "server/zone/managers/stringid/StringIdManager.h"
 #include "server/zone/objects/intangible/PetControlDevice.h"
 
@@ -32,35 +31,6 @@ void CreatureImplementation::initializeTransientMembers() {
 	dnaState = CreatureManager::HASDNA;
 	dnaSampleCount = 0;
 	AiAgentImplementation::initializeTransientMembers();
-	aiInterfaceComponents.add(ComponentManager::instance()->getComponent<AiCreatureComponent*>("AiCreatureComponent"));
-}
-
-void CreatureImplementation::runAway(CreatureObject* target) {
-	return;
-
-
-	if (target == NULL)
-		return;
-
-	setOblivious();
-
-	if (threatMap != NULL)
-		threatMap->removeAll();
-
-	Vector3 runTrajectory(getPositionX() - target->getPositionX(), getPositionY() - target->getPositionY(), 0);
-	runTrajectory = runTrajectory * (100 / runTrajectory.length());
-	runTrajectory += target->getPosition();
-
-	setNextPosition(runTrajectory.getX(), getZone()->getHeight(runTrajectory.getX(), runTrajectory.getY()), runTrajectory.getY(), getParent().get());
-
-	showFlyText("npc_reaction/flytext", "afraid", 0xFF, 0, 0);
-
-
-	fleeing = true;
-
-	CombatManager::instance()->forcePeace(_this.get());
-
-	activateMovementEvent();
 }
 
 void CreatureImplementation::fillObjectMenuResponse(ObjectMenuResponse* menuResponse, CreatureObject* player) {
@@ -257,6 +227,7 @@ void CreatureImplementation::notifyDespawn(Zone* zone) {
 	dnaState = CreatureManager::HASDNA;
 	dnaSampleCount = 0;
 	milkState = CreatureManager::NOTMILKED;
+	baby = false;
 	AiAgentImplementation::notifyDespawn(zone);
 }
 

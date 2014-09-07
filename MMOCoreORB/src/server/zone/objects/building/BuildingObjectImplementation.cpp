@@ -47,6 +47,8 @@
 #include "server/zone/objects/creature/CreatureObject.h"
 #include "server/zone/objects/creature/AiAgent.h"
 
+#include "server/zone/managers/planet/MapLocationType.h"
+
 void BuildingObjectImplementation::initializeTransientMembers() {
 	StructureObjectImplementation::initializeTransientMembers();
 
@@ -54,6 +56,8 @@ void BuildingObjectImplementation::initializeTransientMembers() {
 	
 	updatePaidAccessList();
 	
+	registeredPlayerIdList.removeAll();
+
 	if(isGCWBase()) {
 		SharedBuildingObjectTemplate* buildingTemplateData =
 				dynamic_cast<SharedBuildingObjectTemplate*> (getObjectTemplate());
@@ -109,7 +113,10 @@ void BuildingObjectImplementation::notifyLoadFromDatabase() {
 
 				rlocker.release();
 
-				zone->updateActiveAreas(child);
+				if (child->isTangibleObject()) {
+					TangibleObject* tano = cast<TangibleObject*>(child);
+					zone->updateActiveAreas(tano);
+				}
 			}
 		}
 	}
@@ -436,7 +443,10 @@ void BuildingObjectImplementation::notifyObjectInsertedToZone(SceneObject* objec
 	addInRangeObject(object, false);
 
 	if (getZone() != NULL) {
-		getZone()->updateActiveAreas(object);
+		if (object->isTangibleObject()) {
+			TangibleObject* tano = cast<TangibleObject*>(object);
+			getZone()->updateActiveAreas(tano);
+		}
 
 		object->notifyInsertToZone(getZone());
 	}
@@ -768,13 +778,10 @@ void BuildingObjectImplementation::onEnter(CreatureObject* player) {
 	}
 
 	if (isCivicStructure() && isCityBanned(player)) {
-
 		ejectObject(player);
+
 		player->sendSystemMessage("@city/city:youre_city_banned"); // you are banned from this city and may not use any of its public services and structures
 	}
-
-
-
 }
 
 void BuildingObjectImplementation::onExit(CreatureObject* player, uint64 parentid) {
@@ -785,6 +792,8 @@ void BuildingObjectImplementation::onExit(CreatureObject* player, uint64 parenti
 		return;
 
 	removeTemplateSkillMods(player);
+
+	unregisterProfessional(player);
 
 	notifyObservers(ObserverEventType::EXITEDBUILDING, player, parentid);
 }
@@ -900,8 +909,10 @@ int BuildingObjectImplementation::notifyObjectInsertedToChild(SceneObject* objec
 	if (zone != NULL)
 		delete _locker;
 
-	if (getZone() != NULL)
-		getZone()->updateActiveAreas(object);
+	if (getZone() != NULL && object->isTangibleObject()) {
+		TangibleObject* tano = cast<TangibleObject*>(object);
+		getZone()->updateActiveAreas(tano);
+	}
 
 	return 0;
 }
@@ -950,6 +961,91 @@ void BuildingObjectImplementation::updateSignName(bool notifyClient)  {
 	if (signObject != NULL) {
 		signObject->setCustomObjectName(signNameToSet, notifyClient);
 	}
+}
+
+bool BuildingObjectImplementation::isInPlayerCity() {
+	ManagedReference<CityRegion*> city = this->getCityRegion().get();
+	if (city != NULL) {
+		return (!city->isClientRegion());
+	}
+	return false;
+}
+
+bool BuildingObjectImplementation::canPlayerRegisterWithin() {
+	PlanetMapCategory* pmc = getPlanetMapSubCategory();
+
+	if (pmc == NULL)
+		pmc = getPlanetMapCategory();
+
+	if (pmc == NULL)
+		return false;
+
+	String categoryName = pmc->getName();
+	if (categoryName == "medicalcenter" || categoryName == "hotel" || categoryName == "cantina" || categoryName == "theater" || categoryName == "guild_theater" || categoryName == "tavern")
+		return true;
+
+	return false;
+}
+
+void BuildingObjectImplementation::registerProfessional(CreatureObject* player) {
+
+	if(!player->isPlayerCreature() || getZone() == NULL)
+		return;
+
+	if(!registeredPlayerIdList.contains(player->getObjectID())) {
+
+		// Check for improper faction situations ...
+		if ( player->isNeutral() && (!this->isNeutral())) {
+			// "Neutrals may only register at neutral (non-aligned) locations."
+			player->sendSystemMessage("@faction/faction_hq/faction_hq_response:no_neutrals");
+			return;
+		}
+
+		if ( (player->isImperial() && this->isRebel()) || (player->isRebel() && this->isImperial())) {
+			// "You may not register at a location that is factionally opposed."
+			player->sendSystemMessage("@faction/faction_hq/faction_hq_response:no_opposition");
+			return;
+		}
+
+		if (getZone()->isObjectRegisteredWithPlanetaryMap(_this.get())) {
+
+			// Update the planetary map icon if needed
+			if (registeredPlayerIdList.size() == 0) {
+				getZone()->updatePlanetaryMapIcon(_this.get(), 2);
+			}
+
+			registeredPlayerIdList.put(player->getObjectID());
+
+			// "You successfully register with this location."
+			player->sendSystemMessage("@faction/faction_hq/faction_hq_response:success");
+		} else {
+			// "You cannot register at a location that is not registered with the planetary map."
+			player->sendSystemMessage("@faction/faction_hq/faction_hq_response:cannot_register");
+		}
+
+	}
+	else {
+		// "But you are already registered at this location."
+		player->sendSystemMessage("@faction/faction_hq/faction_hq_response:already_registered");
+	}
+
+}
+
+void BuildingObjectImplementation::unregisterProfessional(CreatureObject* player) {
+	if(!player->isPlayerCreature() || getZone() == NULL)
+		return;
+
+	if (registeredPlayerIdList.drop(player->getObjectID())) {
+		if (registeredPlayerIdList.size() == 0) {
+			if (getZone()->isObjectRegisteredWithPlanetaryMap(_this.get())) {
+				// Last Entertainer/Doctor out, set icon from star to a moon.
+				getZone()->updatePlanetaryMapIcon(_this.get(), 1);
+			}
+		}
+
+		player->sendSystemMessage("You have been unregistered from your previously registered location.");
+	}
+
 }
 
 void BuildingObjectImplementation::promptPayAccessFee(CreatureObject* player) {
@@ -1307,7 +1403,7 @@ void BuildingObjectImplementation::spawnChildCreaturesFromTemplate(){
 
 						ManagedReference<CellObject*> cellObject = getCell(child->getCellId());
 						if (cellObject != NULL) {
-							creature = creatureManager->spawnCreature(child->getMobile().hashCode(),0,child->getPosition().getX(),child->getPosition().getZ(),child->getPosition().getY(),cellObject->getObjectID(),false);
+							creature = creatureManager->spawnCreatureWithAi(child->getMobile().hashCode(),child->getPosition().getX(),child->getPosition().getZ(),child->getPosition().getY(),cellObject->getObjectID(),false);
 						} else
 							error("NULL CELL OBJECT");
 					}
@@ -1333,7 +1429,7 @@ void BuildingObjectImplementation::spawnChildCreaturesFromTemplate(){
 					float z = getPosition().getZ() + childPosition.getZ();
 					float degrees = getDirection()->getDegrees();
 
-					creature = creatureManager->spawnCreature(mobilename.hashCode(),0,x,z,y,0,false);
+					creature = creatureManager->spawnCreatureWithAi(mobilename.hashCode(),x,z,y,0,false);
 
 			}
 
@@ -1358,7 +1454,7 @@ void BuildingObjectImplementation::spawnChildCreature(String& mobile, int respaw
 	if(creatureManager == NULL)
 		return;
 
-	CreatureObject* creature = creatureManager->spawnCreature(mobile.hashCode(),0,x,z,y,cellID,false);
+	CreatureObject* creature = creatureManager->spawnCreatureWithAi(mobile.hashCode(),x,z,y,cellID,false);
 
 	if(creature == NULL)
 		return;

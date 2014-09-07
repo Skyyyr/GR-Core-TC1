@@ -136,6 +136,11 @@ void PetControlDeviceImplementation::callObject(CreatureObject* player) {
 
 		if (object != NULL) {
 			if (object->isCreature() && petType == PetManager::CREATUREPET) {
+				ManagedReference<CreatureTemplate*> activePetTemplate = object->getCreatureTemplate();
+
+				if (activePetTemplate == NULL || activePetTemplate->getTemplateName() == "at_st")
+					continue;
+
 				if (++currentlySpawned >= maxPets) {
 					player->sendSystemMessage("@pet/pet_menu:at_max"); // You already have the maximum number of pets of this type that you can call.
 					return;
@@ -149,6 +154,17 @@ void PetControlDeviceImplementation::callObject(CreatureObject* player) {
 				}
 			} else if (object->isNonPlayerCreatureObject() && petType == PetManager::FACTIONPET) {
 				if (++currentlySpawned >= maxPets) {
+					player->sendSystemMessage("@pet/pet_menu:at_max"); // You already have the maximum number of pets of this type that you can call.
+					return;
+				}
+			} else if (object->isCreature() && petType == PetManager::FACTIONPET) {
+				ManagedReference<CreatureTemplate*> activePetTemplate = object->getCreatureTemplate();
+				ManagedReference<CreatureTemplate*> callingPetTemplate = pet->getCreatureTemplate();
+
+				if (activePetTemplate == NULL || callingPetTemplate == NULL || activePetTemplate->getTemplateName() != "at_st")
+					continue;
+
+				if (++currentlySpawned >= maxPets || (activePetTemplate->getTemplateName() == "at_st" && callingPetTemplate->getTemplateName() == "at_st")) {
 					player->sendSystemMessage("@pet/pet_menu:at_max"); // You already have the maximum number of pets of this type that you can call.
 					return;
 				}
@@ -243,7 +259,7 @@ void PetControlDeviceImplementation::spawnObject(CreatureObject* player) {
 	if (zone == NULL)
 		return;
 
-	ManagedReference<SceneObject*> parent = player->getParent();
+	ManagedReference<SceneObject*> parent = player->getParent().get();
 
 	if (parent != NULL && parent->isCellObject())
 		parent->transferObject(controlledObject, -1, true);
@@ -288,6 +304,9 @@ void PetControlDeviceImplementation::spawnObject(CreatureObject* player) {
 		pet->setFollowObject(player);
 	}
 
+	pet->setHomeLocation(player->getPositionX(), player->getPositionZ(), player->getPositionY(), (parent != NULL && parent->isCellObject()) ? parent : NULL);
+	pet ->setNextStepPosition(player->getPositionX(), player->getPositionZ(), player->getPositionY(), (parent != NULL && parent->isCellObject()) ? parent : NULL);
+	pet->clearPatrolPoints();
 	pet->setCreatureBitmask(CreatureFlag::PET);
 	pet->activateLoad("");
 
@@ -512,6 +531,18 @@ void PetControlDeviceImplementation::destroyObjectFromDatabase(bool destroyConta
 	IntangibleObjectImplementation::destroyObjectFromDatabase(destroyContainedObjects);
 }
 
+void PetControlDeviceImplementation::destroyObjectFromWorld(bool sendSelfDestroy) {
+	if (petType == PetManager::CREATUREPET) {
+		ManagedReference<CreatureObject*> player = cast<CreatureObject*>(getParentRecursively(SceneObjectType::PLAYERCREATURE).get().get());
+
+		if (player != NULL) {
+			player->sendSystemMessage("@pet/pet_menu:pet_released"); // You release your pet back into the wild
+		}
+	}
+
+	IntangibleObjectImplementation::destroyObjectFromWorld(sendSelfDestroy);
+}
+
 int PetControlDeviceImplementation::canBeDestroyed(CreatureObject* player) {
 	ManagedReference<AiAgent*> controlledObject = cast<AiAgent*>(this->controlledObject.get().get());
 
@@ -720,13 +751,10 @@ void PetControlDeviceImplementation::fillAttributeList(AttributeListMessage* alm
 					} else
 						alm->insertAttribute("spec_atk_2", " ---");
 				}
-				CreatureTemplate* creatureTemplate = pet->getCreatureTemplate();
-				if (creatureTemplate != NULL) {
-					if (creatureTemplate->getWeapons().size() > 0)
-						alm->insertAttribute("dna_comp_ranged_attack", "Yes");
-					else
-						alm->insertAttribute("dna_comp_ranged_attack", "No");
-				} else
+				// TODO set this up to check for the actual ranged weapon
+				if (pet->hasRangedWeapon())
+					alm->insertAttribute("dna_comp_ranged_attack", "Yes");
+				else
 					alm->insertAttribute("dna_comp_ranged_attack", "No");
 			}
 		}

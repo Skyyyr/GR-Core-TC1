@@ -32,7 +32,7 @@ biogenic_crazyguy = Creature:new {
 		"object/mobile/dressed_combatmedic_trainer_human_female_01.iff"},
 	lootGroups = {},
 	weapons = {},
-	conversationTemplate = "",
+	conversationTemplate = "biogenicCrazyGuyConvoTemplate",
 	attacks = {}
 }
 

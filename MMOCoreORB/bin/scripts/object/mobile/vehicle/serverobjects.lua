@@ -45,7 +45,6 @@
 --Children folder includes
 
 -- Server Objects
-includeFile("mobile/vehicle/barc_speeder.lua")
 includeFile("mobile/vehicle/jetpack.lua")
 includeFile("mobile/vehicle/landspeeder_av21.lua")
 includeFile("mobile/vehicle/landspeeder_base.lua")

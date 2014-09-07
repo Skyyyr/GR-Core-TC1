@@ -72,6 +72,7 @@ include server.zone.QuadTreeReference;
 
 import system.lang.System;
 import server.zone.objects.creature.CreatureObject;
+import server.zone.objects.tangible.TangibleObject;
 import server.zone.objects.scene.SceneObject;
 import server.zone.objects.region.CityRegion;
 
@@ -116,6 +117,7 @@ class Zone extends SceneObject {
 	public native void initializeTransientMembers();
 	public native void finalize();
 
+	@reference
 	public native SceneObject getNearestPlanetaryObject(SceneObject object, final string mapObjectLocationType);
 
 	public native void initializePrivateData();
@@ -153,7 +155,7 @@ class Zone extends SceneObject {
 	@local
 	public native void inRange(QuadTreeEntry entry, float range);
 
-	public native void updateActiveAreas(SceneObject object);
+	public native void updateActiveAreas(TangibleObject tano);
 
 	public native void startManagers();
 
@@ -229,6 +231,9 @@ class Zone extends SceneObject {
 	 * @param object The object to unregister from the planetary map.
 	 */
 	public native void unregisterObjectWithPlanetaryMap(SceneObject object);
+
+	public native boolean isObjectRegisteredWithPlanetaryMap(SceneObject object);
+	public native void updatePlanetaryMapIcon(SceneObject object, byte icon);
 
 	@dirty
 	public string getZoneName() {

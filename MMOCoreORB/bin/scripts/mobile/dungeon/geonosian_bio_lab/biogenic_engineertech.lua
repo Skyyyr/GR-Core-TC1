@@ -31,7 +31,7 @@ biogenic_engineertech = Creature:new {
 		"object/mobile/dressed_geonosian_scientist_02.iff"},
 	lootGroups = {},
 	weapons = {},
-	conversationTemplate = "",
+	conversationTemplate = "biogenicEngineerTechConvoTemplate",
 	attacks = {}
 }
 

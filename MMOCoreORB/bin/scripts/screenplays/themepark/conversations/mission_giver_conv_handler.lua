@@ -1,3 +1,5 @@
+local ObjectManager = require("managers.object.object_manager")
+
 mission_giver_conv_handler = Object:new {
 	themePark = nil
 }
@@ -7,8 +9,7 @@ function mission_giver_conv_handler:setThemePark(themeParkNew)
 end
 
 function mission_giver_conv_handler:getNextConversationScreen(pConversationTemplate, pConversingPlayer, selectedOption)
-	local creature = LuaCreatureObject(pConversingPlayer)
-	local convosession = creature:getConversationSession()
+	local convosession = CreatureObject(pConversingPlayer):getConversationSession()
 
 	local lastConversationScreen = nil
 
@@ -90,8 +91,7 @@ end
 function mission_giver_conv_handler:handleScreenInit(pConversationTemplate, pConversingPlayer, pConversingNpc, selectedOption, pConversationScreen)
 	local conversationTemplate = LuaConversationTemplate(pConversationTemplate)
 	local nextScreenName
-	local creature = LuaCreatureObject(pConversingPlayer)
-	local activeScreenPlay = readStringData(creature:getObjectID() .. ":activeScreenPlay")
+	local activeScreenPlay = readStringData(CreatureObject(pConversingPlayer):getObjectID() .. ":activeScreenPlay")
 	if activeScreenPlay == self.themePark.className or activeScreenPlay == "" then
 		local activeNpcNumber = self.themePark:getActiveNpcNumber(pConversingPlayer)
 		local thisNpcNumber = self.themePark:getNpcNumber(pConversingNpc)
@@ -112,10 +112,18 @@ function mission_giver_conv_handler:handleScreenInit(pConversationTemplate, pCon
 			nextScreenName = "failure"
 
 		elseif missionFaction ~= 0 and self.themePark:isInFaction(missionFaction, pConversingPlayer) ~= true then
-			nextScreenName = "no_faction"
+			if self.themePark:isValidConvoString(stfFile, ":notyet") then
+				nextScreenName = "notyet"
+			else
+				nextScreenName = "no_faction"
+			end
 
 		elseif globalFaction ~= 0 and self.themePark:isInFaction(globalFaction, pConversingPlayer) ~= true then
-			nextScreenName = "no_faction"
+			if self.themePark:isValidConvoString(stfFile, ":notyet") and table.getn(self.themePark.npcMap) == 1  then
+				nextScreenName = "notyet"
+			else
+				nextScreenName = "no_faction"
+			end
 
 		elseif self.themePark:requiresEliteCombatProfession() == true and self.themePark:hasEliteCombatProfession(pConversingPlayer) == false then
 			nextScreenName = "too_weak"
@@ -127,7 +135,7 @@ function mission_giver_conv_handler:handleScreenInit(pConversationTemplate, pCon
 				nextScreenName = "no_faction"
 			end
 		elseif globalFaction ~= 0 and self.themePark:isInFaction(globalFaction, pConversingPlayer) and self.themePark:isOnLeave(pConversingPlayer) then
-			if self.themePark:isValidConvoString(stfFile, ":notyet") then
+			if self.themePark:isValidConvoString(stfFile, ":notyet") and table.getn(self.themePark.npcMap) == 1 then
 				nextScreenName = "notyet"
 			else
 				nextScreenName = "no_faction"
@@ -153,9 +161,9 @@ function mission_giver_conv_handler:handleScreenInit(pConversationTemplate, pCon
 			else
 				if self.themePark:getMissionPreReq(pConversingPlayer) ~= 0 then
 					local missionPreReq = self.themePark:getMissionPreReq(pConversingPlayer)
-					if missionPreReq.type == "item" and (readData(creature:getObjectID() .. ":hasPreReqItem") == 1 or self.themePark:doPreReqItemCheck(pConversingPlayer, missionPreReq) == true) then
+					if missionPreReq.type == "item" and (readData(CreatureObject(pConversingPlayer):getObjectID() .. ":hasPreReqItem") == 1 or self.themePark:doPreReqItemCheck(pConversingPlayer, missionPreReq) == true) then
 						nextScreenName = "npc_1_n"
-					elseif missionPreReq.type == "state" and creature:hasScreenPlayState(missionPreReq.state, missionPreReq.screenPlayState) == 1 then
+					elseif missionPreReq.type == "state" and CreatureObject(pConversingPlayer):hasScreenPlayState(missionPreReq.state, missionPreReq.screenPlayState) == 1 then
 						nextScreenName = "npc_1_n"
 					else
 						nextScreenName = "notyet"

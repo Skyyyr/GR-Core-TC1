@@ -11,6 +11,9 @@
 #include "server/zone/objects/scene/SceneObject.h"
 #include "engine/engine.h"
 
+#ifndef AI_DEBUG
+#define AI_DEBUG
+#endif
 
 LuaBehavior::LuaBehavior(String name) : Object() {
 	this->className = name;
@@ -30,6 +33,9 @@ uint16 LuaBehavior::getType() {
 }
 
 bool LuaBehavior::checkConditions(AiAgent* agent) {
+#ifdef AI_DEBUG
+	Time timer;
+#endif
 	// Use DirectorManager in order to have access to AiAgent
 	Lua* lua = DirectorManager::instance()->getLuaInstance();
 	// TODO (dannuic): should I check for valid table here?
@@ -42,10 +48,20 @@ bool LuaBehavior::checkConditions(AiAgent* agent) {
 
 	bool result = lua_toboolean(lua->getLuaState(), -1);
 	lua_pop(lua->getLuaState(), 1);
+
+#ifdef AI_DEBUG
+	String key = className + "::checkConditions";
+	agent->incrementLuaCall(key);
+	agent->addToLuaTime(key, Time().getMikroTime() - timer.getMikroTime());
+#endif
+
 	return result;
 }
 
 void LuaBehavior::start(AiAgent* agent) {
+#ifdef AI_DEBUG
+	Time timer;
+#endif
 	// Use DirectorManager in order to have access to AiAgent
 	Lua* lua = DirectorManager::instance()->getLuaInstance();
 	// TODO (dannuic): should I check for valid table here?
@@ -57,9 +73,18 @@ void LuaBehavior::start(AiAgent* agent) {
 
 	int result = lua_tointeger(lua->getLuaState(), -1);
 	lua_pop(lua->getLuaState(), 1);
+
+#ifdef AI_DEBUG
+	String key = className + "::start";
+	agent->incrementLuaCall(key);
+	agent->addToLuaTime(key, Time().getMikroTime() - timer.getMikroTime());
+#endif
 }
 
 float LuaBehavior::end(AiAgent* agent) {
+#ifdef AI_DEBUG
+	Time timer;
+#endif
 	// Use DirectorManager in order to have access to AiAgent
 	Lua* lua = DirectorManager::instance()->getLuaInstance();
 	// TODO (dannuic): should I check for valid table here?
@@ -72,10 +97,19 @@ float LuaBehavior::end(AiAgent* agent) {
 	float result = lua_tonumber(lua->getLuaState(), -1);
 	lua_pop(lua->getLuaState(), 1);
 
+#ifdef AI_DEBUG
+	String key = className + "::terminate";
+	agent->incrementLuaCall(key);
+	agent->addToLuaTime(key, Time().getMikroTime() - timer.getMikroTime());
+#endif
+
 	return result;
 }
 
 int LuaBehavior::doAction(AiAgent* agent) {
+#ifdef AI_DEBUG
+	Time timer;
+#endif
 	// Use DirectorManager in order to have access to AiAgent
 	Lua* lua = DirectorManager::instance()->getLuaInstance();
 	//agent->info(className, true);
@@ -89,10 +123,20 @@ int LuaBehavior::doAction(AiAgent* agent) {
 	int result = lua_tointeger(lua->getLuaState(), -1);
 	lua_pop(lua->getLuaState(), 1);
 
+#ifdef AI_DEBUG
+	String key = className + "::doAction";
+	agent->incrementLuaCall(key);
+	agent->addToLuaTime(key, Time().getMikroTime() - timer.getMikroTime());
+#endif
+
 	return result;
 }
 
 int LuaBehavior::interrupt(AiAgent* agent, SceneObject* source, int64 msg) {
+#ifdef AI_DEBUG
+	Time timer;
+#endif
+
 	Lua* lua = DirectorManager::instance()->getLuaInstance();
 
 	LuaFunction messageFunc(lua->getLuaState(), className, "interrupt", 1);
@@ -105,6 +149,42 @@ int LuaBehavior::interrupt(AiAgent* agent, SceneObject* source, int64 msg) {
 	int result = lua_tointeger(lua->getLuaState(), -1);
 	lua_pop(lua->getLuaState(), 1);
 
+#ifdef AI_DEBUG
+	String key = className;
+	if (msg == 17)
+		key += "::startAwarenessInterrupt";
+	else if (msg == 31)
+		key += "::startCombatInterrupt";
+
+	agent->incrementLuaCall(key);
+	agent->addToLuaTime(key, Time().getMikroTime() - timer.getMikroTime());
+#endif
+
 	//1 remove observer, 0 keep observer
+	return result;
+}
+
+bool LuaBehavior::doAwarenessCheck(AiAgent* agent, SceneObject* target) {
+#ifdef AI_DEBUG
+	Time timer;
+#endif
+
+	Lua* lua = DirectorManager::instance()->getLuaInstance();
+	//agent->info(className, true);
+	LuaFunction messageFunc(lua->getLuaState(), className, "doAwarenessCheck", 1);
+	messageFunc << agent;
+	messageFunc << target; //pObject
+
+	messageFunc.callFunction();
+
+	bool result = lua_toboolean(lua->getLuaState(), -1);
+	lua_pop(lua->getLuaState(), 1);
+
+#ifdef AI_DEBUG
+	String key = className + "::doAwarenessCheck";
+	agent->incrementLuaCall(key);
+	agent->addToLuaTime(key, Time().getMikroTime() - timer.getMikroTime());
+#endif
+
 	return result;
 }

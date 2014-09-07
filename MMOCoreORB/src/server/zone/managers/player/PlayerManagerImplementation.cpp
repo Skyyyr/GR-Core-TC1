@@ -2028,8 +2028,11 @@ void PlayerManagerImplementation::stopListen(CreatureObject* creature, uint64 en
 		} else {
 			player->sendSystemMessage("@performance:music_listen_stop_self"); //"You stop watching."
 		}
-	}
 
+		ManagedReference<PlayerObject*> entPlayer = entertainer->getPlayerObject();
+		if (entPlayer != NULL && entPlayer->getPerformanceBuffTarget() == player->getObjectID())
+			entPlayer->setPerformanceBuffTarget(0);
+	}
 	//esession->setEntertainerBuffDuration(creature, PerformanceType::MUSIC, 0.0f); // reset
 	//esession->setEntertainerBuffStrength(creature, PerformanceType::MUSIC, 0.0f);
 	creature->info("stopped watching [" + entName + "]");
@@ -2115,6 +2118,10 @@ void PlayerManagerImplementation::stopWatch(CreatureObject* creature, uint64 ent
 		} else {
 			player->sendSystemMessage("@performance:dance_watch_stop_self"); //"You stop watching."
 		}
+
+		ManagedReference<PlayerObject*> entPlayer = entertainer->getPlayerObject();
+		if (entPlayer != NULL && entPlayer->getPerformanceBuffTarget() == player->getObjectID())
+			entPlayer->setPerformanceBuffTarget(0);
 	}
 
 
@@ -2185,6 +2192,8 @@ void PlayerManagerImplementation::startWatch(CreatureObject* creature, uint64 en
 
 	entertainingSession->sendEntertainmentUpdate(creature, entid, "entertained");
 	entertainingSession->addWatcher(creature);
+
+	entertainer->notifyObservers(ObserverEventType::WASWATCHED, creature);
 
 	//creature->addWatcher(_this);
 
@@ -2258,6 +2267,8 @@ void PlayerManagerImplementation::startListen(CreatureObject* creature, uint64 e
 
 	entertainingSession->sendEntertainmentUpdate(creature, entid, "entertained");
 	entertainingSession->addListener(creature);
+
+	entertainer->notifyObservers(ObserverEventType::WASLISTENEDTO, creature);
 
 	//creature->addWatcher(_this);
 
@@ -3008,14 +3019,17 @@ String PlayerManagerImplementation::banAccount(PlayerObject* admin, Account* acc
 			if(entry->getGalaxyID() == server->getGalaxyID()) {
 
 				ManagedReference<CreatureObject*> player = getPlayer(entry->getFirstName());
-				if(player != NULL && player->isOnline()) {
+				if(player != NULL) {
+					clearOwnedStructuresPermissions(player);
 
-					player->sendMessage(new LogoutMessage());
+					if (player->isOnline()) {
+						player->sendMessage(new LogoutMessage());
 
-					Reference<ZoneClientSession*> session = player->getClient();
+						Reference<ZoneClientSession*> session = player->getClient();
 
-					if(session != NULL)
-						session->disconnect(true);
+						if(session != NULL)
+							session->disconnect(true);
+					}
 				}
 			}
 		}
@@ -3071,22 +3085,29 @@ String PlayerManagerImplementation::banFromGalaxy(PlayerObject* admin, Account* 
 
 	try {
 
-		CharacterList* characters = account->getCharacterList();
-		for(int i = 0; i < characters->size(); ++i) {
-			CharacterListEntry* entry = &characters->get(i);
-			if(entry->getGalaxyID() == server->getGalaxyID()) {
+		if (server->getGalaxyID() == galaxy) {
+			CharacterList* characters = account->getCharacterList();
+			for(int i = 0; i < characters->size(); ++i) {
+				CharacterListEntry* entry = &characters->get(i);
+				if(entry->getGalaxyID() == galaxy) {
 
-				ManagedReference<CreatureObject*> player = getPlayer(entry->getFirstName());
-				if(player != NULL && player->isOnline()) {
+					ManagedReference<CreatureObject*> player = getPlayer(entry->getFirstName());
+					if(player != NULL) {
+						clearOwnedStructuresPermissions(player);
 
-					player->sendMessage(new LogoutMessage());
+						if (player->isOnline()) {
+							player->sendMessage(new LogoutMessage());
 
-					ManagedReference<ZoneClientSession*> session = player->getClient();
+							ManagedReference<ZoneClientSession*> session = player->getClient();
 
-					if(session != NULL)
-						session->disconnect(true);
+							if(session != NULL)
+								session->disconnect(true);
+						}
+					}
 				}
 			}
+		} else {
+			return "Successfully Banned from Galaxy, but cannot kick characters because Galaxy is not your current galaxy.";
 		}
 	} catch(Exception& e) {
 		return "Successfully Banned from Galaxy, but error kicking characters. " + e.getMessage();
@@ -3143,15 +3164,22 @@ String PlayerManagerImplementation::banCharacter(PlayerObject* admin, Account* a
 	}
 
 	try {
-		ManagedReference<CreatureObject*> player = getPlayer(name);
-		if(player != NULL && player->isOnline()) {
+		if (server->getGalaxyID() == galaxyID) {
+			ManagedReference<CreatureObject*> player = getPlayer(name);
+			if(player != NULL) {
+				clearOwnedStructuresPermissions(player);
 
-			player->sendMessage(new LogoutMessage());
+				if (player->isOnline()) {
+					player->sendMessage(new LogoutMessage());
 
-			ManagedReference<ZoneClientSession*> session = player->getClient();
+					ManagedReference<ZoneClientSession*> session = player->getClient();
 
-			if(session != NULL)
-				session->disconnect(true);
+					if(session != NULL)
+						session->disconnect(true);
+				}
+			}
+		} else {
+			return "Character Successfully Banned, but cannot kick character because it's on a different galaxy.";
 		}
 	} catch(Exception& e) {
 		return "Character Successfully Banned, but error kicking Character. " + e.getMessage();
@@ -3184,6 +3212,26 @@ String PlayerManagerImplementation::unbanCharacter(PlayerObject* admin, Account*
 	}
 
 	return "Character Successfully Unbanned";
+}
+
+void PlayerManagerImplementation::clearOwnedStructuresPermissions(CreatureObject* player) {
+	PlayerObject* ghost = player->getPlayerObject();
+
+	if (ghost == NULL) {
+		return;
+	}
+
+	for (int i = 0; i < ghost->getTotalOwnedStructureCount(); i++) {
+		uint64 structureID = ghost->getOwnedStructure(i);
+
+		ManagedReference<StructureObject*> structure = server->getObject(structureID).castTo<StructureObject*>();
+
+		if (structure == NULL) {
+			continue;
+		}
+
+		structure->revokeAllPermissions();
+	}
 }
 
 void PlayerManagerImplementation::fixHAM(CreatureObject* player) {
@@ -4018,6 +4066,35 @@ void PlayerManagerImplementation::generateVeteranReward(CreatureObject* player )
 		return;
 	}
 
+	// Final check to see if milestone has already been claimed on any of the player's characters
+	// (prevent claiming while multi-logged)
+	CharacterList* characters = account->getCharacterList();
+	bool milestoneClaimed = false;
+	for(int i = 0; i < characters->size(); ++i) {
+		CharacterListEntry* entry = &characters->get(i);
+		if(entry->getGalaxyID() == server->getGalaxyID()) {
+
+			ManagedReference<CreatureObject*> altPlayer = getPlayer(entry->getFirstName());
+			if(altPlayer != NULL && altPlayer->getPlayerObject() != NULL) {
+				Locker alocker(altPlayer, player);
+
+				if( !altPlayer->getPlayerObject()->getChosenVeteranReward( rewardSession->getMilestone() ).isEmpty() ){
+					milestoneClaimed = true;
+					alocker.release();
+					break;
+				}
+
+				alocker.release();
+			}
+		}
+	}
+
+	if( milestoneClaimed ){
+		player->sendSystemMessage( "@veteran:reward_error"); //	The reward could not be granted.
+		cancelVeteranRewardSession( player );
+		return;
+	}
+
 	// Generate item
 	SceneObject* inventory = player->getSlottedObject("inventory");
 	VeteranReward reward = veteranRewards.get(rewardSession->getSelectedRewardIndex());
@@ -4039,7 +4116,6 @@ void PlayerManagerImplementation::generateVeteranReward(CreatureObject* player )
 	player->sendSystemMessage( "@veteran:reward_given");  // Your reward has been placed in your inventory.
 
 	// Record reward in all characters registered to the account
-	CharacterList* characters = account->getCharacterList();
 	for(int i = 0; i < characters->size(); ++i) {
 		CharacterListEntry* entry = &characters->get(i);
 		if(entry->getGalaxyID() == server->getGalaxyID()) {

@@ -1,7 +1,7 @@
 admin = {
 	level = 15,
 	name = "admin",
-	tag = "GR-Admin",
+	tag = "SWGEmu-Admin",
 	skills = {
 		"admin_base",
 		"admin_debug_01",

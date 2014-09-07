@@ -22,6 +22,7 @@
 
 #include "server/zone/managers/creature/AiMap.h"
 #include "server/zone/managers/collision/CollisionManager.h"
+#include "server/zone/objects/intangible/PetControlDevice.h"
 
 //#include "server/zone/objects/creature/AiAgent.h"
 
@@ -29,13 +30,15 @@ const char LuaAiAgent::className[] = "LuaAiAgent";
 
 Luna<LuaAiAgent>::RegType LuaAiAgent::Register[] = {
 		{ "_setObject", &LuaAiAgent::_setObject },
-		{ "_getObject", &LuaAiAgent::_getObject },
+		{ "_getObject", &LuaSceneObject::_getObject },
 		{ "setAiTemplate", &LuaAiAgent::setAiTemplate },
 		{ "setFollowObject", &LuaAiAgent::setFollowObject },
 		{ "setOblivious", &LuaAiAgent::setOblivious },
 		{ "setWatchObject", &LuaAiAgent::setWatchObject },
 		{ "setStalkObject", &LuaAiAgent::setStalkObject },
 		{ "getFollowObject", &LuaAiAgent::getFollowObject },
+		{ "storeFollowObject", &LuaAiAgent::storeFollowObject },
+		{ "restoreFollowObject", &LuaAiAgent::restoreFollowObject },
 		{ "getTargetOfTargetID", &LuaAiAgent::getTargetOfTargetID },
 		{ "getTargetID", &LuaCreatureObject::getTargetID },
 		{ "getObjectID", &LuaSceneObject::getObjectID },
@@ -65,15 +68,44 @@ Luna<LuaAiAgent>::RegType LuaAiAgent::Register[] = {
 		{ "enqueueAttack", &LuaAiAgent::enqueueAttack },
 		{ "isRetreating", &LuaAiAgent::isRetreating },
 		{ "isFleeing", &LuaAiAgent::isFleeing },
+		{ "runAway", &LuaAiAgent::runAway },
+		{ "getKinetic", &LuaAiAgent::getKinetic },
+		{ "getEnergy", &LuaAiAgent::getEnergy },
+		{ "getElectricity", &LuaAiAgent::getElectricity },
+		{ "getStun", &LuaAiAgent::getStun },
+		{ "getBlast", &LuaAiAgent::getBlast },
+		{ "getHeat", &LuaAiAgent::getHeat },
+		{ "getCold", &LuaAiAgent::getCold },
+		{ "getAcid", &LuaAiAgent::getAcid },
+		{ "getLightSaber", &LuaAiAgent::getLightSaber },
+		{ "isStalker", &LuaAiAgent::isStalker },
+		{ "isKiller", &LuaAiAgent::isKiller },
+		{ "getFerocity", &LuaAiAgent::getFerocity },
+		{ "getArmor", &LuaAiAgent::getArmor },
+		{ "getDespawnOnNoPlayerInRange", &LuaAiAgent::getDespawnOnNoPlayerInRange },
+		{ "getNumberOfPlayersInRange", &LuaAiAgent::getNumberOfPlayersInRange },
+		{ "getFactionString", &LuaAiAgent::getFactionString },
+		{ "getChanceHit", &LuaAiAgent::getChanceHit },
+		{ "getDamageMin", &LuaAiAgent::getDamageMin },
+		{ "getDamageMax", &LuaAiAgent::getDamageMax },
+		{ "getBaseXp", &LuaAiAgent::getBaseXp },
+		{ "getDiet", &LuaAiAgent::getDiet },
+		{ "hasLoot", &LuaAiAgent::hasLoot },
+		{ "isEventMob", &LuaAiAgent::isEventMob },
+		{ "isPet", &LuaAiAgent::isPet },
+		{ "getPvPFaction", &LuaAiAgent::getPvPFaction },
+		{ "getAvgSpeed", &LuaAiAgent::getAvgSpeed },
 		{ "isAggressiveTo", &LuaAiAgent::isAggressiveTo },
 		{ "isAttackableBy", &LuaAiAgent::isAttackableBy },
 		{ "isScentMasked", &LuaAiAgent::isScentMasked },
 		{ "isConcealed", &LuaAiAgent::isConcealed },
+		{ "isCamouflaged", &LuaAiAgent::isCamouflaged },
 		{ "shouldRetreat", &LuaAiAgent::shouldRetreat },
 		{ "clearCombatState", &LuaAiAgent::clearCombatState },
 		{ "isInCombat", &LuaAiAgent::isInCombat },
 		{ "checkLineOfSight", &LuaAiAgent::checkLineOfSight },
 		{ "activateRecovery", &LuaAiAgent::activateRecovery },
+		{ "activateAwareness", &LuaAiAgent::activateAwareness },
 		{ "setBehaviorStatus", &LuaAiAgent::setBehaviorStatus },
 		{ "getBehaviorStatus", &LuaAiAgent::getBehaviorStatus },
 		{ "resetBehaviorList", &LuaAiAgent::resetBehaviorList },
@@ -87,6 +119,9 @@ Luna<LuaAiAgent>::RegType LuaAiAgent::Register[] = {
 		{ "broadcastInterrupt", &LuaAiAgent::broadcastInterrupt },
 		{ "getSocialGroup", &LuaAiAgent::getSocialGroup },
 		{ "getOwner", &LuaAiAgent::getOwner },
+		{ "getLastCommand", &LuaAiAgent::getLastCommand },
+		{ "setAlertDuration", &LuaAiAgent::setAlertDuration },
+		{ "alertedTimeIsPast", &LuaAiAgent::alertedTimeIsPast },
 		{ 0, 0 }
 };
 
@@ -101,13 +136,9 @@ LuaAiAgent::~LuaAiAgent(){
 int LuaAiAgent::_setObject(lua_State* L) {
 	realObject = static_cast<AiAgent*>(lua_touserdata(L, -1));
 
+	LuaCreatureObject::_setObject(L);
+
 	return 0;
-}
-
-int LuaAiAgent::_getObject(lua_State* L) {
-	lua_pushlightuserdata(L, realObject.get());
-
-	return 1;
 }
 
 int LuaAiAgent::setAiTemplate(lua_State* L) {
@@ -154,6 +185,16 @@ int LuaAiAgent::getFollowObject(lua_State* L) {
 	return 1;
 }
 
+int LuaAiAgent::storeFollowObject(lua_State* L) {
+	realObject->storeFollowObject();
+	return 0;
+}
+
+int LuaAiAgent::restoreFollowObject(lua_State* L) {
+	realObject->restoreFollowObject();
+	return 0;
+}
+
 int LuaAiAgent::getTargetOfTargetID(lua_State* L) {
 	SceneObject* target = realObject->getFollowObject();
 	if (target == NULL || !target->isCreatureObject()) {
@@ -186,7 +227,7 @@ int LuaAiAgent::getFollowState(lua_State* L) {
  */
 int LuaAiAgent::findNextPosition(lua_State* L) {
 	bool walk = lua_toboolean(L, -1);
-	uint16 maxDistance = lua_tonumber(L, -2);
+	float maxDistance = lua_tonumber(L, -2);
 
 	bool found = realObject->findNextPosition(maxDistance, walk);
 
@@ -388,6 +429,146 @@ int LuaAiAgent::isFleeing(lua_State* L) {
 	return 1;
 }
 
+int LuaAiAgent::runAway(lua_State* L) {
+	CreatureObject* target = static_cast<CreatureObject*>(lua_touserdata(L, -2));
+	float range = lua_tonumber(L, -1);
+
+	if (target != NULL)
+		realObject->runAway(target, range);
+
+	return 0;
+}
+
+int LuaAiAgent::getKinetic(lua_State* L) {
+	lua_pushnumber(L, realObject->getKinetic());
+	return 1;
+}
+
+int LuaAiAgent::getEnergy(lua_State* L) {
+	lua_pushnumber(L, realObject->getEnergy());
+	return 1;
+}
+
+int LuaAiAgent::getElectricity(lua_State* L) {
+	lua_pushnumber(L, realObject->getElectricity());
+	return 1;
+}
+
+int LuaAiAgent::getStun(lua_State* L) {
+	lua_pushnumber(L, realObject->getStun());
+	return 1;
+}
+
+int LuaAiAgent::getBlast(lua_State* L) {
+	lua_pushnumber(L, realObject->getBlast());
+	return 1;
+}
+
+int LuaAiAgent::getHeat(lua_State* L) {
+	lua_pushnumber(L, realObject->getHeat());
+	return 1;
+}
+
+int LuaAiAgent::getCold(lua_State* L) {
+	lua_pushnumber(L, realObject->getCold());
+	return 1;
+}
+
+int LuaAiAgent::getAcid(lua_State* L) {
+	lua_pushnumber(L, realObject->getAcid());
+	return 1;
+}
+
+int LuaAiAgent::getLightSaber(lua_State* L) {
+	lua_pushnumber(L, realObject->getLightSaber());
+	return 1;
+}
+
+int LuaAiAgent::isStalker(lua_State* L) {
+	lua_pushboolean(L, realObject->isStalker());
+	return 1;
+}
+
+int LuaAiAgent::isKiller(lua_State* L) {
+	lua_pushboolean(L, realObject->isKiller());
+	return 1;
+}
+
+int LuaAiAgent::getFerocity(lua_State* L) {
+	lua_pushinteger(L, realObject->getFerocity());
+	return 1;
+}
+
+int LuaAiAgent::getArmor(lua_State* L) {
+	lua_pushinteger(L, realObject->getArmor());
+	return 1;
+}
+
+int LuaAiAgent::getDespawnOnNoPlayerInRange(lua_State* L) {
+	lua_pushboolean(L, realObject->getDespawnOnNoPlayerInRange());
+	return 1;
+}
+
+int LuaAiAgent::getNumberOfPlayersInRange(lua_State* L) {
+	lua_pushinteger(L, realObject->getNumberOfPlayersInRange());
+	return 1;
+}
+
+int LuaAiAgent::getFactionString(lua_State* L) {
+	lua_pushstring(L, realObject->getFactionString().toCharArray());
+	return 1;
+}
+
+int LuaAiAgent::getChanceHit(lua_State* L) {
+	lua_pushnumber(L, realObject->getChanceHit());
+	return 1;
+}
+
+int LuaAiAgent::getDamageMin(lua_State* L) {
+	lua_pushinteger(L, realObject->getDamageMin());
+	return 1;
+}
+
+int LuaAiAgent::getDamageMax(lua_State* L) {
+	lua_pushinteger(L, realObject->getDamageMax());
+	return 1;
+}
+
+int LuaAiAgent::getBaseXp(lua_State* L) {
+	lua_pushinteger(L, realObject->getBaseXp());
+	return 1;
+}
+
+int LuaAiAgent::getDiet(lua_State* L) {
+	lua_pushinteger(L, realObject->getDiet());
+	return 1;
+}
+
+int LuaAiAgent::hasLoot(lua_State* L) {
+	lua_pushboolean(L, realObject->hasLoot());
+	return 1;
+}
+
+int LuaAiAgent::isEventMob(lua_State* L) {
+	lua_pushboolean(L, realObject->isEventMob());
+	return 1;
+}
+
+int LuaAiAgent::isPet(lua_State* L) {
+	lua_pushboolean(L, realObject->isPet());
+	return 1;
+}
+
+int LuaAiAgent::getPvPFaction(lua_State* L) {
+	lua_pushstring(L, realObject->getPvPFaction().toCharArray());
+	return 1;
+}
+
+int LuaAiAgent::getAvgSpeed(lua_State* L) {
+	lua_pushnumber(L, realObject->getAvgSpeed());
+	return 1;
+}
+
 int LuaAiAgent::isAggressiveTo(lua_State* L) {
 	CreatureObject* obj = (CreatureObject*) lua_touserdata(L, -1);
 
@@ -419,6 +600,15 @@ int LuaAiAgent::isConcealed(lua_State* L) {
 	CreatureObject* obj = (CreatureObject*) lua_touserdata(L, -1);
 
 	bool retVal = realObject->isConcealed(obj);
+	lua_pushboolean(L, retVal);
+
+	return 1;
+}
+
+int LuaAiAgent::isCamouflaged(lua_State* L) {
+	CreatureObject* obj = (CreatureObject*) lua_touserdata(L, -1);
+
+	bool retVal = realObject->isCamouflaged(obj);
 	lua_pushboolean(L, retVal);
 
 	return 1;
@@ -459,7 +649,7 @@ int LuaAiAgent::isInCombat(lua_State* L) {
 
 int LuaAiAgent::checkLineOfSight(lua_State* L) {
 	SceneObject* obj = (SceneObject*) lua_touserdata(L, -1);
-	bool retVal = CollisionManager::checkLineOfSight(realObject.get(), obj);
+	bool retVal = CollisionManager::checkLineOfSight(realObject, obj);
 
 	lua_pushboolean(L, retVal);
 
@@ -468,6 +658,13 @@ int LuaAiAgent::checkLineOfSight(lua_State* L) {
 
 int LuaAiAgent::activateRecovery(lua_State* L) {
 	realObject->activateRecovery();
+
+	return 0;
+}
+
+int LuaAiAgent::activateAwareness(lua_State* L) {
+	CreatureObject* target = (CreatureObject*) lua_touserdata(L, -1);
+	realObject->activateAwarenessEvent(target);
 
 	return 0;
 }
@@ -579,7 +776,7 @@ int LuaAiAgent::checkRange(lua_State* L) {
 }
 
 int LuaAiAgent::broadcastInterrupt(lua_State* L) {
-	float msg = lua_tointeger(L, -1);
+	int msg = lua_tointeger(L, -1);
 
 	realObject->broadcastInterrupt(msg);
 
@@ -601,5 +798,39 @@ int LuaAiAgent::getOwner(lua_State* L) {
 		lua_pushnil(L);
 	else
 		lua_pushlightuserdata(L, retVal);
+	return 1;
+}
+
+int LuaAiAgent::getLastCommand(lua_State* L) {
+	ManagedReference<PetControlDevice*> controlDevice = realObject->getControlDevice().castTo<PetControlDevice*>();
+
+	if (controlDevice == NULL)
+		lua_pushinteger(L, 0);
+	else
+		lua_pushinteger(L, controlDevice->getLastCommand());
+
+	return 1;
+}
+
+int LuaAiAgent::setAlertDuration(lua_State* L) {
+	int duration = lua_tointeger(L, -1);
+
+	Time* alert = realObject->getAlertedTime();
+	if (alert != NULL) {
+		alert->updateToCurrentTime();
+		alert->addMiliTime(duration);
+	}
+
+	return 0;
+}
+
+int LuaAiAgent::alertedTimeIsPast(lua_State* L) {
+	Time* alert = realObject->getAlertedTime();
+
+	if (alert != NULL)
+		lua_pushboolean(L, alert->isPast());
+	else
+		lua_pushboolean(L, true);
+
 	return 1;
 }

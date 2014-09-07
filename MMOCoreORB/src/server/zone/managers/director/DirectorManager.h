@@ -10,6 +10,10 @@
 
 #include "engine/engine.h"
 #include "DirectorSharedMemory.h"
+#include "server/zone/managers/director/QuestStatus.h"
+
+#include "system/util/SynchronizedHashTable.h"
+#include "system/util/SynchronizedVectorMap.h"
 
 class ScreenPlayTask;
 
@@ -48,12 +52,14 @@ namespace server {
 	class DirectorManager : public Singleton<DirectorManager>, public Object, public Logger, public ReadWriteLock {
 		ThreadLocal<Lua*> localLua;
 		VectorMap<String, bool> screenPlays;
+		SynchronizedVectorMap<String, Reference<QuestStatus*> > questStatuses;
 
 #ifdef WITH_STM
 		TransactionalReference<DirectorSharedMemory* > sharedMemory;
 #else
 		Reference<DirectorSharedMemory* > sharedMemory;
 #endif
+		static SynchronizedHashTable<uint32, Reference<PersistentEvent*> > persistentEvents;
 	public:
 		static int DEBUG_MODE;
 
@@ -64,12 +70,17 @@ namespace server {
 		DirectorManager();
 
 		void loadPersistentEvents();
+		void loadPersistentStatus();
 
 		void startGlobalScreenPlays();
 		void startScreenPlay(CreatureObject* creatureObject, const String& screenPlayName);
 		void activateEvent(ScreenPlayTask* task);
 		ConversationScreen* getNextConversationScreen(const String& luaClass, ConversationTemplate* conversationTemplate, CreatureObject* conversingPlayer, int selectedOption, CreatureObject* conversingNPC);
 		ConversationScreen* runScreenHandlers(const String& luaClass, ConversationTemplate* conversationTemplate, CreatureObject* conversingPlayer, CreatureObject* conversingNPC, int selectedOption, ConversationScreen* conversationScreen);
+
+		void setQuestStatus(String keyString, String valString);
+		String getQuestStatus(String keyString);
+		void removeQuestStatus(String key);
 
 		virtual Lua* getLuaInstance();
 		int runScreenPlays();
@@ -83,15 +94,16 @@ namespace server {
 		static int createEventActualTime(lua_State* L);
 		static int createServerEvent(lua_State* L);
 		static int hasServerEvent(lua_State* L);
+		static int getServerEventTimeLeft(lua_State* L);
 		static int createObserver(lua_State* L);
 		static int dropObserver(lua_State* L);
-		static int removeObservers(lua_State* L);
 		static int spawnMobile(lua_State* L);
-		static int spawnMobileRandom(lua_State* L);
 		static int spawnSceneObject(lua_State* L);
 		static int spawnBuilding(lua_State* L);
+		static int destroyBuilding(lua_State* L);
 		static int createLoot(lua_State* L);
 		static int createLootFromCollection(lua_State* L);
+		static int getRandomNumber(lua_State* L);
 		static int spatialChat(lua_State* L);
 		static int spatialMoodChat(lua_State* L);
 		static int readSharedMemory(lua_State* L);
@@ -117,6 +129,7 @@ namespace server {
 		static int getRankDelegateRatioFrom(lua_State* L);
 		static int getRankDelegateRatioTo(lua_State* L);
 		static int isHighestRank(lua_State* L);
+		static int getZoneByName(lua_State* L);
 		static int isZoneEnabled(lua_State* L);
 		static int getFactionPointsCap(lua_State* L);
 		static int getRegion(lua_State* L);
@@ -136,6 +149,9 @@ namespace server {
 		static int awardSkill(lua_State* L);
 		static int getCityRegionAt(lua_State* L);
 		static int setDungeonTicketAttributes(lua_State* L);
+		static int setQuestStatus(lua_State* L);
+		static int getQuestStatus(lua_State* L);
+		static int removeQuestStatus(lua_State* L);
 
 	private:
 		void setupLuaPackagePath(Lua* luaEngine);
@@ -143,7 +159,9 @@ namespace server {
 		int loadScreenPlays(Lua* luaEngine);
 		void loadJediManager(Lua* luaEngine);
 		static Vector3 generateSpawnPoint(CreatureObject* creatureObject, float x, float y, float minimumDistance, float maximumDistance, float extraNoBuildRadius, float sphereCollision);
-		static PersistentEvent* getServerEvent(String eventName);
+
+		static Reference<PersistentEvent*> getServerEvent(const String& eventName);
+		static void dropServerEventReference(const String& eventName);
 	};
 
    }

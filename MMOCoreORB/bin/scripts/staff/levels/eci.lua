@@ -1,7 +1,7 @@
 eci = {
 	level = 10,
 	name = "eci",
-	tag = "GR-ECI",
+	tag = "SWGEmu-ECI",
 	skills = {
 		"admin_base",
 		"admin_ecinternship",

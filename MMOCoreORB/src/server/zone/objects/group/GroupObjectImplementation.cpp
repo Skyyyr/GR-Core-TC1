@@ -18,6 +18,9 @@
 #include "server/zone/objects/player/events/SquadLeaderBonusTask.h"
 #include "server/zone/managers/objectcontroller/ObjectController.h"
 #include "server/zone/objects/group/RemovePetsFromGroupTask.h"
+#include "server/zone/objects/group/tasks/UpdateNearestMissionForGroupTask.h"
+#include "server/zone/managers/mission/MissionManager.h"
+#include "server/zone/objects/waypoint/WaypointObject.h"
 
 void GroupObjectImplementation::sendBaselinesTo(SceneObject* player) {
 	ZoneClientSession* client = player->getClient();
@@ -35,7 +38,7 @@ void GroupObjectImplementation::sendBaselinesTo(SceneObject* player) {
 }
 
 void GroupObjectImplementation::startChatRoom() {
-	CreatureObject* leader = cast<CreatureObject*>(groupMembers.get(0).get());
+	Reference<CreatureObject*> leader = groupMembers.get(0).get().castTo<CreatureObject*>();
 	ChatManager* chatManager = server->getZoneServer()->getChatManager();
 
 	chatRoom = chatManager->createGroupRoom(getObjectID(), leader);
@@ -58,7 +61,7 @@ void GroupObjectImplementation::destroyChatRoom() {
 
 void GroupObjectImplementation::broadcastMessage(BaseMessage* msg) {
 	for (int i = 0; i < groupMembers.size(); i++) {
-		SceneObject* member = groupMembers.get(i);
+		SceneObject* member = groupMembers.get(i).get().get();
 
 		if (member->isPlayerCreature())
 			member->sendMessage(msg->clone());
@@ -69,7 +72,7 @@ void GroupObjectImplementation::broadcastMessage(BaseMessage* msg) {
 
 void GroupObjectImplementation::broadcastMessage(CreatureObject* player, BaseMessage* msg, bool sendSelf) {
 	for (int i = 0; i < groupMembers.size(); i++) {
-		SceneObject* member = groupMembers.get(i);
+		SceneObject* member = groupMembers.get(i).get().get();
 
 		if(!sendSelf && member == player)
 			continue;
@@ -92,11 +95,16 @@ void GroupObjectImplementation::addMember(SceneObject* newMember) {
 	broadcastMessage(grp);
 
 	if (newMember->isPlayerCreature())
-		sendTo(newMember, true);
+	{
+		ManagedReference<CreatureObject*> playerCreature = cast<CreatureObject*>(newMember);
 
-	if (hasSquadLeader() && newMember->isPlayerCreature()) {
-		ManagedReference<CreatureObject*> playerCreature = cast<CreatureObject*>( newMember);
-		addGroupModifiers(playerCreature);
+		sendTo(playerCreature, true);
+
+		if (hasSquadLeader()) {
+			addGroupModifiers(playerCreature);
+		}
+
+		scheduleUpdateNearestMissionForGroup(playerCreature->getPlanetCRC());
 	}
 
 	calcGroupLevel();
@@ -106,7 +114,7 @@ void GroupObjectImplementation::removeMember(SceneObject* member) {
 	ManagedReference<SceneObject*> obj = member;
 
 	for (int i = 0; i < groupMembers.size(); i++) {
-		SceneObject* scno = groupMembers.get(i);
+		SceneObject* scno = groupMembers.get(i).get().get();
 
 		if (scno == member) {
 			GroupObjectDeltaMessage6* grp = new GroupObjectDeltaMessage6(_this.get());
@@ -120,14 +128,19 @@ void GroupObjectImplementation::removeMember(SceneObject* member) {
 
 	if (member->isPlayerCreature()) {
 		// Remove member's pets
-		CreatureObject* mem = cast<CreatureObject*>(member);
-		RemovePetsFromGroupTask* task = new RemovePetsFromGroupTask(mem, _this.get());
+		CreatureObject* playerCreature = cast<CreatureObject*>(member);
+		RemovePetsFromGroupTask* task = new RemovePetsFromGroupTask(playerCreature, _this.get());
 		task->execute();
 
 		if (hasSquadLeader()) {
-			ManagedReference<CreatureObject*> playerCreature = cast<CreatureObject*>( member);
 			removeGroupModifiers(playerCreature);
 		}
+
+		if (playerCreature->getPlayerObject() != NULL) {
+			PlayerObject* ghost = playerCreature->getPlayerObject();
+			ghost->removeWaypointBySpecialType(WaypointObject::SPECIALTYPE_NEARESTMISSIONFORGROUP);
+		}
+		scheduleUpdateNearestMissionForGroup(playerCreature->getPlanetCRC());
 	}
 
 	calcGroupLevel();
@@ -135,7 +148,7 @@ void GroupObjectImplementation::removeMember(SceneObject* member) {
 
 bool GroupObjectImplementation::hasMember(SceneObject* member) {
 	for (int i = 0; i < groupMembers.size(); i++) {
-		SceneObject* play = groupMembers.get(i);
+		SceneObject* play = groupMembers.get(i).get().get();
 
 		if (play == member)
 			return true;
@@ -146,7 +159,7 @@ bool GroupObjectImplementation::hasMember(SceneObject* member) {
 
 bool GroupObjectImplementation::hasMember(uint64 member) {
 	for (int i = 0; i < groupMembers.size(); i++) {
-		SceneObject* play = groupMembers.get(i);
+		SceneObject* play = groupMembers.get(i).get().get();
 
 		if (play->getObjectID() == member)
 			return true;
@@ -161,7 +174,7 @@ void GroupObjectImplementation::makeLeader(SceneObject* player) {
 
 	//SceneObject* obj = groupMembers.get();
 
-	ManagedReference<SceneObject*> temp = cast<SceneObject*>( groupMembers.get(0).get());
+	Reference<SceneObject*> temp = groupMembers.get(0).get();
 
 	for (int i = 0; i < groupMembers.size(); ++i) {
 		if (groupMembers.get(i) == player) {
@@ -191,33 +204,36 @@ void GroupObjectImplementation::disband() {
 	ManagedReference<ChatRoom* > chat = chatRoom;
 
 	for (int i = 0; i < groupMembers.size(); i++) {
-		CreatureObject* crea = cast<CreatureObject*>(groupMembers.get(i).get());
+		if (groupMembers.get(i) == NULL) {
+			continue;
+		}
+
+		Reference<CreatureObject*> groupMember = getGroupMember(i).castTo<CreatureObject*>();
+
 		try {
-			Locker clocker(crea, _this.get());
+			Locker clocker(groupMember, _this.get());
 
-			if (crea->isPlayerCreature()) {
-				CreatureObject* play = cast<CreatureObject*>( crea);
-
+			if (groupMember->isPlayerCreature()) {
 				if (chat != NULL) {
-					chat->removePlayer(play, false);
-					chat->sendDestroyTo(play);
+					chat->removePlayer(groupMember, false);
+					chat->sendDestroyTo(groupMember);
 
 					ChatRoom* room = chat->getParent();
-					room->sendDestroyTo(play);
+					room->sendDestroyTo(groupMember);
 				}
 
+				if (groupMember->getPlayerObject() != NULL) {
+					PlayerObject* ghost = groupMember->getPlayerObject();
+					ghost->removeWaypointBySpecialType(WaypointObject::SPECIALTYPE_NEARESTMISSIONFORGROUP);
+				}
 			}
 
-			crea->updateGroup(NULL);
+			groupMember->updateGroup(NULL);
 			//play->updateGroupId(0);
 
 			//sendClosestWaypointDestroyTo(play);
 
 			//removeSquadLeaderBonuses(play);
-
-			if (crea->isPlayerCreature())
-				sendDestroyTo(crea);
-
 		} catch (Exception& e) {
 			System::out << "Exception in GroupObject::disband(Player* player)\n";
 		}
@@ -240,7 +256,7 @@ bool GroupObjectImplementation::hasSquadLeader() {
 
 	if (getLeader()->isPlayerCreature()) {
 
-		ManagedReference<CreatureObject*> leader = cast<CreatureObject*>( getLeader());
+		Reference<CreatureObject*> leader = getLeader().castTo<CreatureObject*>();
 
 		if (leader->hasSkill("outdoors_squadleader_novice"))
 			return true;
@@ -255,7 +271,7 @@ void GroupObjectImplementation::addGroupModifiers() {
 	Locker glocker(thisGroup);
 
 	for (int i = 0; i < groupMembers.size(); i++) {
-		CreatureObject* crea = cast<CreatureObject*>(groupMembers.get(i).get());
+		CreatureObject* crea = getGroupMember(i).castTo<CreatureObject*>().get();
 
 		if (crea == NULL)
 			continue;
@@ -270,9 +286,9 @@ void GroupObjectImplementation::addGroupModifiers() {
 		addGroupModifiers(player);
 	}
 
-	if (getLeader() != NULL) {
+	if (getLeader().get() != NULL) {
 		if (getLeader()->isPlayerCreature()) {
-			CreatureObject* leader = cast<CreatureObject*>( getLeader());
+			CreatureObject* leader = getLeader().castTo<CreatureObject*>();
 
 			Reference<SquadLeaderBonusTask*> bonusTask = new SquadLeaderBonusTask(leader);
 
@@ -283,7 +299,7 @@ void GroupObjectImplementation::addGroupModifiers() {
 
 void GroupObjectImplementation::removeGroupModifiers() {
 	for (int i = 0; i < groupMembers.size(); i++) {
-		CreatureObject* crea = cast<CreatureObject*> (groupMembers.get(i).get() );
+		CreatureObject* crea = getGroupMember(i).castTo<CreatureObject*>().get();
 
 		if (crea == NULL)
 			continue;
@@ -306,7 +322,7 @@ void GroupObjectImplementation::addGroupModifiers(CreatureObject* player) {
 	if (!getLeader()->isPlayerCreature())
 		return;
 
-	ManagedReference<CreatureObject*> leader = cast<CreatureObject*>( getLeader());
+	Reference<CreatureObject*> leader = getLeader().castTo<CreatureObject*>();
 
 	if (leader == player)
 		return;
@@ -339,7 +355,7 @@ void GroupObjectImplementation::removeGroupModifiers(CreatureObject* player) {
 	if (!getLeader()->isPlayerCreature())
 		return;
 
-	ManagedReference<CreatureObject*> leader = cast<CreatureObject*>( getLeader());
+	Reference<CreatureObject*> leader = ( getLeader()).castTo<CreatureObject*>();
 
 	if (leader == player)
 		return;
@@ -359,7 +375,7 @@ float GroupObjectImplementation::getGroupHarvestModifier(CreatureObject* player)
 	float modifier = 1.2f;
 
 	for(int i = 0; i < groupMembers.size(); ++i) {
-		ManagedReference<SceneObject*> scno = cast<SceneObject*>(groupMembers.get(i).get());
+		Reference<SceneObject*> scno = getGroupMember(i);
 
 		if(scno->isPlayerCreature()) {
 			CreatureObject* groupMember = cast<CreatureObject*>( scno.get());
@@ -442,7 +458,7 @@ void GroupObjectImplementation::sendSystemMessage(const String& fullPath) {
 
 bool GroupObjectImplementation::isOtherMemberPlayingMusic(CreatureObject* player) {
 	for (int i = 0; i < getGroupSize(); ++i) {
-		ManagedReference<CreatureObject*> groupMember = cast<CreatureObject*>(getGroupMember(i));
+		Reference<CreatureObject*> groupMember = (getGroupMember(i)).castTo<CreatureObject*>();
 
 		if (groupMember == NULL || groupMember == player || !groupMember->isPlayerCreature())
 			continue;
@@ -454,3 +470,27 @@ bool GroupObjectImplementation::isOtherMemberPlayingMusic(CreatureObject* player
 
 	return false;
 }
+
+void GroupObjectImplementation::scheduleUpdateNearestMissionForGroup(unsigned int planetCRC) {
+	Reference<UpdateNearestMissionForGroupTask*> task = NULL;
+
+	if (updateNearestMissionForGroupTasks.contains(planetCRC)) {
+		task = updateNearestMissionForGroupTasks.get(planetCRC);
+		if (task == NULL) {
+			updateNearestMissionForGroupTasks.drop(planetCRC);
+		}
+	}
+
+	if (task == NULL) {
+		task = new UpdateNearestMissionForGroupTask(_this.get(), planetCRC);
+		updateNearestMissionForGroupTasks.put(planetCRC, task);
+	}
+
+	if (task->isScheduled()) {
+		task->reschedule(30000);
+	}
+	else {
+		task->schedule(30000);
+	}
+}
+

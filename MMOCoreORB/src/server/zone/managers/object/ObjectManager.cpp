@@ -60,6 +60,8 @@ ObjectManager::ObjectManager() : DOBObjectManager() {
 	databaseManager->loadObjectDatabase("spawnobservers", true);
 	databaseManager->loadObjectDatabase("aiobservers", true);
 	databaseManager->loadObjectDatabase("events", true);
+	databaseManager->loadObjectDatabase("questdata", true);
+	databaseManager->loadObjectDatabase("surveys", true);
 
 	ObjectDatabaseManager::instance()->commitLocalTransaction();
 
@@ -83,7 +85,7 @@ void ObjectManager::registerObjectTypes() {
 	info("registering object types");
 	//objectFactory.registerObject<SceneObject>(0);
 	objectFactory.registerObject<TangibleObject>(6);
-	objectFactory.registerObject<TangibleObject>(SceneObjectType::LAIR);
+	objectFactory.registerObject<LairObject>(SceneObjectType::LAIR);
 	objectFactory.registerObject<StaticObject>(SceneObjectType::FLORA);
 
 	objectFactory.registerObject<SarlaccArea>(SceneObjectType::SARLACCAREA);
@@ -231,6 +233,7 @@ void ObjectManager::registerObjectTypes() {
 	objectFactory.registerObject<StructureDeed>(SceneObjectType::BUILDINGDEED);
 	objectFactory.registerObject<StructureDeed>(SceneObjectType::INSTALLATIONDEED);
 	objectFactory.registerObject<ResourceDeed>(SceneObjectType::RESOURCEDEED);
+	objectFactory.registerObject<EventPerkDeed>(SceneObjectType::EVENTPERKDEED);
 
 	objectFactory.registerObject<GroupObject>(SceneObjectType::GROUPOBJECT);
 	objectFactory.registerObject<GuildObject>(SceneObjectType::GUILDOBJECT);
@@ -308,7 +311,7 @@ void ObjectManager::registerObjectTypes() {
 	objectFactory.registerObject<Component>(SceneObjectType::CHEMISTRYCOMPONENT);
 	objectFactory.registerObject<Component>(SceneObjectType::CLOTHINGCOMPONENT);
 	objectFactory.registerObject<Component>(SceneObjectType::COMMUNITYCRAFTINGCOMPONENT);
-	objectFactory.registerObject<Component>(SceneObjectType::DROIDCOMPONENT);
+	objectFactory.registerObject<DroidComponent>(SceneObjectType::DROIDCOMPONENT);
 	objectFactory.registerObject<Component>(SceneObjectType::ELECTRONICSCOMPONENT);
 	objectFactory.registerObject<GeneticComponent>(SceneObjectType::GENETICCOMPONENT);
 	objectFactory.registerObject<DnaComponent>(SceneObjectType::DNACOMPONENT);

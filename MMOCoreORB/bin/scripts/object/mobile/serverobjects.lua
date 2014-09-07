@@ -43,7 +43,6 @@
 
 
 --Children folder includes
-includeFile("mobile/ep3/serverobjects.lua")
 includeFile("mobile/naboo_npc/serverobjects.lua")
 includeFile("mobile/skeleton/serverobjects.lua")
 includeFile("mobile/tatooine_npc/serverobjects.lua")

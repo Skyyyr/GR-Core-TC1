@@ -5,8 +5,8 @@ GeneratePatrolBase = createClass(Ai)
 
 function GeneratePatrolBase:doAction(pAgent)
 	if (pAgent ~= nil) then
-		local agent = LuaAiAgent(pAgent)
-		if (agent:generatePatrol(5, 10)) then
+		local agent = AiAgent(pAgent)
+		if agent:generatePatrol(5, 10) then
 			return BEHAVIOR_SUCCESS
 		else
 			return BEHAVIOR_FAILURE

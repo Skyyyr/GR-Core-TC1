@@ -29,7 +29,7 @@ biogenic_assistant = Creature:new {
 	templates = {"object/mobile/dressed_geonosian_scientist_01.iff","object/mobile/dressed_geonosian_scientist_02.iff"},
 	lootGroups = {},
 	weapons = {},
-	conversationTemplate = "",
+	conversationTemplate = "biogenicAssistantConvoTemplate",
 	attacks = {}
 }
 

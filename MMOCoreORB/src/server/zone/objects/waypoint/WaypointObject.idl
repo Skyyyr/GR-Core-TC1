@@ -36,6 +36,8 @@ class WaypointObject extends IntangibleObject {
 	public static final int SPECIALTYPE_RESOURCE = 6;
 	public static final int SPECIALTYPE_THEMEPARK = 7;
 	public static final int SPECIALTYPE_RACETRACK = 8;
+	public static final int SPECIALTYPE_NEARESTMISSIONFORGROUP = 9;
+	public static final int SPECIALTYPE_TREASUREMAP = 10;
 	
 	public WaypointObject() {
 		Logger.setLoggingName("WaypointObject");
@@ -55,6 +57,7 @@ class WaypointObject extends IntangibleObject {
 		planetCRC = crc;
 	}
 	
+	@dirty
 	public unsigned int getPlanetCRC() {
 		return planetCRC;
 	}
@@ -75,6 +78,7 @@ class WaypointObject extends IntangibleObject {
 		specialTypeID = id;
 	}
 
+	@dirty
 	public int getSpecialTypeID() {
 		return specialTypeID;
 	}
@@ -83,14 +87,17 @@ class WaypointObject extends IntangibleObject {
 		active = !active;
 	}
 	
+	@dirty
 	public boolean isActive() {
 		return active;
 	}
 	
+	@dirty
 	public byte getColor() {
 		return color;
 	}
 	
+	@dirty
 	public native string getDetailedDescription();
 	
 	public void setDetailedDescription(final string desc) {

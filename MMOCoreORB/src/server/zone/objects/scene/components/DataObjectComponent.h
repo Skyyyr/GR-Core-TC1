@@ -97,6 +97,14 @@ public:
 	virtual bool isDecoration(){
 		return false;
 	}
+
+	virtual bool isCoaMessageData(){
+		return false;
+	}
+
+	virtual bool isEventPerkData() {
+		return false;
+	}
 };
 
 

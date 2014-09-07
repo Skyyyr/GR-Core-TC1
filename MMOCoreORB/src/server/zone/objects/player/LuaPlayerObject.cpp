@@ -14,6 +14,7 @@ const char LuaPlayerObject::className[] = "LuaPlayerObject";
 
 Luna<LuaPlayerObject>::RegType LuaPlayerObject::Register[] = {
 		{ "_setObject", &LuaPlayerObject::_setObject },
+		{ "_getObject", &LuaSceneObject::_getObject },
 		{ "getFactionStanding", &LuaPlayerObject::getFactionStanding },
 		{ "setFactionStatus", &LuaPlayerObject::setFactionStatus },
 		{ "isOnLeave", &LuaPlayerObject::isOnLeave },
@@ -45,6 +46,12 @@ Luna<LuaPlayerObject>::RegType LuaPlayerObject::Register[] = {
 		{ "hasCompletedQuestsBitSet", &LuaPlayerObject::hasCompletedQuestsBitSet },
 		{ "setCompletedQuestsBit", &LuaPlayerObject::setCompletedQuestsBit },
 		{ "clearCompletedQuestsBit", &LuaPlayerObject::clearCompletedQuestsBit },
+		{ "hasAbility", &LuaPlayerObject::hasAbility},
+		{ "getForceSensitiveUnlockedBranches", &LuaPlayerObject::getForceSensitiveUnlockedBranches},
+		{ "setForceSensitiveUnlockedBranches", &LuaPlayerObject::setForceSensitiveUnlockedBranches},
+		{ "getExperience", &LuaPlayerObject::getExperience },
+		{ "getExperienceForType", &LuaPlayerObject::getExperienceForType},
+		{ "getExperienceType", &LuaPlayerObject::getExperienceType},
 		{ 0, 0 }
 };
 
@@ -58,6 +65,8 @@ LuaPlayerObject::~LuaPlayerObject() {
 
 int LuaPlayerObject::_setObject(lua_State* L) {
 	realObject = (PlayerObject*)lua_touserdata(L, -1);
+
+	LuaIntangibleObject::_setObject(L);
 
 	return 0;
 }
@@ -126,19 +135,39 @@ int LuaPlayerObject::decreaseFactionStanding(lua_State* L) {
 	return 0;
 }
 
-//addWaypoint(planet, name, desc, x, y, color, active, notifyClient)
+//addWaypoint(planet, name, desc, x, y, color, active, notifyClient, specialTypeID, persistence = 1)
 int LuaPlayerObject::addWaypoint(lua_State* L) {
-	String planet = lua_tostring(L, -9);
-	String customName = lua_tostring(L, -8);
-	String desc = lua_tostring(L, -7);
-	float x = lua_tonumber(L, -6);
-	float y = lua_tonumber(L, -5);
-	int color = lua_tointeger(L, -4);
-	bool active = lua_toboolean(L, -3);
-	bool notifyClient = lua_toboolean(L, -2);
-	int specialTypeID = lua_tointeger(L, -1);
+	int numberOfArguments = lua_gettop(L) - 1;
 
-	ManagedReference<WaypointObject*> waypoint = realObject->getZoneServer()->createObject(0xc456e788, 1).castTo<WaypointObject*>();
+	String planet, customName, desc;
+	float x, y;
+	int color, persistence = 1, specialTypeID;
+	bool active, notifyClient;
+
+	if (numberOfArguments == 9) {
+		planet = lua_tostring(L, -9);
+		customName = lua_tostring(L, -8);
+		desc = lua_tostring(L, -7);
+		x = lua_tonumber(L, -6);
+		y = lua_tonumber(L, -5);
+		color = lua_tointeger(L, -4);
+		active = lua_toboolean(L, -3);
+		notifyClient = lua_toboolean(L, -2);
+		specialTypeID = lua_tointeger(L, -1);
+	} else {
+		planet = lua_tostring(L, -10);
+		customName = lua_tostring(L, -9);
+		desc = lua_tostring(L, -8);
+		x = lua_tonumber(L, -7);
+		y = lua_tonumber(L, -6);
+		color = lua_tointeger(L, -5);
+		active = lua_toboolean(L, -4);
+		notifyClient = lua_toboolean(L, -3);
+		specialTypeID = lua_tointeger(L, -2);
+		persistence = lua_tonumber(L, -1);
+	}
+
+	ManagedReference<WaypointObject*> waypoint = realObject->getZoneServer()->createObject(0xc456e788, persistence).castTo<WaypointObject*>();
 	waypoint->setPlanetCRC(planet.hashCode());
 	waypoint->setPosition(x, 0, y);
 	waypoint->setSpecialTypeID(specialTypeID);
@@ -340,3 +369,83 @@ int LuaPlayerObject::clearCompletedQuestsBit(lua_State* L) {
 
 	return 0;
 }
+
+int LuaPlayerObject::hasAbility(lua_State* L) {
+	String value = lua_tostring(L, -1);
+
+	bool check = realObject->hasAbility(value);
+
+	lua_pushboolean(L, check);
+
+	return 1;
+
+}
+
+int LuaPlayerObject::getExperience(lua_State* L) {
+	String type = lua_tostring(L, -1);
+
+	lua_pushinteger(L, realObject->getExperience(type));
+
+	return 1;
+}
+
+int LuaPlayerObject::getExperienceForType(lua_State* L) {
+	int type = lua_tointeger(L, -1);
+
+	realObject->updateForceSensitiveElegibleExperiences(type);
+	Vector<String>* experiences = realObject->getForceSensitiveElegibleExperiences();
+
+	lua_newtable(L);
+
+	for (int i=0; i < experiences->size(); ++i) {
+		String value = experiences->get(i);
+		lua_pushstring(L, value.toCharArray());
+		//Logger::console.info("Pushed " + value, true);
+	}
+
+
+	for (int j = experiences->size(); j > 0; --j) {
+		lua_rawseti(L, -j - 1, j);
+	}
+
+
+	return 1;
+}
+
+int LuaPlayerObject::getExperienceType(lua_State* L) {
+	int type = lua_tointeger(L, -1);
+
+	realObject->updateForceSensitiveElegibleExperiences(type);
+	String experience = realObject->getForceSensitiveElegibleExperienceType(type);
+
+	lua_pushstring(L, experience.toCharArray());
+
+	return 1;
+}
+
+int LuaPlayerObject::getForceSensitiveUnlockedBranches(lua_State* L) {
+
+	Vector<String>* branches = realObject->getForceSensitiveElegibleBranches();
+
+	lua_newtable(L);
+
+	for (int i=0; i < branches->size(); ++i) {
+		String value = branches->get(i);
+		lua_pushstring(L, value.toCharArray());
+	}
+
+	for (int j = branches->size(); j > 0; --j) {
+		lua_rawseti(L, -j - 1, j);
+	}
+
+	return 1;
+}
+
+int LuaPlayerObject::setForceSensitiveUnlockedBranches(lua_State* L) {
+	String branchname = lua_tostring(L, -1);
+
+	realObject->addForceSensitiveElegibleBranch(branchname);
+
+	return 0;
+}
+

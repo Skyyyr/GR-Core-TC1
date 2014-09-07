@@ -69,16 +69,18 @@ int SpawnAreaImplementation::notifyObserverEvent(unsigned int eventType, Observa
 
 		locker.release();
 
-		ManagedReference<ActiveArea*> area = (ServerCore::getZoneServer()->createObject(String("object/active_area.iff").hashCode(), 0)).castTo<ActiveArea*>();
+		if (sceno->isLairObject()) {
+			ManagedReference<ActiveArea*> area = (ServerCore::getZoneServer()->createObject(String("object/active_area.iff").hashCode(), 0)).castTo<ActiveArea*>();
 
-		area->setRadius(64);
-		area->setNoSpawnArea(true);
-		area->initializePosition(sceno->getPositionX(), sceno->getPositionZ(), sceno->getPositionY());
+			area->setRadius(64);
+			area->setNoSpawnArea(true);
+			area->initializePosition(sceno->getPositionX(), sceno->getPositionZ(), sceno->getPositionY());
 
-		zone->transferObject(area, -1, true);
+			zone->transferObject(area, -1, true);
 
-		Reference<Task*> task = new RemoveNoSpawnAreaTask(area);
-		task->schedule(300000);
+			Reference<Task*> task = new RemoveNoSpawnAreaTask(area);
+			task->schedule(300000);
+		}
 	}
 
 	return 1;
@@ -92,13 +94,18 @@ SpawnGroup* SpawnAreaImplementation::getSpawnGroup() {
 }
 
 void SpawnAreaImplementation::notifyEnter(SceneObject* object) {
-	if (tier & SpawnAreaMap::NOSPAWNAREA) {
+	if (!(tier & SpawnAreaMap::SPAWNAREA)) {
 		ActiveAreaImplementation::notifyEnter(object);
 		return;
 	}
 
 	if (!object->isPlayerCreature())
 		return;
+
+	CreatureObject* creo = cast<CreatureObject*>(object);
+	if (creo->isInvisible()) {
+		return;
+	}
 
 	ManagedReference<SceneObject*> parent = object->getParent();
 
@@ -112,7 +119,7 @@ void SpawnAreaImplementation::notifyEnter(SceneObject* object) {
 }
 
 void SpawnAreaImplementation::notifyPositionUpdate(QuadTreeEntry* obj) {
-	if (tier & SpawnAreaMap::NOSPAWNAREA)
+	if (!(tier & SpawnAreaMap::SPAWNAREA))
 		return;
 
 	CreatureObject* creature = dynamic_cast<CreatureObject*>(obj);
@@ -120,7 +127,7 @@ void SpawnAreaImplementation::notifyPositionUpdate(QuadTreeEntry* obj) {
 	if (creature == NULL)
 		return;
 
-	if (!creature->isPlayerCreature())
+	if (!creature->isPlayerCreature() || creature->isInvisible())
 		return;
 
 	ManagedReference<SceneObject*> parent = creature->getParent();
@@ -133,7 +140,7 @@ void SpawnAreaImplementation::notifyPositionUpdate(QuadTreeEntry* obj) {
 }
 
 void SpawnAreaImplementation::notifyExit(SceneObject* object) {
-	if (tier & SpawnAreaMap::NOSPAWNAREA)
+	if (!(tier & SpawnAreaMap::SPAWNAREA))
 		ActiveAreaImplementation::notifyExit(object);
 }
 
@@ -142,7 +149,7 @@ int SpawnAreaImplementation::tryToSpawn(SceneObject* object) {
 		spawnGroup = CreatureTemplateManager::instance()->getSpawnGroup(spawnGroupTemplateCRC);
 
 	if (spawnGroup == NULL) {
-		error("spawnGroup is NULL in spawn area: " + getDisplayedName());
+		error("spawnGroup is NULL (crc = " + String::valueOf(spawnGroupTemplateCRC) + ") in spawn area " + getObjectName()->getStringID() + " on planet " + (getZone() != NULL ? getZone()->getZoneName() : "NULL"));
 		return 1;
 	}
 

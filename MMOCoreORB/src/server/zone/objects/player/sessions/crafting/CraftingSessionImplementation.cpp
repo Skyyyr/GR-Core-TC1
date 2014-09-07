@@ -1049,7 +1049,7 @@ void CraftingSessionImplementation::customization(const String& name, byte templ
 	String newName = name;
 	while (newName.contains("\\#")) {
 		int index = newName.indexOf("\\#");
-		String sub = "\\" + newName.subString(index, index + 8);
+		String sub = "\\" + newName.subString(index, index + 2);
 		newName = newName.replaceFirst(sub,"");
 	}
 

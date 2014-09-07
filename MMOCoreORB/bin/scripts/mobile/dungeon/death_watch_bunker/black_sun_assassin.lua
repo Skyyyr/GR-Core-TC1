@@ -4,7 +4,7 @@ black_sun_assassin = Creature:new {
 	pvpFaction = "",
 	faction = "",
 	level = 107,
-	chanceHit = 17.5,
+	chanceHit = 1.75,
 	damageMin = 670,
 	damageMax = 1050,
 	baseXp = 10081,
@@ -40,7 +40,7 @@ black_sun_assassin = Creature:new {
 				{group = "wearables_common", chance = 500000},
 				{group = "wearables_uncommon", chance = 500000}
 			},
-			lootChance = 9000000
+			lootChance = 3500000
 		}	
 	},
 	weapons = {"pirate_weapons_heavy"},

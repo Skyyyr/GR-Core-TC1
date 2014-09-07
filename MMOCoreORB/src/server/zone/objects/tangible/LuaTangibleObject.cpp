@@ -11,15 +11,18 @@
 const char LuaTangibleObject::className[] = "LuaTangibleObject";
 
 Luna<LuaTangibleObject>::RegType LuaTangibleObject::Register[] = {
-		{ "_setObject", &LuaSceneObject::_setObject },
+		{ "_setObject", &LuaTangibleObject::_setObject },
+		{ "_getObject", &LuaSceneObject::_getObject },
 		{ "setOptionsBitmask", &LuaTangibleObject::setOptionsBitmask },
 		{ "setPvpStatusBitmask", &LuaTangibleObject::setPvpStatusBitmask },
+		{ "getPvpStatusBitmask", &LuaTangibleObject::getPvpStatusBitmask },
 		{ "setCustomizationVariable", &LuaTangibleObject::setCustomizationVariable },
 		{ "setConditionDamage", &LuaTangibleObject::setConditionDamage },
 		{ "setFaction", &LuaTangibleObject::setFaction },
 		{ "getFaction", &LuaTangibleObject::getFaction },
 		{ "isImperial", &LuaTangibleObject::isImperial },
 		{ "isRebel", &LuaTangibleObject::isRebel },
+		{ "hasActiveArea", &LuaTangibleObject::hasActiveArea},
 		{ 0, 0 }
 };
 
@@ -28,6 +31,14 @@ LuaTangibleObject::LuaTangibleObject(lua_State *L) : LuaSceneObject(L) {
 }
 
 LuaTangibleObject::~LuaTangibleObject(){
+}
+
+int LuaTangibleObject::_setObject(lua_State* L) {
+	realObject = static_cast<TangibleObject*>(lua_touserdata(L, -1));
+
+	LuaSceneObject::_setObject(L);
+
+	return 0;
 }
 
 int LuaTangibleObject::setCustomizationVariable(lua_State* L) {
@@ -53,6 +64,14 @@ int LuaTangibleObject::setPvpStatusBitmask(lua_State* L) {
 	realObject->setPvpStatusBitmask(bitmask, true);
 
 	return 0;
+}
+
+int LuaTangibleObject::getPvpStatusBitmask(lua_State* L) {
+	uint32 bitmask = realObject->getPvpStatusBitmask();
+
+	lua_pushinteger(L, bitmask);
+
+	return 1;
 }
 
 int LuaTangibleObject::setConditionDamage(lua_State* L) {
@@ -88,6 +107,16 @@ int LuaTangibleObject::isImperial(lua_State* L){
 
 int LuaTangibleObject::isRebel(lua_State* L){
 	lua_pushboolean(L, realObject->isRebel());
+
+	return 1;
+}
+
+int LuaTangibleObject::hasActiveArea(lua_State* L) {
+	uint64 objectid = lua_tointeger(L, -1);
+
+	bool res = realObject->hasActiveArea(objectid);
+
+	lua_pushboolean(L, res);
 
 	return 1;
 }

@@ -46,23 +46,27 @@ bool ZoneContainerComponent::insertActiveArea(Zone* newZone, ActiveArea* activeA
 
 	// lets update area to the in range players
 	SortedVector<ManagedReference<QuadTreeEntry*> > objects;
+	float range = activeArea->getRadius() + 64;
 
-	newZone->getInRangeObjects(activeArea->getPositionX(), activeArea->getPositionY(), 512, &objects, false);
+	newZone->getInRangeObjects(activeArea->getPositionX(), activeArea->getPositionY(), range, &objects, false);
 
 	for (int i = 0; i < objects.size(); ++i) {
 		SceneObject* object = cast<SceneObject*>(objects.get(i).get());
 
+		if (!object->isTangibleObject()) {
+			continue;
+		}
+
+		TangibleObject* tano = cast<TangibleObject*>(object);
 		Vector3 worldPos = object->getWorldPosition();
 
-		if (!object->hasActiveArea(activeArea) && activeArea->containsPoint(worldPos.getX(), worldPos.getY())) {
-			object->addActiveArea(activeArea);
+		if (!tano->hasActiveArea(activeArea) && activeArea->containsPoint(worldPos.getX(), worldPos.getY())) {
+			tano->addActiveArea(activeArea);
 			activeArea->enqueueEnterEvent(object);
 		}
 	}
 
 	newZone->addSceneObject(activeArea);
-
-	activeArea->notifyInsertToZone(zone);
 
 	return true;
 }
@@ -79,23 +83,11 @@ bool ZoneContainerComponent::removeActiveArea(Zone* zone, ActiveArea* activeArea
 
 	regionTree->remove(activeArea);
 
-	SortedVector<ManagedReference<QuadTreeEntry*> >* closeObjects = activeArea->getCloseObjects();
-
-	if (closeObjects != NULL) {
-		while (closeObjects->size() > 0) {
-			QuadTreeEntry* obj = closeObjects->get(0);
-
-			if (obj != activeArea && obj->getCloseObjects() != NULL)
-				obj->removeInRangeObject(activeArea);
-
-			activeArea->removeInRangeObject((int)0);
-		}
-	}
-
 	// lets remove the in range active areas of players
 	SortedVector<ManagedReference<QuadTreeEntry*> > objects;
+	float range = activeArea->getRadius() + 64;
 
-	zone->getInRangeObjects(activeArea->getPositionX(), activeArea->getPositionY(), 512, &objects, false);
+	zone->getInRangeObjects(activeArea->getPositionX(), activeArea->getPositionY(), range, &objects, false);
 
 	zone->dropSceneObject(activeArea);
 
@@ -106,15 +98,21 @@ bool ZoneContainerComponent::removeActiveArea(Zone* zone, ActiveArea* activeArea
 
 	//	Locker olocker(object);
 
-		if (object->hasActiveArea(activeArea)) {
-			object->dropActiveArea(activeArea);
+		if (!object->isTangibleObject()) {
+			continue;
+		}
+
+		TangibleObject* tano = cast<TangibleObject*>(object);
+
+		if (tano->hasActiveArea(activeArea)) {
+			tano->dropActiveArea(activeArea);
 			activeArea->enqueueExitEvent(object);
 		}
 	}
 
-	activeArea->setZone(NULL);
+	activeArea->notifyObservers(ObserverEventType::OBJECTREMOVEDFROMZONE, NULL, 0);
 
-	activeArea->notifyRemoveFromZone();
+	activeArea->setZone(NULL);
 
 	return true;
 }
@@ -138,7 +136,7 @@ bool ZoneContainerComponent::transferObject(SceneObject* sceneObject, SceneObjec
 		//StackTrace::printStackTrace();
 	}
 
-	ManagedReference<SceneObject*> parent = object->getParent();
+	ManagedReference<SceneObject*> parent = object->getParent().get();
 
 	if (parent != NULL/* && parent->isCellObject()*/) {
 		uint64 parentID = object->getParentID();
@@ -187,7 +185,11 @@ bool ZoneContainerComponent::transferObject(SceneObject* sceneObject, SceneObjec
 
 	zone->inRange(object, 192);
 
-	zone->updateActiveAreas(object);
+	if (object->isTangibleObject()) {
+		TangibleObject* tano = cast<TangibleObject*>(object);
+
+		zone->updateActiveAreas(tano);
+	}
 
 	SharedBuildingObjectTemplate* objtemplate = dynamic_cast<SharedBuildingObjectTemplate*>(object->getObjectTemplate());
 
@@ -212,7 +214,6 @@ bool ZoneContainerComponent::removeObject(SceneObject* sceneObject, SceneObject*
 		return removeActiveArea(zone, dynamic_cast<ActiveArea*>(object));
 
 	ManagedReference<SceneObject*> parent = object->getParent();
-	Vector<ManagedReference<ActiveArea*> >* activeAreas = object->getActiveAreas();
 	//SortedVector<ManagedReference<SceneObject*> >* notifiedSentObjects = sceneObject->getNotifiedSentObjects();
 
 	try {
@@ -281,15 +282,20 @@ bool ZoneContainerComponent::removeObject(SceneObject* sceneObject, SceneObject*
 
 		zoneLocker.release();
 
-		while (activeAreas->size() > 0) {
-			Locker _alocker(object->getContainerLock());
+		if (object->isTangibleObject()) {
+			TangibleObject* tano = cast<TangibleObject*>(object);
+			Vector<ManagedReference<ActiveArea*> >* activeAreas = tano->getActiveAreas();
 
-			ManagedReference<ActiveArea*> area = activeAreas->get(0);
-			activeAreas->remove(0);
+			while (activeAreas->size() > 0) {
+				Locker _alocker(object->getContainerLock());
 
-			_alocker.release();
+				ManagedReference<ActiveArea*> area = activeAreas->get(0);
+				activeAreas->remove(0);
 
-			area->enqueueExitEvent(object);
+				_alocker.release();
+
+				area->enqueueExitEvent(object);
+			}
 		}
 
 		SortedVector<ManagedReference<SceneObject*> >* childObjects = object->getChildObjects();

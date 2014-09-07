@@ -23,7 +23,7 @@ void ForceShrineMenuComponent::fillObjectMenuResponse(SceneObject* sceneObject, 
 	TangibleObjectMenuComponent::fillObjectMenuResponse(sceneObject, menuResponse, player);
 
 	menuResponse->addRadialMenuItem(213, 3, "@jedi_trials:meditate"); // Meditate
-	}
+}
 
 int ForceShrineMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, CreatureObject* creature, byte selectedID) {
 	if (selectedID != 213)
@@ -39,10 +39,10 @@ int ForceShrineMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 	if (ghost == NULL)
 		return 0;
 
-	//if (ghost->getAdminLevel() < 15)
-		//return 0;
+	if (ghost->getAdminLevel() < 15)
+		return 0;
 
-	if (creature->getScreenPlayState("VillageJediProgression") && !creature->hasSkill("force_title_jedi_rank_02")){
+	if (creature->hasSkill("force_title_jedi_novice") && !creature->hasSkill("force_title_jedi_rank_02")){
 		ManagedReference<SuiMessageBox*> box = new SuiMessageBox(creature, SuiWindowType::NONE);
 		box->setPromptTitle("@jedi_trials:padawan_trials_title"); // Jedi Trials
 		box->setPromptText("@jedi_trials:padawan_trials_completed");
@@ -51,6 +51,7 @@ int ForceShrineMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 		creature->sendMessage(box->generateMessage());
 
 		SkillManager::instance()->awardSkill("force_title_jedi_rank_02", creature, true, true, true);
+
 		creature->playEffect("clienteffect/entertainer_dazzle_level_3.cef", ""); // Not sure if it's the right one for this.
 
 		PlayMusicMessage* pmm = new PlayMusicMessage("sound/intro.snd");
@@ -58,7 +59,7 @@ int ForceShrineMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 
 		ghost->setJediState(2);
 
-		/* Trainer number. Pick a random trainer, there are at least 600 in the galaxy.
+		// Trainer number. Pick a random trainer, there are at least 600 in the galaxy.
 
 		ZoneServer* zoneServer = ghost->getZoneServer();
 		int randomZone = System::random(zoneServer->getZoneCount() - 1);
@@ -76,7 +77,7 @@ int ForceShrineMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 		String zoneName = zone->getZoneName();
 
 		ghost->setTrainerCoordinates(trainerPositionFinal);
-		ghost->setTrainerZoneName(zoneName); // For the Waypoint. */
+		ghost->setTrainerZoneName(zoneName); // For the Waypoint.
 
 
 		ManagedReference<SceneObject*> inventory = creature->getSlottedObject("inventory");
@@ -130,3 +131,4 @@ int ForceShrineMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 
 
 }
+

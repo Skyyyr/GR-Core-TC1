@@ -278,6 +278,7 @@ public:
 
 	// Not in client **********
 	const static int RESOURCEDEED = 0x800006;
+	const static int EVENTPERKDEED = 0x800007;
 	// ************************
 
 	const static int CLOTHING = 0x1000000;
@@ -315,11 +316,6 @@ public:
 	const static int CAMPAREA = 0x2000009;
 	const static int FSVILLAGEAREA = 0x200000A;
 	const static int SARLACCAREA = 0x200000B;
-
-	const static int AIGROUP = 0x4000000;
-	const static int HERDGROUP = 0x4000001;
-	const static int PACKGROUP = 0x4000002;
-	const static int LAIRGROUP = 0x4000003;
 
 	const static int SHIP = 0x20000000;
 	const static int SHIPFIGHTER = 0x20000001;

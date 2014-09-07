@@ -55,6 +55,12 @@ public:
 	int hasCompletedQuestsBitSet(lua_State* L);
 	int setCompletedQuestsBit(lua_State* L);
 	int clearCompletedQuestsBit(lua_State* L);
+	int hasAbility(lua_State* L);
+	int getForceSensitiveUnlockedBranches(lua_State* L);
+	int setForceSensitiveUnlockedBranches(lua_State* L);
+	int getExperience(lua_State* L);
+	int getExperienceForType(lua_State* L);
+	int getExperienceType(lua_State* L);
 
 private:
 	// The pointer to the 'real object' defined in object.cc

@@ -29,7 +29,6 @@ namespace creature {
 		~LuaCreatureObject();
 
 		int _setObject(lua_State* L);
-		int _getObject(lua_State* L);
 		// Methods we will need to use
 		int getBankCredits(lua_State *L);
 		int setBankCredits(lua_State* L);
@@ -54,6 +53,7 @@ namespace creature {
 		int playEffect(lua_State* L);
 		int setState(lua_State* L);
 		int setPosture(lua_State* L);
+		int setMoodString(lua_State* L);
 		int getPosture(lua_State* L);
 		int hasSkill(lua_State* L);
 		int removeSkill(lua_State* L);
@@ -84,13 +84,19 @@ namespace creature {
 		int addDotState(lua_State* L);
 		int checkCooldownRecovery(lua_State* L);
 		int addCooldown(lua_State* L);
+		int isIncapacitated(lua_State* L);
 		int isDead(lua_State* L);
 		int getLevel(lua_State* L);
 		int getQueueSize(lua_State*L);
+		int isDancing(lua_State* L);
+		int isPlayingMusic(lua_State* L);
+		int getPerformanceName(lua_State* L);
+		int getWalkSpeed(lua_State* L);
+		int isAttackableBy(lua_State* L);
 
 	private:
 		// The pointer to the 'real object' defined in object.cc
-		Reference<CreatureObject*> realObject;
+		CreatureObject* realObject;
 	};
 
 }

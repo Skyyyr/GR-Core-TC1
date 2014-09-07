@@ -23,6 +23,15 @@ includeFile("conversations/themepark/nym/nym_conv.lua")
 includeFile("conversations/themepark/nym/sergeant_moore_conv.lua")
 includeFile("conversations/themepark/nym/kole_conv.lua")
 
+-- Bestine Museum
+includeFile("conversations/events/bestine_museum/bestine_artist01_conv.lua")
+includeFile("conversations/events/bestine_museum/bestine_artist02_conv.lua")
+includeFile("conversations/events/bestine_museum/bestine_artist03_conv.lua")
+includeFile("conversations/events/bestine_museum/bestine_artist04_conv.lua")
+includeFile("conversations/events/bestine_museum/bestine_artist05_conv.lua")
+includeFile("conversations/events/bestine_museum/bestine_artist06_conv.lua")
+includeFile("conversations/events/bestine_museum/museum_curator_conv.lua")
+
 -- Epic Quests
 includeFile("conversations/themepark/epic_quests/goru_conv.lua")
 
@@ -51,9 +60,16 @@ includeFile("conversations/dungeon/warren/captain_heff_conv.lua")
 includeFile("conversations/dungeon/warren/manx_try_conv.lua")
 
 -- Geonosian Lab
+includeFile("conversations/dungeon/geonosian_lab/biogenic_assistant_convo.lua")
 includeFile("conversations/dungeon/geonosian_lab/biogenic_construction_convo.lua")
+includeFile("conversations/dungeon/geonosian_lab/biogenic_crazyguy_convo.lua")
+includeFile("conversations/dungeon/geonosian_lab/biogenic_engineer_tech_convo.lua")
+includeFile("conversations/dungeon/geonosian_lab/biogenic_scientist_generic_01_convo.lua")
+includeFile("conversations/dungeon/geonosian_lab/biogenic_scientist_generic_02_convo.lua")
+includeFile("conversations/dungeon/geonosian_lab/biogenic_scientist_generic_03_convo.lua")
 includeFile("conversations/dungeon/geonosian_lab/biogenic_scientist_geonosian_convo.lua")
 includeFile("conversations/dungeon/geonosian_lab/biogenic_scientist_human_convo.lua")
+includeFile("conversations/dungeon/geonosian_lab/biogenic_security_tech_convo.lua")
 
 -- ** OTHER **
 
@@ -76,9 +92,11 @@ includeFile("conversations/tasks/hedon_istee_conv.lua")
 includeFile("conversations/tasks/serene_floater_conv.lua")
 includeFile("conversations/tasks/ris_armor_quest_conv.lua")
 includeFile("conversations/tasks/librarian_conv.lua")
+includeFile("conversations/tasks/theater_manager_conv.lua")
 
 -- Village
 includeFile("conversations/village/old_man_conv.lua")
+includeFile("conversations/village/paemos_conv.lua")
 
 -- Race Tracks
 includeFile("conversations/racetracks/agrilatswampconversation.lua")
@@ -90,3 +108,10 @@ includeFile("conversations/racetracks/nashalconversation.lua")
 
 -- Space
 includeFile("conversations/space/chassis_dealer_conv.lua")
+
+-- Record Keepers
+includeFile("conversations/record_keepers/planet_record_keeper_dantoonie_conv.lua")
+includeFile("conversations/record_keepers/planet_record_keeper_tatoonie_conv.lua")
+includeFile("conversations/record_keepers/record_keeper_imperial_conv.lua")
+includeFile("conversations/record_keepers/record_keeper_jabba_conv.lua")
+includeFile("conversations/record_keepers/record_keeper_rebel_conv.lua")

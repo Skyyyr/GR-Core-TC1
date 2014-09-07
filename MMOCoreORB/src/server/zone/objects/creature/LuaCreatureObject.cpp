@@ -12,13 +12,14 @@
 #include "server/zone/ZoneServer.h"
 #include "server/zone/objects/group/GroupObject.h"
 #include "server/zone/packets/chat/ChatSystemMessage.h"
+#include "server/zone/objects/player/sessions/EntertainingSession.h"
 #include "server/zone/objects/player/PlayerObject.h"
 
 const char LuaCreatureObject::className[] = "LuaCreatureObject";
 
 Luna<LuaCreatureObject>::RegType LuaCreatureObject::Register[] = {
 		{ "_setObject", &LuaCreatureObject::_setObject },
-		{ "_getObject", &LuaCreatureObject::_getObject },
+		{ "_getObject", &LuaSceneObject::_getObject },
 		{ "getBankCredits", &LuaCreatureObject::getBankCredits },
 		{ "setBankCredits", &LuaCreatureObject::setBankCredits },
 		{ "sendSystemMessage", &LuaCreatureObject::sendSystemMessage },
@@ -57,6 +58,7 @@ Luna<LuaCreatureObject>::RegType LuaCreatureObject::Register[] = {
 		{ "setLootRights", &LuaCreatureObject::setLootRights},
 		{ "getPosture", &LuaCreatureObject::getPosture},
 		{ "setPosture", &LuaCreatureObject::setPosture},
+		{ "setMoodString", &LuaCreatureObject::setMoodString},
 		{ "hasSkill", &LuaCreatureObject::hasSkill},
 		{ "removeSkill", &LuaCreatureObject::removeSkill},
 		{ "getConversationSession", &LuaCreatureObject::getConversationSession},
@@ -89,8 +91,14 @@ Luna<LuaCreatureObject>::RegType LuaCreatureObject::Register[] = {
 		{ "checkCooldownRecovery", &LuaCreatureObject::checkCooldownRecovery},
 		{ "addCooldown", &LuaCreatureObject::addCooldown},
 		{ "isDead", &LuaCreatureObject::isDead},
+		{ "isIncapacitated", &LuaCreatureObject::isIncapacitated },
 		{ "getLevel", &LuaCreatureObject::getLevel},
 		{ "getQueueSize", &LuaCreatureObject::getQueueSize },
+		{ "isDancing", &LuaCreatureObject::isDancing},
+		{ "isPlayingMusic", &LuaCreatureObject::isPlayingMusic},
+		{ "getPerformanceName", &LuaCreatureObject::getPerformanceName},
+		{ "getWalkSpeed", &LuaCreatureObject::getWalkSpeed },
+		{ "isAttackableBy", &LuaCreatureObject::isAttackableBy },
 		{ 0, 0 }
 };
 
@@ -104,18 +112,14 @@ LuaCreatureObject::~LuaCreatureObject(){
 int LuaCreatureObject::_setObject(lua_State* L) {
 	realObject = static_cast<CreatureObject*>(lua_touserdata(L, -1));
 
+	LuaSceneObject::_setObject(L);
+
 	return 0;
 }
 
 int LuaCreatureObject::getFirstName(lua_State* L) {
 	String text = realObject->getFirstName();
 	lua_pushstring(L, text.toCharArray());
-	return 1;
-}
-
-int LuaCreatureObject::_getObject(lua_State* L) {
-	lua_pushlightuserdata(L, realObject.get());
-
 	return 1;
 }
 
@@ -156,6 +160,14 @@ int LuaCreatureObject::setPosture(lua_State* L) {
 	return 0;
 }
 
+int LuaCreatureObject::setMoodString(lua_State* L) {
+	String value = lua_tostring(L, -1);
+
+	realObject->setMoodString(value);
+
+	return 0;
+}
+
 int LuaCreatureObject::setPvpStatusBitmask(lua_State* L) {
 	int bitmask = lua_tonumber(L, -1);
 	realObject->setPvpStatusBitmask(bitmask, true);
@@ -170,9 +182,13 @@ int LuaCreatureObject::sendOpenHolocronToPageMessage(lua_State* L) {
 }
 
 int LuaCreatureObject::sendSystemMessage(lua_State* L) {
-	String value = lua_tostring(L, -1);
-	realObject->sendSystemMessage(value);
-
+	if (lua_islightuserdata(L, -1)) {
+		StringIdChatParameter* message = (StringIdChatParameter*)lua_touserdata(L, -1);
+		realObject->sendSystemMessage(*message);
+	} else {
+		String value = lua_tostring(L, -1);
+		realObject->sendSystemMessage(value);
+	}
 	return 0;
 }
 
@@ -633,6 +649,11 @@ int LuaCreatureObject::isDead(lua_State* L) {
 	return 1;
 }
 
+int LuaCreatureObject::isIncapacitated(lua_State* L) {
+	lua_pushboolean(L, realObject->isIncapacitated());
+	return 1;
+}
+
 int LuaCreatureObject::getLevel(lua_State* L) {
 	int level = realObject->getLevel();
 
@@ -645,6 +666,59 @@ int LuaCreatureObject::getQueueSize(lua_State* L) {
 	int size = realObject->getCommandQueueSize();
 
 	lua_pushinteger(L, size);
+
+	return 1;
+}
+
+int LuaCreatureObject::isDancing(lua_State* L) {
+	bool retVal = realObject->isDancing();
+
+	lua_pushboolean(L, retVal);
+
+	return 1;
+}
+
+int LuaCreatureObject::isPlayingMusic(lua_State* L) {
+	bool retVal = realObject->isPlayingMusic();
+
+	lua_pushboolean(L, retVal);
+
+	return 1;
+}
+
+int LuaCreatureObject::getPerformanceName(lua_State* L) {
+	ManagedReference<Facade*> facade = realObject->getActiveSession(SessionFacadeType::ENTERTAINING);
+
+	if (facade == NULL) {
+		lua_pushnil(L);
+		return 1;
+	}
+
+	ManagedReference<EntertainingSession*> session = dynamic_cast<EntertainingSession*> (facade.get());
+
+	if (session == NULL) {
+		lua_pushnil(L);;
+		return 1;
+	}
+
+	if (!session->isPlayingMusic() && !session->isDancing())
+		lua_pushnil(L);
+	else
+		lua_pushstring(L, session->getPerformanceName().toCharArray());
+
+	return 1;
+}
+
+int LuaCreatureObject::getWalkSpeed(lua_State* L) {
+	lua_pushnumber(L, realObject->getWalkSpeed());
+	return 1;
+}
+
+int LuaCreatureObject::isAttackableBy(lua_State* L) {
+	TangibleObject* obj = (TangibleObject*) lua_touserdata(L, -1);
+
+	bool retVal = realObject->isAttackableBy(obj);
+	lua_pushboolean(L, retVal);
 
 	return 1;
 }

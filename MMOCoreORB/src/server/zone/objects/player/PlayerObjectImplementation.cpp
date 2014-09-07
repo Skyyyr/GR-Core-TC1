@@ -40,7 +40,7 @@ it is their choice whether to do so. The GNU Lesser General Public License
 gives permission to release a modified version without this exception;
 this exception also makes it possible to release a modified version
 which carries forward this exception.
-*/
+ */
 
 #include "server/zone/objects/player/PlayerObject.h"
 
@@ -117,6 +117,7 @@ which carries forward this exception.
 #include "server/zone/managers/gcw/GCWManager.h"
 #include "server/zone/managers/jedi/JediManager.h"
 #include "events/ForceRegenerationEvent.h"
+#include "FsExperienceTypes.h"
 
 void PlayerObjectImplementation::initializeTransientMembers() {
 	IntangibleObjectImplementation::initializeTransientMembers();
@@ -224,14 +225,14 @@ void PlayerObjectImplementation::unload() {
 		savedTerrainName = creature->getZone()->getZoneName();
 
 		//if (creature->isInQuadTree()) {
-			if (creoParent != NULL) {
-				savedParentID = creoParent->getObjectID();
+		if (creoParent != NULL) {
+			savedParentID = creoParent->getObjectID();
 
-				savedParent = creoParent;
-			} else
-				savedParentID = 0;
+			savedParent = creoParent;
+		} else
+			savedParentID = 0;
 
-			creature->destroyObjectFromWorld(true);
+		creature->destroyObjectFromWorld(true);
 		//}
 	}
 
@@ -404,10 +405,11 @@ void PlayerObjectImplementation::sendFriendLists() {
 }
 
 void PlayerObjectImplementation::sendMessage(BasePacket* msg) {
-	if (parent == NULL)
+	ManagedReference<SceneObject*> strongParent = getParent().get();
+	if (strongParent == NULL)
 		delete msg;
 	else {
-		getParent().get()->sendMessage(msg);
+		strongParent->sendMessage(msg);
 	}
 }
 
@@ -539,7 +541,7 @@ void PlayerObjectImplementation::setFactionStatus(int status) {
 	StoreSpawnedChildrenTask* task = new StoreSpawnedChildrenTask(creature, petsToStore);
 	task->execute();
 
-	ManagedReference<SceneObject*> parent = getParent();
+	ManagedReference<SceneObject*> parent = getParent().get();
 
 	Zone* zone = parent->getZone();
 
@@ -710,6 +712,18 @@ void PlayerObjectImplementation::removeWaypointBySpecialType(int specialTypeID, 
 		waypointID = waypointList.getWaypointBySpecialType(specialTypeID);
 	}
 
+}
+
+WaypointObject* PlayerObjectImplementation::getWaypointBySpecialType(int specialTypeID) {
+	uint64 waypointID = waypointList.getWaypointBySpecialType(specialTypeID);
+	if (waypointID != 0) {
+		return waypointList.get(waypointID);
+	}
+	return NULL;
+}
+
+WaypointObject* PlayerObjectImplementation::getSurveyWaypoint() {
+	return getWaypointBySpecialType(WaypointObject::SPECIALTYPE_RESOURCE);
 }
 
 WaypointObject* PlayerObjectImplementation::addWaypoint(const String& planet, float positionX, float positionY, bool notifyClient) {
@@ -965,11 +979,13 @@ void PlayerObjectImplementation::addFriend(const String& name, bool notifyClient
 	ManagedReference<CreatureObject*> playerToAdd;
 	playerToAdd = zoneServer->getObject(objID).castTo<CreatureObject*>();
 
-	if (playerToAdd == NULL || playerToAdd == parent.get().get()) {
+	ManagedReference<SceneObject*> strongParent = getParent().get();
+	if (playerToAdd == NULL || playerToAdd == strongParent) {
 		if (notifyClient) {
 			StringIdChatParameter param("cmnty", "friend_not_found");
 			param.setTT(nameLower);
-			(cast<CreatureObject*>(parent.get().get()))->sendSystemMessage(param);
+			if (strongParent != NULL && strongParent->isCreatureObject())
+				(cast<CreatureObject*>(strongParent.get()))->sendSystemMessage(param);
 		}
 
 		return;
@@ -980,21 +996,20 @@ void PlayerObjectImplementation::addFriend(const String& name, bool notifyClient
 	if (playerToAddGhost == NULL)
 		return;
 
-	playerToAddGhost->addReverseFriend(cast<CreatureObject*>(parent.get().get())->getFirstName());
+	if (strongParent != NULL && strongParent->isCreatureObject())
+		playerToAddGhost->addReverseFriend(cast<CreatureObject*>(strongParent.get())->getFirstName());
 	playerToAddGhost->updateToDatabase();
 
-	ManagedReference<SceneObject*> parent = getParent();
-
-	if (notifyClient) {
+	if (notifyClient && strongParent != NULL) {
 		AddFriendInitiateMessage* init = new AddFriendInitiateMessage();
-		parent->sendMessage(init);
+		strongParent->sendMessage(init);
 
-		AddFriendMessage* add = new AddFriendMessage(parent->getObjectID(),	nameLower, "Core3", true);
-		parent->sendMessage(add);
+		AddFriendMessage* add = new AddFriendMessage(strongParent->getObjectID(),	nameLower, "Core3", true);
+		strongParent->sendMessage(add);
 
 		if (playerToAdd->isOnline()) {
 			FriendStatusChangeMessage* notifyStatus = new FriendStatusChangeMessage(nameLower, "Core3", true);
-			parent->sendMessage(notifyStatus);
+			strongParent->sendMessage(notifyStatus);
 		}
 
 		friendList.add(nameLower);
@@ -1003,11 +1018,12 @@ void PlayerObjectImplementation::addFriend(const String& name, bool notifyClient
 		friendList.insertToDeltaMessage(delta);
 		delta->close();
 
-		parent->sendMessage(delta);
+		strongParent->sendMessage(delta);
 
 		StringIdChatParameter param("cmnty", "friend_added");
 		param.setTT(nameLower);
-		(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
+		if (strongParent->isCreatureObject())
+			(cast<CreatureObject*>(strongParent.get()))->sendSystemMessage(param);
 
 	} else {
 		friendList.add(nameLower);
@@ -1017,11 +1033,13 @@ void PlayerObjectImplementation::addFriend(const String& name, bool notifyClient
 void PlayerObjectImplementation::removeFriend(const String& name, bool notifyClient) {
 	String nameLower = name.toLowerCase();
 
+	ManagedReference<CreatureObject*> strongParent = getParent().get().castTo<CreatureObject*>();
+
 	if (!friendList.contains(nameLower)) {
-		if (notifyClient) {
+		if (notifyClient && strongParent != NULL) {
 			StringIdChatParameter param("cmnty", "friend_not_found");
 			param.setTT(nameLower);
-			(cast<CreatureObject*>(parent.get().get()))->sendSystemMessage(param);
+			strongParent->sendSystemMessage(param);
 		}
 
 		return;
@@ -1035,24 +1053,25 @@ void PlayerObjectImplementation::removeFriend(const String& name, bool notifyCli
 	playerToRemove = zoneServer->getObject(objID).castTo<CreatureObject*>();
 
 	if (playerToRemove == NULL) {
-		if (notifyClient) {
+		if (notifyClient && strongParent != NULL) {
 			StringIdChatParameter param("cmnty", "friend_not_found");
 			param.setTT(nameLower);
-			(cast<CreatureObject*>(parent.get().get()))->sendSystemMessage(param);
+			strongParent->sendSystemMessage(param);
 		}
 
 	} else {
 		PlayerObject* playerToRemoveGhost = playerToRemove->getPlayerObject();
 
 		if (playerToRemoveGhost != NULL) {
-			playerToRemoveGhost->removeReverseFriend((cast<CreatureObject*>(parent.get().get()))->getFirstName());
+			if (strongParent != NULL)
+				playerToRemoveGhost->removeReverseFriend(strongParent->getFirstName());
 			playerToRemoveGhost->updateToDatabase();
 		}
 	}
 
-	ManagedReference<SceneObject*> parent = getParent();
+	ManagedReference<SceneObject*> parent = getParent().get();
 
-	if (notifyClient) {
+	if (notifyClient && parent != NULL) {
 		AddFriendMessage* add = new AddFriendMessage(parent->getObjectID(),	nameLower, "Core3", false);
 		parent->sendMessage(add);
 
@@ -1066,7 +1085,8 @@ void PlayerObjectImplementation::removeFriend(const String& name, bool notifyCli
 
 		StringIdChatParameter param("cmnty", "friend_removed");
 		param.setTT(nameLower);
-		(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
+		if (strongParent != NULL)
+			strongParent->sendSystemMessage(param);
 
 	} else {
 		friendList.removePlayer(nameLower);
@@ -1076,9 +1096,9 @@ void PlayerObjectImplementation::removeFriend(const String& name, bool notifyCli
 
 void PlayerObjectImplementation::addIgnore(const String& name, bool notifyClient) {
 	String nameLower = name.toLowerCase();
-	ManagedReference<SceneObject*> parent = getParent();
+	ManagedReference<SceneObject*> parent = getParent().get();
 
-	if (notifyClient) {
+	if (notifyClient && parent != NULL) {
 		AddIgnoreMessage* add = new AddIgnoreMessage(parent->getObjectID(),	nameLower, "Core3", true);
 		parent->sendMessage(add);
 
@@ -1092,7 +1112,8 @@ void PlayerObjectImplementation::addIgnore(const String& name, bool notifyClient
 
 		StringIdChatParameter param("cmnty", "ignore_added");
 		param.setTT(nameLower);
-		(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
+		if (parent->isCreatureObject())
+			(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
 
 	} else {
 		ignoreList.add(nameLower);
@@ -1108,13 +1129,14 @@ void PlayerObjectImplementation::removeIgnore(const String& name, bool notifyCli
 		if (notifyClient) {
 			StringIdChatParameter param("cmnty", "ignore_not_found");
 			param.setTT(nameLower);
-			(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
+			if (parent != NULL && parent->isCreatureObject())
+				(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
 		}
 
 		return;
 	}
 
-	if (notifyClient) {
+	if (notifyClient && parent != NULL) {
 		AddIgnoreMessage* add = new AddIgnoreMessage(parent->getObjectID(),	nameLower, "Core3", false);
 		parent->sendMessage(add);
 
@@ -1128,7 +1150,8 @@ void PlayerObjectImplementation::removeIgnore(const String& name, bool notifyCli
 
 		StringIdChatParameter param("cmnty", "ignore_removed");
 		param.setTT(nameLower);
-		(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
+		if (parent->isCreatureObject())
+			(cast<CreatureObject*>(parent.get()))->sendSystemMessage(param);
 
 	} else {
 		ignoreList.removePlayer(nameLower);
@@ -1139,10 +1162,12 @@ void PlayerObjectImplementation::setTitle(const String& characterTitle, bool not
 	if (title == characterTitle)
 		return;
 
-	Skill* targetSkill = SkillManager::instance()->getSkill(characterTitle);
+	if(!characterTitle.isEmpty()){
+		Skill* targetSkill = SkillManager::instance()->getSkill(characterTitle);
 
-	if(targetSkill == NULL || !targetSkill->isTitle()) {
-		return;
+		if(targetSkill == NULL || !targetSkill->isTitle()) {
+			return;
+		}
 	}
 
 	title = characterTitle;
@@ -1156,9 +1181,12 @@ void PlayerObjectImplementation::setTitle(const String& characterTitle, bool not
 }
 
 void PlayerObjectImplementation::notifyOnline() {
-	CreatureObject* playerCreature = cast<CreatureObject*>( parent.get().get());
+	ManagedReference<SceneObject*> parent = getParent().get();
+	CreatureObject* playerCreature = cast<CreatureObject*>( parent.get());
+	if (playerCreature == NULL || parent == NULL)
+		return;
+
 	ChatManager* chatManager = server->getChatManager();
-	ManagedReference<SceneObject*> parent = getParent();
 	Vector<String>* reverseTable = friendList.getReverseTable();
 
 	String firstName = playerCreature->getFirstName();
@@ -1209,6 +1237,8 @@ void PlayerObjectImplementation::notifyOffline() {
 	Vector<String>* reverseTable = friendList.getReverseTable();
 
 	ManagedReference<CreatureObject*> playerCreature = cast<CreatureObject*>(parent.get().get());
+	if (playerCreature == NULL)
+		return;
 
 	String firstName = playerCreature->getFirstName();
 	firstName = firstName.toLowerCase();
@@ -1284,6 +1314,8 @@ void PlayerObjectImplementation::increaseFactionStanding(const String& factionNa
 		return; //Don't allow negative values to be sent to this method.
 
 	CreatureObject* player = cast<CreatureObject*>( parent.get().get());
+	if (player == NULL)
+		return;
 
 	//Get the current amount of faction standing
 	float currentAmount = factionStandingList.getFactionStanding(factionName);
@@ -1344,6 +1376,8 @@ void PlayerObjectImplementation::decreaseFactionStanding(const String& factionNa
 	float currentAmount = factionStandingList.get(factionName);
 
 	CreatureObject* player = cast<CreatureObject*>( parent.get().get());
+	if (player == NULL)
+		return;
 
 	//Ensure that the new amount is not less than -5000.
 	float newAmount = MAX(-5000, currentAmount - amount);
@@ -1369,6 +1403,8 @@ float PlayerObjectImplementation::getFactionStanding(const String& factionName) 
 
 bool PlayerObjectImplementation::isFirstIncapacitationExpired() {
 	CreatureObject* creature = cast<CreatureObject*>( parent.get().get());
+	if (creature == NULL)
+		return false;
 
 	return creature->checkCooldownRecovery("firstIncapacitationTime");
 }
@@ -1376,6 +1412,8 @@ bool PlayerObjectImplementation::isFirstIncapacitationExpired() {
 
 void PlayerObjectImplementation::resetFirstIncapacitationTime() {
 	CreatureObject* creature = cast<CreatureObject*>( parent.get().get());
+	if (creature == NULL)
+		return;
 
 	if (!isFirstIncapacitation())
 		resetIncapacitationCounter();
@@ -1414,6 +1452,9 @@ void PlayerObjectImplementation::doRecovery() {
 	}
 
 	CreatureObject* creature = dynamic_cast<CreatureObject*>(parent.get().get());
+
+	if (creature == NULL)
+		return;
 
 	/*if (!creature->isInQuadTree() && creature->getParent() != NULL && creature->getParent()->isCellObject() && creature->getClient() == NULL) {
 		SceneObject* building = creature->getParent()->getParent();
@@ -1531,6 +1572,9 @@ void PlayerObjectImplementation::reload(ZoneClientSession* client) {
 
 	CreatureObject* creature = dynamic_cast<CreatureObject*>(parent.get().get());
 
+	if (creature == NULL)
+		return;
+
 	if (isLoggingIn()) {
 		creature->unlock();
 
@@ -1560,6 +1604,9 @@ void PlayerObjectImplementation::disconnect(bool closeClient, bool doLock) {
 	Locker locker(parent.get());
 
 	CreatureObject* creature = dynamic_cast<CreatureObject*>(parent.get().get());
+
+	if (creature == NULL)
+		return;
 
 	if (!isOnline()) {
 		ZoneClientSession* owner = creature->getClient();
@@ -1612,20 +1659,6 @@ void PlayerObjectImplementation::clearRecoveryEvent() {
 
 void PlayerObjectImplementation::clearForceRegenerationEvent() {
 	forceRegenerationEvent = NULL;
-}
-
-
-
-WaypointObject* PlayerObjectImplementation::getSurveyWaypoint() {
-	WaypointList* list = getWaypointList();
-
-	uint64 wpid = list->getWaypointBySpecialType(WaypointObject::SPECIALTYPE_RESOURCE);
-
-	if (wpid != 0) {
-		return list->get(wpid);
-	}
-
-	return NULL;
 }
 
 void PlayerObjectImplementation::maximizeExperience() {
@@ -1720,7 +1753,7 @@ void PlayerObjectImplementation::setForcePower(int fp, bool notifyClient) {
 void PlayerObjectImplementation::doForceRegen() {
 	CreatureObject* creature = dynamic_cast<CreatureObject*>(parent.get().get());
 
-	if (creature->isIncapacitated() || creature->isDead())
+	if (creature == NULL || creature->isIncapacitated() || creature->isDead())
 		return;
 
 	uint32 tick = 5;
@@ -1835,7 +1868,10 @@ void PlayerObjectImplementation::addPermissionGroup(const String& group, bool up
 	if (!updateInRangeBuildingPermissions)
 		return;
 
-	ManagedReference<SceneObject*> parent = getParent();
+	ManagedReference<SceneObject*> parent = getParent().get();
+
+	if (parent == NULL)
+		return;
 
 	Zone* zone = parent->getZone();
 
@@ -1862,7 +1898,10 @@ void PlayerObjectImplementation::removePermissionGroup(const String& group, bool
 	if (!updateInRangeBuildingPermissions)
 		return;
 
-	ManagedReference<SceneObject*> parent = getParent();
+	ManagedReference<SceneObject*> parent = getParent().get();
+
+	if (parent == NULL)
+		return;
 
 	Zone* zone = parent->getZone();
 
@@ -2014,4 +2053,19 @@ bool PlayerObjectImplementation::hasChosenVeteranReward( const String& rewardTem
 
 	return false;
 
+}
+
+void PlayerObjectImplementation::updateForceSensitiveElegibleExperiences(int type) {
+	DeltaVectorMap<String, int>* xpList = getExperienceList();
+
+	// Clear the vector for new strings...
+	fsEligibleExperiences.removeAll();
+
+
+	for (int i=0; i < xpList->size(); ++i){
+		String xpString = xpList->getKeyAt(i);
+		if (FsExperienceTypes::isValid(type, xpString) && (!fsEligibleExperiences.contains(xpList->getKeyAt(i)))) {
+			fsEligibleExperiences.add(xpList->getKeyAt(i));
+		}
+	}
 }

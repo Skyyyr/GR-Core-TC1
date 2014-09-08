@@ -43,12 +43,29 @@
 
 
 --Children folder includes
-includeFile("weapon/base/serverobjects.lua")
-includeFile("weapon/creature/serverobjects.lua")
-includeFile("weapon/ep3/serverobjects.lua")
-includeFile("weapon/melee/serverobjects.lua")
-includeFile("weapon/mine/serverobjects.lua")
-includeFile("weapon/ranged/serverobjects.lua")
-includeFile("weapon/trap/serverobjects.lua")
+--includeFile("weapon/ranged/carbine/base/serverobjects.lua")
+
 
 -- Server Objects
+includeFile("weapon/ep3/melee/2h_sword_kashyyk.lua")
+includeFile("weapon/ep3/melee/2h_sword_sith.lua")
+includeFile("weapon/ep3/melee/blasterfist.lua")
+includeFile("weapon/ep3/melee/knife_naktra_crystal.lua")
+includeFile("weapon/ep3/melee/knife_trando_skinner.lua")
+includeFile("weapon/ep3/melee/lance_cryo.lua")
+includeFile("weapon/ep3/melee/lance_electric_polearm.lua")
+includeFile("weapon/ep3/melee/lance_kaminoan.lua")
+includeFile("weapon/ep3/melee/lance_kashyyk.lua")
+includeFile("weapon/ep3/melee/lance_massassi.lua")
+includeFile("weapon/ep3/melee/lance_shock.lua")
+includeFile("weapon/ep3/melee/lance_trando.lua")
+includeFile("weapon/ep3/melee/lance_wookiee.lua")
+includeFile("weapon/ep3/melee/massassiknuckler.lua")
+includeFile("weapon/ep3/melee/polearm_lance_electric_polearm.lua")
+includeFile("weapon/ep3/melee/sword_acid.lua")
+includeFile("weapon/ep3/melee/sword_mace_junti.lua")
+includeFile("weapon/ep3/melee/sword_marauder.lua")
+includeFile("weapon/ep3/melee/sword_massassi.lua")
+includeFile("weapon/ep3/melee/sword_rsf.lua")
+includeFile("weapon/ep3/melee/sword_wookiee.lua")
+includeFile("weapon/ep3/melee/wookiee_knuckler.lua")

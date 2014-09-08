@@ -114,8 +114,8 @@ object_weapon_ranged_rifle_rifle_proton = object_weapon_ranged_rifle_shared_rifl
 	maxRange = 150,
 	maxRangeAccuracy = 100,
 
-	minDamage = 150
-	maxDamage = 200
+	minDamage = 150,
+	maxDamage = 200,
 
 	attackSpeed = 1,
 

@@ -187,7 +187,11 @@ TreFiles = {
 	"data_sample_01.tre",
 	"data_sample_00.tre",
 	"data_music_00.tre",
-	"bottom.tre"
+	"bottom.tre",
+	"gr_publish_01_01.tre",
+	"gr_publish_01_02.tre",
+	"gr_publish_01_03.tre",
+	"gr_publish_02_01.tre"
 }
 
 --Status Server Config

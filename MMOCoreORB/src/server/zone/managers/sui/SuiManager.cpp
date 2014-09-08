@@ -97,6 +97,7 @@ which carries forward this exception.
 #include "server/zone/objects/guild/GuildObject.h"
 #include "server/zone/objects/tangible/sign/SignObject.h"
 #include "server/zone/objects/scene/ObserverEventType.h"
+#include "server/zone/objects/tangible/deed/eventperk/EventPerkDeed.h"
 
 SuiManager::SuiManager() : Logger("SuiManager") {
 	server = NULL;
@@ -608,6 +609,15 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 			player->sendMessage(cbSui->generateMessage());
 		} else { // Items
 
+			if (templatePath.contains("event_perk")) {
+				if (ghost->getEventPerkCount() >= 5) {
+					player->sendSystemMessage("@event_perk:pro_too_many_perks"); // You cannot rent any more items right now.
+					ghost->addSuiBox(cbSui);
+					player->sendMessage(cbSui->generateMessage());
+					return;
+				}
+			}
+
 			ManagedReference<SceneObject*> item = zserv->createObject(node->getTemplateCRC(), 1);
 
 			if (item == NULL) {
@@ -620,6 +630,12 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 			}
 
 			item->createChildObjects();
+
+			if (item->isEventPerkDeed()) {
+				EventPerkDeed* deed = cast<EventPerkDeed*>(item.get());
+				deed->setOwner(player);
+				ghost->addEventPerk(deed);
+			}
 
 			ManagedReference<SceneObject*> inventory = player->getSlottedObject("inventory");
 			item->sendTo(player, true);
@@ -753,6 +769,7 @@ void SuiManager::sendMessageBox(SceneObject* usingObject, SceneObject* player, c
 		messageBox->setPromptText(text);
 		messageBox->setUsingObject(usingObject);
 		messageBox->setOkButton(true, okButton);
+		messageBox->setCancelButton(true, "@cancel");
 		messageBox->setForceCloseDistance(32.f);
 
 		creature->sendMessage(messageBox->generateMessage());

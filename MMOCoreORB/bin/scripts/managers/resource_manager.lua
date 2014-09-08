@@ -46,7 +46,7 @@ buildInitialResourcesFromScript = 1 -- Use a script to build resource database w
 --  These indicate zone names where resources spawn
 activeZones = "corellia,tatooine,lok,naboo,rori,endor,talus,yavin4,dathomir,dantooine"
 
-averageShiftTime = 3000000 -- In milliseconds
+averageShiftTime = 7200000 -- In milliseconds
   --  This is the time between each time the Resource Manager schedules
   --  itself to run again.
   --  *** Default is 2 hours (7200000) ***
@@ -59,7 +59,7 @@ aveduration = 86400 -- In seconds
   -- JTL resources are in shift between (13 * aveduration) and (22 * aveduration)
   -- Set to 86400 for standard SOE behavior
 
-spawnThrottling = 90 -- *** 10-90 ***
+spawnThrottling = 70 -- *** 10-90 ***
   -- This will add a throttle to the spawner so that 90% of
   -- resource stats will be less than x * maxGate. So if a
   -- resource stat has a range of 0-1000 and this is set

@@ -1,2 +1,0 @@
-
-includeFile("levels/owner.lua")

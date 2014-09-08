@@ -6,8 +6,8 @@ geo_spider_venom_rare = {
 	customObjectName = "",
 	directObjectTemplate = "object/tangible/component/chemistry/spider_venom.iff",
 	craftingValues = {
-		{"power",161,300,0},
-		{"useCount",1,11,0},
+		{"power",161,400,0},
+		{"useCount",11,11,0},
 	},
 	customizationStringNames = {},
 	customizationValues = {}

@@ -105,14 +105,14 @@ object_tangible_wearables_armor_composite_armor_composite_bracer_l = object_tang
 	-- LIGHT, MEDIUM, HEAVY
 	rating = LIGHT,
 
-	kinetic = 50,
-	energy = 50,
-	electricity = 75,
+	kinetic = 25,
+	energy = 25,
+	electricity = 50,
 	stun = 15,
-	blast = 50,
-	heat = 50,
-	cold = 50,
-	acid = 50,
+	blast = 25,
+	heat = 25,
+	cold = 25,
+	acid = 25,
 	lightSaber = 0,
 
 	numberExperimentalProperties = {1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1},

@@ -41,31 +41,37 @@
 --this exception also makes it possible to release a modified version 
 
 
+object_tangible_wearables_backpack_ep3_chiss_poacher_backpack = object_tangible_wearables_backpack_shared_ep3_chiss_poacher_backpack:new {
+	playerRaces = { "object/creature/player/bothan_male.iff",
+				"object/creature/player/bothan_female.iff",
+				"object/creature/player/human_male.iff",
+				"object/creature/player/human_female.iff",
+				"object/creature/player/ithorian_male.iff",
+				"object/creature/player/ithorian_female.iff",
+				"object/creature/player/moncal_male.iff",
+				"object/creature/player/moncal_female.iff",
+				"object/creature/player/rodian_male.iff",
+				"object/creature/player/rodian_female.iff",
+				"object/creature/player/sullustan_male.iff",
+				"object/creature/player/sullustan_female.iff",
+				"object/creature/player/trandoshan_male.iff",
+				"object/creature/player/trandoshan_female.iff",
+				"object/creature/player/twilek_male.iff",
+				"object/creature/player/twilek_female.iff",
+				"object/creature/player/wookiee_male.iff",
+				"object/creature/player/wookiee_female.iff",
+				"object/creature/player/zabrak_male.iff",
+				"object/creature/player/zabrak_female.iff" },
 
---Children folder includes
-includeFile("tangible/wearables/armor/assault_trooper/serverobjects.lua")
-includeFile("tangible/wearables/armor/bone/serverobjects.lua")
-includeFile("tangible/wearables/armor/bounty_hunter/serverobjects.lua")
-includeFile("tangible/wearables/armor/chitin/serverobjects.lua")
-includeFile("tangible/wearables/armor/clone_trooper/serverobjects.lua")
-includeFile("tangible/wearables/armor/composite/serverobjects.lua")
-includeFile("tangible/wearables/armor/ithorian_defender/serverobjects.lua")
-includeFile("tangible/wearables/armor/ithorian_guardian/serverobjects.lua")
-includeFile("tangible/wearables/armor/ithorian_sentinel/serverobjects.lua")
-includeFile("tangible/wearables/armor/kashyyykian_black_mtn/serverobjects.lua")
-includeFile("tangible/wearables/armor/kashyyykian_ceremonial/serverobjects.lua")
-includeFile("tangible/wearables/armor/kashyyykian_hunting/serverobjects.lua")
-includeFile("tangible/wearables/armor/mandalorian/serverobjects.lua")
-includeFile("tangible/wearables/armor/marauder/serverobjects.lua")
-includeFile("tangible/wearables/armor/marine/serverobjects.lua")
-includeFile("tangible/wearables/armor/nightsister/serverobjects.lua")
-includeFile("tangible/wearables/armor/padded/serverobjects.lua")
-includeFile("tangible/wearables/armor/ris/serverobjects.lua")
-includeFile("tangible/wearables/armor/scout_trooper/serverobjects.lua")
-includeFile("tangible/wearables/armor/singing_mountain_clan/serverobjects.lua")
-includeFile("tangible/wearables/armor/stormtrooper/serverobjects.lua")
-includeFile("tangible/wearables/armor/tantel/serverobjects.lua")
-includeFile("tangible/wearables/armor/ubese/serverobjects.lua")
-includeFile("tangible/wearables/armor/zam/serverobjects.lua")
+	numberExperimentalProperties = {1, 1, 1},
+	experimentalProperties = {"XX", "XX", "XX"},
+	experimentalWeights = {1, 1, 1},
+	experimentalGroupTitles = {"null", "null", "null"},
+	experimentalSubGroupTitles = {"null", "null", "hitpoints"},
+	experimentalMin = {0, 0, 1000},
+	experimentalMax = {0, 0, 1000},
+	experimentalPrecision = {0, 0, 0},
+	experimentalCombineType = {0, 0, 4},
+}
 
--- Server Objects
+ObjectTemplates:addTemplate(object_tangible_wearables_backpack_ep3_chiss_poacher_backpack, "object/tangible/wearables/backpack/ep3_chiss_poacher_backpack.iff")

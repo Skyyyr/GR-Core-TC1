@@ -1,0 +1,287 @@
+--Copyright (C) 2007 <SWGEmu>
+ 
+--This File is part of Core3.
+ 
+--This program is free software; you can redistribute 
+--it and/or modify it under the terms of the GNU Lesser 
+--General Public License as published by the Free Software
+--Foundation; either version 2 of the License, 
+--or (at your option) any later version.
+ 
+--This program is distributed in the hope that it will be useful, 
+--but WITHOUT ANY WARRANTY; without even the implied warranty of 
+--MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+--See the GNU Lesser General Public License for
+--more details.
+ 
+--You should have received a copy of the GNU Lesser General 
+--Public License along with this program; if not, write to
+--the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ 
+--Linking Engine3 statically or dynamically with other modules 
+--is making a combined work based on Engine3. 
+--Thus, the terms and conditions of the GNU Lesser General Public License 
+--cover the whole combination.
+ 
+--In addition, as a special exception, the copyright holders of Engine3 
+--give you permission to combine Engine3 program with free software 
+--programs or libraries that are released under the GNU LGPL and with 
+--code included in the standard release of Core3 under the GNU LGPL 
+--license (or modified versions of such code, with unchanged license). 
+--You may copy and distribute such a system following the terms of the 
+--GNU LGPL for Engine3 and the licenses of the other code concerned, 
+--provided that you include the source code of that other code when 
+--and as the GNU LGPL requires distribution of source code.
+ 
+--Note that people who make modified versions of Engine3 are not obligated 
+--to grant this special exception for their modified versions; 
+--it is their choice whether to do so. The GNU Lesser General Public License 
+--gives permission to release a modified version without this exception; 
+--this exception also makes it possible to release a modified version 
+--which carries forward this exception.
+
+[profane]
+--These is where the profane words go.  If any of these words are in a part of the name, it will be filtered.
+anal
+ass
+biatch
+bitch
+boob
+christ
+clit
+cock
+cum
+cunt
+damn
+dick
+dingleberry
+dong
+fag
+fuck
+fuk
+fuxxor
+george lucas
+gook
+hooker
+jackoff
+jesus
+jew
+jizz
+kike
+kunt
+labia
+masterbait
+masterbate
+masturbait
+nazi
+negro
+nigg
+nipple
+penis
+piss
+prick
+pussy
+satan
+sex
+shit
+skank
+slut
+spawnthemonkey
+spick
+sucks
+tit
+twat
+vagina
+whore
+wtf
+Admiral
+Admirals
+Allah
+Anakin
+asshole
+ballbeater
+ballhitter
+balllicker
+ballsucker
+bangher
+bastard
+bastid
+bitch
+blowme
+Bobba
+Bodhisattva
+boobie
+Bothan
+breast
+Buddha
+captain
+captains
+Chewbackka
+Christ
+cock
+Commander
+Commanders
+coonass
+cracka
+crap
+CSR
+cum
+cunt
+Darth
+dick
+Diq
+Donkeypunch
+fack
+fag
+Fett
+feck
+fuck
+fuk
+Fuqu
+General
+Generals
+ghey
+-GM
+_GM
+GM-
+GM_
+god
+HillBilly
+Human
+Isuccacocc
+Ithorian
+Jango
+Jedi
+Jehovah
+Jehova
+Jesus
+klukluxklan
+KneeGrow
+kunt
+Lando
+Leia
+lesbian
+lieutenant
+Lieutenant
+lieutenants
+Major
+Majors
+Marshal
+Marshals
+Messiah
+MonCalomari
+nazi
+niga
+nigga
+nigger
+nympho
+Officer
+Officers
+Padme
+Penis
+Panis
+Player
+poon
+prick
+Private
+Privates
+pubic
+pussy
+Quirfag
+qunt
+raghead
+redneck
+Rodian
+seaman
+seamans
+seeman
+seemen
+semen
+Sith
+skank
+skanq
+Skywalker
+slut
+snatch
+Solo
+spoog
+STFU
+suck
+suckme
+Sullistan
+swganh
+SWGEmu
+tarbaby
+testicle
+Trandoshan
+twi'lek
+Vader
+vagina
+wanker
+Warrant Officers
+Warrants
+wetback
+whore
+Wookie
+Yoda
+Yahweh
+Yahveh
+Zabrak
+skiiwalker
+Jedi
+Jeedi
+jedii
+jiidi
+Hitler
+lootmeh
+loot
+lawlicake
+lawli
+medirty
+lester
+mohlester
+moelester
+EyeP
+eyepfreely
+airmarshall
+medic
+doctor
+sittstain
+shitstain
+sitt
+stain
+Emperor
+palpatine
+Palpatin
+DARKLORD
+DerkLord
+Lord
+Sith
+Siith
+Sithlord
+
+[developer]
+--This is where names similar to develper names go.
+--I can't think of any
+
+[fiction]
+--This is where star wars names you want filtered go.
+
+
+[reserved]
+--This is where you put any other restricted name.
+kryat
+human
+twi'lek
+moncalamari
+wookiee
+zabrak
+bothan
+rodian
+trandoshan
+bank
+city
+guild
+tip
+citizens
+self

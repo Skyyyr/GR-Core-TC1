@@ -773,171 +773,171 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 				--		},
 				--	},
 				--	},
-				--	"Light Saber",
-				--{
-				--	"Novice", "force_discipline_light_saber_novice",
-				--	"One Handed Light Saber",
-				--	{
-				--		"One Handed Light Saber I", "force_discipline_light_saber_one_hand_01",
-				--		"One Handed Light Saber II", "force_discipline_light_saber_one_hand_02",
-				--		"One Handed Light Saber III", "force_discipline_light_saber_one_hand_03",
-				--		"One Handed Light Saber IV", "force_discipline_light_saber_one_hand_04"
-				--	},
-				--	"Two Handed Light Saber",
-				--	{
-				--		"Two Handed Light Saber I", "force_discipline_light_saber_two_hand_01",
-				--		"Two Handed Light Saber II", "force_discipline_light_saber_two_hand_02",
-				--		"Two Handed Light Saber III", "force_discipline_light_saber_two_hand_03",
-				--		"Two Handed Light Saber IV", "force_discipline_light_saber_two_hand_04"
-				--	},
-				--	"Double Bladed Light Saber",
-				--	{
-				--		"Double Bladed Light Saber I", "force_discipline_light_saber_polearm_01",
-				--		"Double Bladed Light Saber II", "force_discipline_light_saber_polearm_02",
-				--		"Double Bladed Light Saber III", "force_discipline_light_saber_polearm_03",
-				--		"Double Bladed Light Saber IV", "force_discipline_light_saber_polearm_04"
-				--	},
-				--	"Light Saber Technique",
-				--	{
-				--		"Light Saber Technique I", "force_discipline_light_saber_technique_01",
-				--		"Light Saber Technique II", "force_discipline_light_saber_technique_02",
-				--		"Light Saber Technique III", "force_discipline_light_saber_technique_03",
-				--		"Light Saber Technique IV", "force_discipline_light_saber_technique_04"
-				--	},
-				--	"Master", "force_discipline_light_saber_master"
-				--},
-				--	"Force Powers",
-				--{
-				--	"Novice", "force_discipline_powers_novice",
-				--	"Force Lightning",
-				--	{
-				--		"Force Lightning I", "force_discipline_powers_lightning_01",
-				--		"Force Lightning II", "force_discipline_powers_lightning_02",
-				--		"Force Lightning III", "force_discipline_powers_lightning_03",
-				--		"Force Lightning IV", "force_discipline_powers_lightning_04"
-				--	},
-				--	"Force Subjugate",
-				--	{
-				--		"Force Subjugate I", "force_discipline_powers_mental_01",
-				--		"Force Subjugate II", "force_discipline_powers_mental_02",
-				--		"Force Subjugate III", "force_discipline_powers_mental_03",
-				--		"Force Subjugate IV", "force_discipline_powers_mental_04"
-				--	},
-				--	"Force Diminish",
-				--	{
-				--		"Force Diminish I", "force_discipline_powers_debuff_01",
-				--		"Force Diminish II", "force_discipline_powers_debuff_02",
-				--		"Force Diminish III", "force_discipline_powers_debuff_03",
-				--		"Force Diminish IV", "force_discipline_powers_debuff_04"
-				--	},
-				--	"Psychokineses",
-				--	{
-				--		"Psychokineses I", "force_discipline_powers_push_01",
-				--		"Psychokineses II", "force_discipline_powers_push_02",
-				--		"Psychokineses III", "force_discipline_powers_push_03",
-				--		"Psychokineses IV", "force_discipline_powers_push_04"
-				--	},
-				--	"Master", "force_discipline_powers_master"
-				--},
-				--	"Force Healing",
-				--{
-				--	"Novice", "force_discipline_healing_novice",
-				--	"Force Rejuvenation",
-				--	{
-				--		"Force Rejuvenation I", "force_discipline_healing_damage_01",
-				--		"Force Rejuvenation II", "force_discipline_healing_damage_02",
-				--		"Force Rejuvenation III", "force_discipline_healing_damage_03",
-				--		"Force Rejuvenation IV", "force_discipline_healing_damage_04"
-				--	},
-				--	"Force Restoration",
-				--	{
-				--		"Force Restoration I", "force_discipline_healing_wound_01",
-				--		"Force Restoration II", "force_discipline_healing_wound_02",
-				--		"Force Restoration III", "force_discipline_healing_wound_03",
-				--		"Force Restoration IV", "force_discipline_healing_wound_04"
-				--	},
-				--	"Force Assist",
-				--	{
-				--		"Force Assist I", "force_discipline_healing_other_01",
-				--		"Force Assist II", "force_discipline_healing_other_02",
-				--		"Force Assist III", "force_discipline_healing_other_03",
-				--		"Force Assist IV", "force_discipline_healing_other_04"
-				--	},
-				--	"Force Purification",
-				--	{
-				--		"Force Purification I", "force_discipline_healing_states_01",
-				--		"Force Purification II", "force_discipline_healing_states_02",
-				--		"Force Purification III", "force_discipline_healing_states_03",
-				--		"Force Purification IV", "force_discipline_healing_states_04"
-				--	},
-				--	"Master", "force_discipline_healing_master"
-				--},
-				--	"Force Enhancement",
-				--{
-				--	"Novice", "force_discipline_enhancements_novice",
-				--	"Force Celerity",
-				--	{
-				--		"Force Celerity I", "force_discipline_enhancements_movement_01",
-				--		"Force Celerity II", "force_discipline_enhancements_movement_02",
-				--		"Force Celerity III", "force_discipline_enhancements_movement_03",
-				--		"Force Celerity IV", "force_discipline_enhancements_movement_04"
-				--	},
-				--	"Force Protection",
-				--	{
-				--		"Force Protection I", "force_discipline_enhancements_protection_01",
-				--		"Force Protection II", "force_discipline_enhancements_protection_02",
-				--		"Force Protection III", "force_discipline_enhancements_protection_03",
-				--		"Force Protection IV", "force_discipline_enhancements_protection_04"
-				--	},
-				--	"Force Resistance",
-				--	{
-				--		"Force Resistance I", "force_discipline_enhancements_resistance_01",
-				--		"Force Resistance II", "force_discipline_enhancements_resistance_02",
-				--		"Force Resistance III", "force_discipline_enhancements_resistance_03",
-				--		"Force Resistance IV", "force_discipline_enhancements_resistance_04"
-				--	},
-				--	"Force Synergy",
-				--	{
-				--		"Force Synergy I", "force_discipline_enhancements_synergy_01",
-				--		"Force Synergy II", "force_discipline_enhancements_synergy_02",
-				--		"Force Synergy III", "force_discipline_enhancements_synergy_03",
-				--		"Force Synergy IV", "force_discipline_enhancements_synergy_04"
-				--	},
-				--	"Master", "force_discipline_enhancements_master"
-				--},
-				--"Force Defense",
-				--{
-				--	"Novice", "force_discipline_defender_novice",
-				--	"Force Melee Defense",
-				--	{
-				--		"Force Melee Defense I", "force_discipline_defender_melee_defense_01",
-				--		"Force Melee Defense II", "force_discipline_defender_melee_defense_02",
-				--		"Force Melee Defense III", "force_discipline_defender_melee_defense_03",
-				--		"Force Melee Defense IV", "force_discipline_defender_melee_defense_04"
-				--	},
-				--	"Force Ranged Defense",
-				--	{
-				--		"Force Ranged Defense I", "force_discipline_defender_ranged_defense_01",
-				--		"Force Ranged Defense II", "force_discipline_defender_ranged_defense_02",
-				--		"Force Ranged Defense III", "force_discipline_defender_ranged_defense_03",
-				--		"Force Ranged Defense IV", "force_discipline_defender_ranged_defense_04"
-				--	},
-				--	"Force Defense",
-				--	{
-				--		"Force Defense I", "force_discipline_defender_force_defense_01",
-				--		"Force Defense II", "force_discipline_defender_force_defense_02",
-				--		"Force Defense III", "force_discipline_defender_force_defense_03",
-				--		"Force Defense IV", "force_discipline_defender_force_defense_04"
-				--	},
-				--	"Preternatural Defense",
-				--	{
-				--		"Preternatural Defense I", "force_discipline_defender_preternatural_defense_01",
-				--		"Preternatural Defense II", "force_discipline_defender_preternatural_defense_02",
-				--		"Preternatural Defense III", "force_discipline_defender_preternatural_defense_03",
-				--		"Preternatural Defense IV", "force_discipline_defender_preternatural_defense_04"
-				--	},
-				--	"Master", "force_discipline_defender_master"
-				--},				
+					"Light Saber",
+				{
+					"Novice", "force_discipline_light_saber_novice",
+					"One Handed Light Saber",
+					{
+						"One Handed Light Saber I", "force_discipline_light_saber_one_hand_01",
+						"One Handed Light Saber II", "force_discipline_light_saber_one_hand_02",
+						"One Handed Light Saber III", "force_discipline_light_saber_one_hand_03",
+						"One Handed Light Saber IV", "force_discipline_light_saber_one_hand_04"
+					},
+					"Two Handed Light Saber",
+					{
+						"Two Handed Light Saber I", "force_discipline_light_saber_two_hand_01",
+						"Two Handed Light Saber II", "force_discipline_light_saber_two_hand_02",
+						"Two Handed Light Saber III", "force_discipline_light_saber_two_hand_03",
+						"Two Handed Light Saber IV", "force_discipline_light_saber_two_hand_04"
+					},
+					"Double Bladed Light Saber",
+					{
+						"Double Bladed Light Saber I", "force_discipline_light_saber_polearm_01",
+						"Double Bladed Light Saber II", "force_discipline_light_saber_polearm_02",
+						"Double Bladed Light Saber III", "force_discipline_light_saber_polearm_03",
+						"Double Bladed Light Saber IV", "force_discipline_light_saber_polearm_04"
+					},
+					"Light Saber Technique",
+					{
+						"Light Saber Technique I", "force_discipline_light_saber_technique_01",
+						"Light Saber Technique II", "force_discipline_light_saber_technique_02",
+						"Light Saber Technique III", "force_discipline_light_saber_technique_03",
+						"Light Saber Technique IV", "force_discipline_light_saber_technique_04"
+					},
+					"Master", "force_discipline_light_saber_master"
+				},
+					"Force Powers",
+				{
+					"Novice", "force_discipline_powers_novice",
+					"Force Lightning",
+					{
+						"Force Lightning I", "force_discipline_powers_lightning_01",
+						"Force Lightning II", "force_discipline_powers_lightning_02",
+						"Force Lightning III", "force_discipline_powers_lightning_03",
+						"Force Lightning IV", "force_discipline_powers_lightning_04"
+					},
+					"Force Subjugate",
+					{
+						"Force Subjugate I", "force_discipline_powers_mental_01",
+						"Force Subjugate II", "force_discipline_powers_mental_02",
+						"Force Subjugate III", "force_discipline_powers_mental_03",
+						"Force Subjugate IV", "force_discipline_powers_mental_04"
+					},
+					"Force Diminish",
+					{
+						"Force Diminish I", "force_discipline_powers_debuff_01",
+						"Force Diminish II", "force_discipline_powers_debuff_02",
+						"Force Diminish III", "force_discipline_powers_debuff_03",
+						"Force Diminish IV", "force_discipline_powers_debuff_04"
+					},
+					"Psychokineses",
+					{
+						"Psychokineses I", "force_discipline_powers_push_01",
+						"Psychokineses II", "force_discipline_powers_push_02",
+						"Psychokineses III", "force_discipline_powers_push_03",
+						"Psychokineses IV", "force_discipline_powers_push_04"
+					},
+					"Master", "force_discipline_powers_master"
+				},
+					"Force Healing",
+				{
+					"Novice", "force_discipline_healing_novice",
+					"Force Rejuvenation",
+					{
+						"Force Rejuvenation I", "force_discipline_healing_damage_01",
+						"Force Rejuvenation II", "force_discipline_healing_damage_02",
+						"Force Rejuvenation III", "force_discipline_healing_damage_03",
+						"Force Rejuvenation IV", "force_discipline_healing_damage_04"
+					},
+					"Force Restoration",
+					{
+						"Force Restoration I", "force_discipline_healing_wound_01",
+						"Force Restoration II", "force_discipline_healing_wound_02",
+						"Force Restoration III", "force_discipline_healing_wound_03",
+						"Force Restoration IV", "force_discipline_healing_wound_04"
+					},
+					"Force Assist",
+					{
+						"Force Assist I", "force_discipline_healing_other_01",
+						"Force Assist II", "force_discipline_healing_other_02",
+						"Force Assist III", "force_discipline_healing_other_03",
+						"Force Assist IV", "force_discipline_healing_other_04"
+					},
+					"Force Purification",
+					{
+						"Force Purification I", "force_discipline_healing_states_01",
+						"Force Purification II", "force_discipline_healing_states_02",
+						"Force Purification III", "force_discipline_healing_states_03",
+						"Force Purification IV", "force_discipline_healing_states_04"
+					},
+					"Master", "force_discipline_healing_master"
+				},
+					"Force Enhancement",
+				{
+					"Novice", "force_discipline_enhancements_novice",
+					"Force Celerity",
+					{
+						"Force Celerity I", "force_discipline_enhancements_movement_01",
+						"Force Celerity II", "force_discipline_enhancements_movement_02",
+						"Force Celerity III", "force_discipline_enhancements_movement_03",
+						"Force Celerity IV", "force_discipline_enhancements_movement_04"
+					},
+					"Force Protection",
+					{
+						"Force Protection I", "force_discipline_enhancements_protection_01",
+						"Force Protection II", "force_discipline_enhancements_protection_02",
+						"Force Protection III", "force_discipline_enhancements_protection_03",
+						"Force Protection IV", "force_discipline_enhancements_protection_04"
+					},
+					"Force Resistance",
+					{
+						"Force Resistance I", "force_discipline_enhancements_resistance_01",
+						"Force Resistance II", "force_discipline_enhancements_resistance_02",
+						"Force Resistance III", "force_discipline_enhancements_resistance_03",
+						"Force Resistance IV", "force_discipline_enhancements_resistance_04"
+					},
+					"Force Synergy",
+					{
+						"Force Synergy I", "force_discipline_enhancements_synergy_01",
+						"Force Synergy II", "force_discipline_enhancements_synergy_02",
+						"Force Synergy III", "force_discipline_enhancements_synergy_03",
+						"Force Synergy IV", "force_discipline_enhancements_synergy_04"
+					},
+					"Master", "force_discipline_enhancements_master"
+				},
+				        "Force Defense",
+				{
+					"Novice", "force_discipline_defender_novice",
+					"Force Melee Defense",
+					{
+						"Force Melee Defense I", "force_discipline_defender_melee_defense_01",
+						"Force Melee Defense II", "force_discipline_defender_melee_defense_02",
+						"Force Melee Defense III", "force_discipline_defender_melee_defense_03",
+						"Force Melee Defense IV", "force_discipline_defender_melee_defense_04"
+					},
+					"Force Ranged Defense",
+					{
+						"Force Ranged Defense I", "force_discipline_defender_ranged_defense_01",
+						"Force Ranged Defense II", "force_discipline_defender_ranged_defense_02",
+						"Force Ranged Defense III", "force_discipline_defender_ranged_defense_03",
+						"Force Ranged Defense IV", "force_discipline_defender_ranged_defense_04"
+					},
+					"Force Defense",
+					{
+						"Force Defense I", "force_discipline_defender_force_defense_01",
+						"Force Defense II", "force_discipline_defender_force_defense_02",
+						"Force Defense III", "force_discipline_defender_force_defense_03",
+						"Force Defense IV", "force_discipline_defender_force_defense_04"
+					},
+					"Preternatural Defense",
+					{
+						"Preternatural Defense I", "force_discipline_defender_preternatural_defense_01",
+						"Preternatural Defense II", "force_discipline_defender_preternatural_defense_02",
+						"Preternatural Defense III", "force_discipline_defender_preternatural_defense_03",
+						"Preternatural Defense IV", "force_discipline_defender_preternatural_defense_04"
+					},
+					"Master", "force_discipline_defender_master"
+				},				
 				"Marksman",
 				{
 					"Novice", "combat_marksman_novice",
@@ -1504,14 +1504,13 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 				}
 			},
 			"Unlearn All Skills", "unlearn_all_skills",
-			"Cleanse Character", "cleanse_character",
+			--"Cleanse Character", "cleanse_character",
 			"Enhance Character", "enhance_character",
-			"Reset Buffs", "reset_buffs",
-			"Learn Languages", "language",
-			"Credits", "credits",
-			"Apply DOTs", "apply_dots",
-			"Clear DOTs", "clear_dots",
-			"Max XP", "max_xp",
+			--"Learn Languages", "language",
+			--"Credits", "credits",
+			--"Apply DOTs", "apply_dots",
+			--"Clear DOTs", "clear_dots",
+			--"Max XP", "max_xp",
 			"Faction Points",
 			{
 				"Imperial", "faction_imperial",
@@ -1539,6 +1538,58 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 			--		"Bone Helmet", "object/tangible/wearables/armor/bone/armor_bone_s01_helmet.iff",
 			--		"Bone Leggings", "object/tangible/wearables/armor/bone/armor_bone_s01_leggings.iff"
 			--	},
+--[[				"Shock Trooper",
+				{
+					"Assault Trooper Left Bicep", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_bicep_l.iff",
+					"Assault Trooper Right Bicep", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_bicep_r.iff",
+					"Assault Trooper Boots", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_boots.iff",
+					"Assault Trooper Left Bracer", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_bracer_l.iff",
+					"Assault Trooper Right Bracer", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_bracer_r.iff",
+					"Assault Trooper Chest Plate", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_chest_plate.iff",
+					"Assault Trooper Gloves", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_gloves.iff",
+					"Assault Trooper Helmet", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_helmet.iff",
+					"Assault Trooper Leggings", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_leggings.iff",
+					"Assault Trooper Utility Belt", "object/tangible/wearables/armor/assault_trooper/armor_assault_trooper_utility_belt.iff",
+				},
+				"Clone Trooper Imperial Armor",
+				{
+					"Clone Trooper Belt", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_belt.iff",
+					"Clone Trooper Left Bicep", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_bicep_l.iff",
+					"Clone Trooper Right Bicep", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_bicep_r.iff",
+					"Clone Trooper Boots", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_boots.iff",
+					"Clone Trooper Left Bracer", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_bracer_l.iff",
+					"Clone Trooper Right Bracer", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_bracer_r.iff",
+					"Clone Trooper Chest Plate", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_chest_plate.iff",
+					"Clone Trooper Gloves", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_gloves.iff",
+					"Clone Trooper Helmet", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_helmet.iff",
+					"Clone Trooper Leggings", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_imperial_s01_leggings.iff"
+				},
+				"Clone Trooper Neutral Armor",
+				{
+					"Clone Trooper Belt", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_belt.iff",
+					"Clone Trooper Left Bicep", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_bicep_l.iff",
+					"Clone Trooper Right Bicep", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_bicep_r.iff",
+					"Clone Trooper Boots", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_boots.iff",
+					"Clone Trooper Left Bracer", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_bracer_l.iff",
+					"Clone Trooper Right Bracer", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_bracer_r.iff",
+					"Clone Trooper Chest Plate", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_chest_plate.iff",
+					"Clone Trooper Gloves", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_gloves.iff",
+					"Clone Trooper Helmet", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_helmet.iff",
+					"Clone Trooper Leggings", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_neutral_s01_leggings.iff"
+				},
+				"Clone Trooper Rebel Armor",
+				{
+					"Clone Trooper Belt", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_belt.iff",
+					"Clone Trooper Left Bicep", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_bicep_l.iff",
+					"Clone Trooper Right Bicep", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_bicep_r.iff",
+					"Clone Trooper Boots", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_boots.iff",
+					"Clone Trooper Left Bracer", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_bracer_l.iff",
+					"Clone Trooper Right Bracer", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_bracer_r.iff",
+					"Clone Trooper Chest Plate", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_chest_plate.iff",
+					"Clone Trooper Gloves", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_gloves.iff",
+					"Clone Trooper Helmet", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_helmet.iff",
+					"Clone Trooper Leggings", "object/tangible/wearables/armor/clone_trooper/armor_clone_trooper_rebel_s01_leggings.iff"
+				},]]				
 				"Ithorian Armor",
 				{
 					"Ithorian Sentinel",
@@ -1610,26 +1661,15 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 			},
 			"Clothes",
 			{
-				"Crafting Aprons",
-				{
-					"Architect", "crafting_apron_architect",
-					"Armorsmith", "crafting_apron_armorsmith",
-					"Chef", "crafting_apron_chef",
-					"Combat Medic", "crafting_apron_combat_medic",
-					"Doctor", "crafting_apron_doctor",
-					"Droid Engineer", "crafting_apron_droid_engineer",
-					"Tailor", "crafting_apron_tailor",
-					"Weaponsmith", "crafting_apron_weaponsmith",
-				},
 				"Backpacks",
 				{
-					"Backpack 01", "object/tangible/wearables/backpack/backpack_s01.iff"
+					"Travel Pack", "object/tangible/wearables/backpack/backpack_s01.iff"
 				}
 			},
-			--"Consumables",
-			--{
-			--	"Desserts",
-			--	{
+			"Consumables",
+			{
+				"Desserts",
+				{
 					--"Air Cake", "object/tangible/food/crafted/dessert_air_cake.iff",
 					--"Almond Kwevvu Crisp Munchies", "object/tangible/food/crafted/dessert_almond_kwevvu_crisp_munchies.iff",
 					--"Bantha Butter", "object/tangible/food/crafted/dessert_bantha_butter.iff",
@@ -1638,7 +1678,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Bofa Treat", "object/tangible/food/crafted/dessert_bofa_treat.iff",
 					--"Cavaellin Creams", "object/tangible/food/crafted/dessert_cavaellin_creams.iff",
 					--"Chandad", "object/tangible/food/crafted/dessert_chandad.iff",
-					--"Citros Snow Cake", "object/tangible/food/crafted/dessert_citros_snow_cake.iff",
+					"Citros Snow Cake", "object/tangible/food/crafted/dessert_citros_snow_cake.iff",
 					--"Corellian Fried Icecream", "object/tangible/food/crafted/dessert_corellian_fried_icecream.iff",
 					--"Deneelian Fizz Pudding", "object/tangible/food/crafted/dessert_deneelian_fizz_pudding.iff",
 					--"Dweezel", "object/tangible/food/crafted/dessert_dweezel.iff",
@@ -1650,10 +1690,10 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Para Roll", "object/tangible/food/crafted/dessert_para_roll.iff",
 					--"Parwan Nutricake", "object/tangible/food/crafted/dessert_parwan_nutricake.iff",
 					--"Pastebread", "object/tangible/food/crafted/dessert_pastebread.iff",
-					--"Pikatta Pie", "object/tangible/food/crafted/dessert_pikatta_pie.iff",
+					"Pikatta Pie", "object/tangible/food/crafted/dessert_pikatta_pie.iff",
 					--"Pkneb", "object/tangible/food/crafted/dessert_pkneb.iff",
 					--"Puffcake", "object/tangible/food/crafted/dessert_puffcake.iff",
-					--"Pyollian Cake", "object/tangible/food/crafted/dessert_pyollian_cake.iff",
+				        "Pyollian Cake", "object/tangible/food/crafted/dessert_pyollian_cake.iff",
 					--"Ryshcate", "object/tangible/food/crafted/dessert_ryshcate.iff",
 					--"Smugglers Delight", "object/tangible/food/crafted/dessert_smugglers_delight.iff",
 					--"Sweesonberry Rolls", "object/tangible/food/crafted/dessert_sweesonberry_rolls.iff",
@@ -1662,9 +1702,9 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Vagnerian Canape", "object/tangible/food/crafted/dessert_vagnerian_canape.iff",
 					--"Wedding Cake", "object/tangible/food/crafted/dessert_wedding_cake.iff",
 					--"Won Won", "object/tangible/food/crafted/dessert_won_won.iff",
-				--},
-				--"Dishes",
-				--{
+				},
+				"Dishes",
+				{
 					--"Ahrisa", "object/tangible/food/crafted/dish_ahrisa.iff",
 					--"Bivoli Tempari", "object/tangible/food/crafted/dish_bivoli_tempari.iff",
 					--"Blood Chowder", "object/tangible/food/crafted/dish_blood_chowder.iff",
@@ -1672,7 +1712,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Cho Nor Hoola", "object/tangible/food/crafted/dish_cho_nor_hoola.iff",
 					--"Crispic", "object/tangible/food/crafted/dish_crispic.iff",
 					--"Dustcrepe", "object/tangible/food/crafted/dish_dustcrepe.iff",
-					--"Exo Protein Wafers", "object/tangible/food/crafted/dish_exo_protein_wafers.iff",
+					"Exo Protein Wafers", "object/tangible/food/crafted/dish_exo_protein_wafers.iff",
 					--"Fire Stew", "object/tangible/food/crafted/dish_fire_stew.iff",
 					--"Fried Endwa", "object/tangible/food/crafted/dish_fried_endwa.iff",
 					--"Gruuvan Shaal", "object/tangible/food/crafted/dish_gruuvan_shaal.iff",
@@ -1690,10 +1730,10 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Scrimpi", "object/tangible/food/crafted/dish_scrimpi.iff",
 					--"Soypro", "object/tangible/food/crafted/dish_soypro.iff",
 					--"Stewed Gwouch", "object/tangible/food/crafted/dish_stewed_gwouch.iff",
-					--"Synthsteak", "object/tangible/food/crafted/dish_synthsteak.iff",
+					"Synthsteak", "object/tangible/food/crafted/dish_synthsteak.iff",
 					--"Teltier Noodles", "object/tangible/food/crafted/dish_teltier_noodles.iff",
 					--"Terratta", "object/tangible/food/crafted/dish_terratta.iff",
-					--"Thakitillo", "object/tangible/food/crafted/dish_thakitillo.iff",
+					"Thakitillo", "object/tangible/food/crafted/dish_thakitillo.iff",
 					--"Travel Biscuits", "object/tangible/food/crafted/dish_travel_biscuits.iff",
 					--"Trimpian", "object/tangible/food/crafted/dish_trimpian.iff",
 					--"Vegeparsine", "object/tangible/food/crafted/dish_vegeparsine.iff",
@@ -1701,9 +1741,9 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Vercupti of Agazza Boleruuee", "object/tangible/food/crafted/dish_vercupti_of_agazza_boleruuee.iff",
 					--"Wastril Bread", "object/tangible/food/crafted/dish_wastril_bread.iff",
 					--"Xermaauc", "object/tangible/food/crafted/dish_xermaauc.iff"
-				--},
-				--"Drinks",
-				--{
+				},
+				"Drinks",
+				{
 					--"Accarragm", "object/tangible/food/crafted/drink_accarragm.iff",
 					--"Aitha", "object/tangible/food/crafted/drink_aitha.iff",
 					--"Alcohol", "object/tangible/food/crafted/drink_alcohol.iff",
@@ -1711,8 +1751,8 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Angerian Fishak Surprise", "object/tangible/food/crafted/drink_angerian_fishak_surprise.iff",
 					--"Antakarian Fire Dancer", "object/tangible/food/crafted/drink_antakarian_fire_dancer.iff",
 					--"Bantha Blaster", "object/tangible/food/crafted/drink_bantha_blaster.iff",
-					--"Bespin Port", "object/tangible/food/crafted/drink_bespin_port.iff",
-					--"Blue Milk", "object/tangible/food/crafted/drink_blue_milk.iff",
+					"Bespin Port", "object/tangible/food/crafted/drink_bespin_port.iff",
+					"Blue Milk", "object/tangible/food/crafted/drink_blue_milk.iff",
 					--"Breath of Heaven", "object/tangible/food/crafted/drink_breath_of_heaven.iff",
 					--"Caf", "object/tangible/food/crafted/drink_caf.iff",
 					--"Charde", "object/tangible/food/crafted/drink_charde.iff",
@@ -1740,10 +1780,10 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Tatooine Sunburn", "object/tangible/food/crafted/drink_tatooine_sunburn.iff",
 					--"Tilla Tiil", "object/tangible/food/crafted/drink_tilla_tiil.iff",
 					--"Tssolok", "object/tangible/food/crafted/drink_tssolok.iff",
-					--"Vasarian Brandy", "object/tangible/food/crafted/drink_vasarian_brandy.iff",
+					"Vasarian Brandy", "object/tangible/food/crafted/drink_vasarian_brandy.iff",
 					--"Vayerbok", "object/tangible/food/crafted/drink_vayerbok.iff",
 					--"Veronian Berry Wine", "object/tangible/food/crafted/drink_veronian_berry_wine.iff"
-				--},
+				},
 				--"Foraged Food",
 				--{
 					--"Jar of Berries", "object/tangible/food/foraged/edible_jar_berries.iff",
@@ -1789,18 +1829,19 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					--"Thruster Head", "object/tangible/food/spice/spice_thruster_head.iff",
 					--"Yarrock", "object/tangible/food/spice/spice_yarrock.iff"
 				--}
-			--},
+			},
 			"Deeds",
 			{
 				"Vehicle Deeds",
 				{
+					"BARC Speeder", "object/tangible/deed/vehicle_deed/barc_speeder_deed.iff",
 					"Swoop", "object/tangible/deed/vehicle_deed/speederbike_swoop_deed.iff",
-					--"Jetpack", "object/tangible/deed/vehicle_deed/jetpack_deed.iff",
+					"Jetpack", "object/tangible/deed/vehicle_deed/jetpack_deed.iff",
 					"Speederbike", "object/tangible/deed/vehicle_deed/speederbike_deed.iff",
-					--"Speederbike Flash", "object/tangible/deed/vehicle_deed/speederbike_flash_deed.iff",
-					--"Landspeeder av21", "object/tangible/deed/vehicle_deed/landspeeder_av21_deed.iff",
-					--"Landspeeder x31", "object/tangible/deed/vehicle_deed/landspeeder_x31_deed.iff",
-					--"Landspeeder x34", "object/tangible/deed/vehicle_deed/landspeeder_x34_deed.iff"
+					"Flash Speeder", "object/tangible/deed/vehicle_deed/speederbike_flash_deed.iff",
+					"Landspeeder AV-21", "object/tangible/deed/vehicle_deed/landspeeder_av21_deed.iff",
+					"Landspeeder X-31", "object/tangible/deed/vehicle_deed/landspeeder_x31_deed.iff",
+					"Landspeeder X-34", "object/tangible/deed/vehicle_deed/landspeeder_x34_deed.iff"
 				},
 				"Structure Deeds",
 				{
@@ -1891,7 +1932,8 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 							"Small Generic House Deed", "object/tangible/deed/player_house_deed/generic_house_small_deed.iff",
 							"Small Generic House Deed Floorplan 2", "object/tangible/deed/player_house_deed/generic_house_small_floor_02_deed.iff",
 							"Small Generic House Deed (Style 2)", "object/tangible/deed/player_house_deed/generic_house_small_style_02_deed.iff",
-							"Small Generic House Deed Floorplan 2 (Style 2)", "object/tangible/deed/player_house_deed/generic_house_small_style_02_floor_02_deed.iff"
+							"Small Generic House Deed Floorplan 2 (Style 2)", "object/tangible/deed/player_house_deed/generic_house_small_style_02_floor_02_deed.iff",
+							"AT-AT House", "object/tangible/deed/player_house_deed/atat_house_deed.iff"
 						},
 						"City Deeds",
 						{
@@ -2023,106 +2065,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 							"Small Tatooine Garden (Style 5)", "object/tangible/deed/city_deed/garden_tatooine_sml_05_deed.iff"
 						}
 					}
-				},
-				"Event Perk Deeds",
-				{
-					--"Rental: Audience Seating", "object/tangible/deed/event_perk/audience_seating_deed.iff",
-					--"Rental: AT-AT", "object/tangible/deed/event_perk/atat_static_deed.iff",
-					--"Rental: AT-ST", "object/tangible/deed/event_perk/atst_static_deed.iff",
-					"Rental: Banner Style 1", "object/tangible/deed/event_perk/banner_style_1_static_deed.iff",
-					"Rental: Banner Style 2", "object/tangible/deed/event_perk/banner_style_2_static_deed.iff",
-					--"Rental: Bantha", "object/tangible/deed/event_perk/bantha_static_deed.iff",
-					--"Rental: Barbed Wire Enclosure", "object/tangible/deed/event_perk/fenced_enclosure_deed.iff",
-					"Rental: Corellian Banner", "object/tangible/deed/event_perk/corellian_banner_static_deed.iff",
-					--"Rental: Corsec Honor Guard 5 X 1", "object/tangible/deed/event_perk/corsec_1x10_honorguard_deed.iff",
-					--"Rental: Corsec Honor Guard 5 X 2", "object/tangible/deed/event_perk/corsec_2x10_honorguard_deed.iff",
-					--"Rental: Corsec Honor Guard 5 X 3", "object/tangible/deed/event_perk/corsec_3x10_honorguard_deed.iff",
-					--"Rental: Corsec Honor Guard 10 X 2", "object/tangible/deed/event_perk/corsec_4x10_honorguard_deed.iff",
-					--"Rental: Corsec Stage", "object/tangible/deed/event_perk/corsec_stage_theater_deed.iff",
-					--"Rental: Crashed Tie Bomber", "object/tangible/deed/event_perk/crashed_tie_bomber_theater_deed.iff",
-					--"Rental: Crashed Tie Fighter", "object/tangible/deed/event_perk/crashed_tie_fighter_theater_deed.iff",
-					--"Rental: Crashed X-Wing", "object/tangible/deed/event_perk/crashed_xwing_theater_deed.iff",
-					--"Rental: Destroyed AT-AT", "object/tangible/deed/event_perk/destroyed_atat_theater_deed.iff",
-					--"Rental: Fed-Dub Honor Guard 5 X 1", "object/tangible/deed/event_perk/fed_dub_1x10_honorguard_deed.iff",
-					--"Rental: Fed-Dub Honor Guard 5 X 2", "object/tangible/deed/event_perk/fed_dub_2x10_honorguard_deed.iff",
-					--"Rental: Fed-Dub Honor Guard 5 X 3", "object/tangible/deed/event_perk/fed_dub_3x10_honorguard_deed.iff",
-					--"Rental: Fed-Dub Honor Guard 10 X 2", "object/tangible/deed/event_perk/fed_dub_4x10_honorguard_deed.iff",
-					--"Rental: Fed-Dub Stage", "object/tangible/deed/event_perk/fed_dub_stage_theater_deed.iff",
-					--"Rental: Fire Pit", "object/tangible/deed/event_perk/fire_pit_deed.iff",
-					"Rental: Flag of Corellia", "object/tangible/deed/event_perk/corellia_flag_deed.iff",
-					"Rental: Flag of Dantooine", "object/tangible/deed/event_perk/dantooine_flag_deed.iff",
-					"Rental: Flag of Dathomir", "object/tangible/deed/event_perk/dathomir_flag_deed.iff",
-					"Rental: Flag of Endor", "object/tangible/deed/event_perk/endor_flag_deed.iff",
-					"Rental: Flag of Lok", "object/tangible/deed/event_perk/lok_flag_deed.iff",
-					"Rental: Flag of Naboo", "object/tangible/deed/event_perk/naboo_flag_deed.iff",
-					"Rental: Flag of Rori", "object/tangible/deed/event_perk/rori_flag_deed.iff",
-					"Rental: Flag of Talus", "object/tangible/deed/event_perk/talus_flag_deed.iff",
-					"Rental: Flag of Tatooine", "object/tangible/deed/event_perk/tatooine_flag_deed.iff",
-					"Rental: Flag of Yavin", "object/tangible/deed/event_perk/yavin_flag_deed.iff",
-					--"Rental: Flags of the Universe", "object/tangible/deed/event_perk/universe_flags_theater.iff",
-					--"Rental: Fruit Stand", "object/tangible/deed/event_perk/fruit_stand.iff",
-					--"", "object/tangible/deed/event_perk/game_flag_deed.iff",
-					--"Rental: Grave Stone", "object/tangible/deed/event_perk/gravestone.iff",
-					--"Rental: Graveyard", "object/tangible/deed/event_perk/graveyard_deed.iff",
-					--"Rental: Imperial At-AT Landing Party", "object/tangible/deed/event_perk/imperial_landing_party_atat_theater_deed.iff",
-					"Rental: Imperial Banner", "object/tangible/deed/event_perk/imperial_banner_static_deed.iff",
-					--"Rental: Imperial Honor Guard 5 X 1", "object/tangible/deed/event_perk/imperial_1x10_honorguard_deed.iff",
-					--"Rental: Imperial Honor Guard 5 X 2", "object/tangible/deed/event_perk/imperial_2x10_honorguard_deed.iff",
-					--"Rental: Imperial Honor Guard 5 X 3", "object/tangible/deed/event_perk/imperial_3x10_honorguard_deed.iff",
-					--"Rental: Imperial Honor Guard 10 X 2", "object/tangible/deed/event_perk/imperial_4x10_honorguard_deed.iff",
-					--"Rental: Imperial Lambda Shuttle Landing Party", "object/tangible/deed/event_perk/imperial_landing_party_lambda_theater_deed.iff",
-					--"Rental: Imperial Pavillion", "object/tangible/deed/event_perk/imperial_recruiting_station_theater_deed.iff",
-					--"Rental: Imperial Recruiter", "object/tangible/deed/event_perk/imperial_recruiter_deed.iff",
-					--"Rental: Imperial Stage", "object/tangible/deed/event_perk/imperial_stage_theater_deed.iff",
-					--"Rental: Jawas and Droids", "object/tangible/deed/event_perk/jawas_and_droids_deed.iff",
-					"Rental: Lambda Shuttle", "object/tangible/deed/event_perk/lambda_shuttle_static_deed.iff",
-					--"Rental: Large Imperial Wedding Garden", "object/tangible/deed/event_perk/wedding_garden_imperial_large_theater_deed.iff",
-					--"Rental: Large Rebel Wedding Garden", "object/tangible/deed/event_perk/wedding_garden_rebel_large_theater_deed.iff",
-					--"Rental: Lottery Droid", "object/tangible/deed/event_perk/lottery_droid_deed.iff",
-					"Rental: Marble Gazebo", "object/tangible/deed/event_perk/marble_gazebo_static_deed.iff",
-					--"Rental: Meat Rack", "object/tangible/deed/event_perk/meat_rack.iff",
-					"Rental: Military Outpost", "object/tangible/deed/event_perk/military_outpost_deed.iff",
-					"Rental: Naboo Style Gazebo", "object/tangible/deed/event_perk/naboo_gazebo_static_deed.iff",
-					--"Rental: NPC Actor", "object/tangible/deed/event_perk/npc_actor_deed.iff",
-					--"Rental: Party Pavillion", "object/tangible/deed/event_perk/picnic_pavillion_deed.iff",
-					--"Rental: Party Stage", "object/tangible/deed/event_perk/party_stage_theater_deed.iff",
-					"Rental: Pavillion Style 1", "object/tangible/deed/event_perk/pavillion_1_static_deed.iff",
-					"Rental: Pavillion Style 2", "object/tangible/deed/event_perk/pavillion_2_static_deed.iff",
-					--"Rental: Race Coordinator Droid", "object/tangible/deed/event_perk/race_droid_deed.iff",
-					--"Rental: Radiologically Shielded Chest", "object/tangible/deed/event_perk/radiologically_shielded_chest_deed.iff",
-					--"Rental: Alliance Honor Guard 5 X 1", "object/tangible/deed/event_perk/rebel_1x10_honorguard_deed.iff",
-					--"Rental: Alliance Honor Guard 5 X 2", "object/tangible/deed/event_perk/rebel_2x10_honorguard_deed.iff",
-					--"Rental: Alliance Honor Guard 5 X 3", "object/tangible/deed/event_perk/rebel_3x10_honorguard_deed.iff",
-					--"Rental: Alliance Honor Guard 2 X 10", "object/tangible/deed/event_perk/rebel_4x10_honorguard_deed.iff",
-					"Rental: Rebel Banner", "object/tangible/deed/event_perk/rebel_banner_static_deed.iff",
-					--"Rental: Rebel Pavillion", "object/tangible/deed/event_perk/rebel_recruiting_station_theater_deed.iff",
-					--"Rental: Rebel Recruiter", "object/tangible/deed/event_perk/rebel_recruiter_deed.iff",
-					--"Rental: Rebel Stage", "object/tangible/deed/event_perk/rebel_stage_theater_deed.iff",
-					--"Rental: RSF Honor Guard 5 X 1", "object/tangible/deed/event_perk/rsf_1x10_honorguard_deed.iff",
-					--"Rental: RSF Honor Guard 5 X 2", "object/tangible/deed/event_perk/rsf_2x10_honorguard_deed.iff",
-					--"Rental: RSF Honor Guard 5 X 3", "object/tangible/deed/event_perk/rsf_3x10_honorguard_deed.iff",
-					--"Rental: RSF Honor Guard 2 X 10", "object/tangible/deed/event_perk/rsf_4x10_honorguard_deed.iff",
-					--"Rental: RSF Stage", "object/tangible/deed/event_perk/rsf_stage_theater_deed.iff",
-					"Rental: Sandcrawler", "object/tangible/deed/event_perk/sandcrawler.iff",
-					--"Rental: Scavenger Hunt Droid", "object/tangible/deed/event_perk/scavenger_droid_deed.iff",
-					--"", "object/tangible/deed/event_perk/shuttle_beacon.iff",
-					"Rental: Shuttle", "object/tangible/deed/event_perk/shuttle_static_deed.iff",
-					--"Rental: Skeleton (Treasure Chest)", "object/tangible/deed/event_perk/skeleton_chest_deed.iff",
-					--"Rental: Sparking Treasure Chest", "object/tangible/deed/event_perk/sparking_treasure_box_chest_deed.iff",
-					"Rental: Stone Based Banner", "object/tangible/deed/event_perk/stone_base_banner_static_deed.iff",
-					"Rental: Tatooine Banner", "object/tangible/deed/event_perk/tatooine_banner_static_deed.iff",
-					--"Rental: Technical Chest", "object/tangible/deed/event_perk/technical_chest_deed.iff",
-					--"", "object/tangible/deed/event_perk/test_gaming_table_deed.iff",
-					--"", "object/tangible/deed/event_perk/test_npc_deed.iff",
-					--"", "object/tangible/deed/event_perk/test_theater_deed.iff",
-					"Rental: Tie Bomber", "object/tangible/deed/event_perk/tie_bomber_static_deed.iff",
-					--"Rental: Tie Fighter", "object/tangible/deed/event_perk/tie_fighter_static_deed.iff",
-					--"Rental: Treasure Box", "object/tangible/deed/event_perk/treasure_box_chest_deed.iff",
-					--"Rental: Treasure Crate", "object/tangible/deed/event_perk/treasure_crate_chest_deed.iff",
-					"Rental: Web Filled Tree", "object/tangible/deed/event_perk/web_tree.iff",
-					--"Rental: Wrecked Sandcrawler", "object/tangible/deed/event_perk/wrecked_sandcrawler_deed.iff",
-					"Rental: X-Wing", "object/tangible/deed/event_perk/xwing_static_deed.iff",
-				},
+				}
 			},
 			"Droids",
 			{
@@ -2140,102 +2083,6 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 				--"Firework 7", "object/tangible/firework/firework_s11.iff",
 				--"Firework 8", "object/tangible/firework/firework_s18.iff",
 			--},
-			"Veteran Rewards (COMPLETE)",
-			{
-				--90 Day Rewards
-				--"@veteran_new:poweredharvester","object/tangible/veteran_reward/harvester.iff",
-				"@veteran_new:dataterminal1","object/tangible/veteran_reward/data_terminal_s1.iff",
-				"@veteran_new:dataterminal2","object/tangible/veteran_reward/data_terminal_s2.iff",
-				"@veteran_new:dataterminal3","object/tangible/veteran_reward/data_terminal_s3.iff",
-				"@veteran_new:dataterminal4","object/tangible/veteran_reward/data_terminal_s4.iff",
-				"@veteran_new:mini_protocoldroid","object/tangible/veteran_reward/frn_vet_protocol_droid_toy.iff",
-				"@veteran_new:mini_r2","object/tangible/veteran_reward/frn_vet_r2_toy.iff",
-				--180 Day Rewards
-				"@veteran_new:resourcecrate","object/tangible/veteran_reward/resource.iff",
-				"@veteran_new:falconcouch","object/tangible/veteran_reward/frn_couch_falcon_corner_s01.iff",
-				"@veteran_new:falconchair","object/tangible/veteran_reward/frn_couch_falcon_section_s01.iff",
-				"@veteran_new:mini_tiefighter","object/tangible/veteran_reward/frn_vet_tie_fighter_toy.iff",
-				"@veteran_new:mini_xwing","object/tangible/veteran_reward/frn_vet_x_wing_toy.iff",
-				--270 Day Rewards
-				"Deed for Flash Speeder","object/tangible/deed/vehicle_deed/speederbike_flash_deed.iff",
-				"Special Edition Goggles Style 1","object/tangible/wearables/goggles/goggles_s01.iff",
-				"Special Edition Goggles Style 2","object/tangible/wearables/goggles/goggles_s02.iff",
-				"Special Edition Goggles Style 3","object/tangible/wearables/goggles/goggles_s03.iff",
-				"Special Edition Goggles Style 4","object/tangible/wearables/goggles/goggles_s04.iff",
-				"Special Edition Goggles Style 5","object/tangible/wearables/goggles/goggles_s05.iff",
-				"Special Edition Goggles Style 6","object/tangible/wearables/goggles/goggles_s06.iff",
-				"@veteran_new:mini_darthvader","object/tangible/veteran_reward/frn_vet_darth_vader_toy.iff",
-				--360 Day Rewards
-				"@veteran_new:techconsole_a","object/tangible/veteran_reward/frn_tech_console_sectional_a.iff",
-				"@veteran_new:techconsole_b","object/tangible/veteran_reward/frn_tech_console_sectional_b.iff",
-				"@veteran_new:techconsole_c","object/tangible/veteran_reward/frn_tech_console_sectional_c.iff",
-				"@veteran_new:techconsole_d","object/tangible/veteran_reward/frn_tech_console_sectional_d.iff",
-				"@veteran_new:mini_jabba","object/tangible/veteran_reward/frn_vet_jabba_toy.iff",
-				"@veteran_new:mini_stormtrooper","object/tangible/veteran_reward/frn_vet_stormtrooper_toy.iff",
-				--"@veteran_new:antidecay","object/tangible/veteran_reward/antidecay.iff",
-				--450 Day Rewards
-				"Camp Center (Small)","object/tangible/camp/camp_spit_s2.iff",
-				"Camp Center (Large)","object/tangible/camp/camp_spit_s3.iff",
-				"@frn_n:frn_tato_meat_rack","object/tangible/furniture/tatooine/frn_tato_meat_rack.iff",
-				"Gold Ornamental Vase (Style 1)","object/tangible/furniture/tatooine/frn_tato_vase_style_01.iff",
-				"Gold Ornamental Vase (Style 2)","object/tangible/furniture/tatooine/frn_tato_vase_style_02.iff",
-				"Foodcart","object/tangible/furniture/decorative/foodcart.iff",
-				"Park Bench","object/tangible/furniture/all/frn_bench_generic.iff",
-				--540 Day Rewards
-				"@frn_n:painting_wookiee_m","object/tangible/painting/painting_wookiee_m.iff",
-				"@frn_n:painting_wookiee_f","object/tangible/painting/painting_wookiee_f.iff",
-				"@frn_n:painting_trees_s01","object/tangible/painting/painting_trees_s01.iff",
-				"Lifeday Orb","object/tangible/loot/quest/lifeday_orb.iff",
-				--630 Day Rewards
-				"Bar Countertop","object/tangible/furniture/modern/bar_counter_s1.iff",
-				"Bar Countertop (Curved, Style 1)","object/tangible/furniture/modern/bar_piece_curve_s1.iff",
-				"Bar Countertop (Curved, Style 2)","object/tangible/furniture/modern/bar_piece_curve_s2.iff",
-				"Bar Countertop (Straight, Style 1)","object/tangible/furniture/modern/bar_piece_straight_s1.iff",
-				"Bar Countertop (Straight, Style 2)","object/tangible/furniture/modern/bar_piece_straight_s2.iff",
-				--720 Day Rewards
-				"Round Cantina Table (Style 1)","object/tangible/furniture/all/frn_all_table_s01.iff",
-				"Round Cantina Table (Style 2)","object/tangible/furniture/all/frn_all_table_s02.iff",
-				"Round Cantina Table (Style 3)","object/tangible/furniture/all/frn_all_table_s03.iff",
-				"Large Cantina Sofa","object/tangible/furniture/tatooine/frn_tatt_chair_cantina_seat_2.iff",
-				"@frn_n:frn_tato_cafe_parasol","object/tangible/furniture/tatooine/frn_tato_cafe_parasol.iff",
-				"@frn_n:diagnostic_screen","object/tangible/furniture/decorative/diagnostic_screen.iff",
-				--810 Day Rewards
-				"Round Data Terminal","object/tangible/furniture/all/frn_all_desk_map_table.iff",
-				"Professor Desk","object/tangible/furniture/decorative/professor_desk.iff",
-				"Medium Oval Rug","object/tangible/furniture/modern/rug_oval_m_s02.iff",
-				"Small Oval Rug","object/tangible/furniture/modern/rug_oval_sml_s01.iff",
-				"Medium Rectangular Rug","object/tangible/furniture/modern/rug_rect_m_s01.iff",
-				"Small Rectangular Rug","object/tangible/furniture/modern/rug_rect_sml_s01.iff",
-				"Medium Round Rug","object/tangible/furniture/modern/rug_rnd_m_s01.iff",
-				"Small Round Rug","object/tangible/furniture/modern/rug_rnd_sml_s01.iff",
-				--900 Day Rewards
-				"A Bith Skull","object/tangible/loot/misc/loot_skull_bith.iff",
-				"A Human Skull","object/tangible/loot/misc/loot_skull_human.iff",
-				"A Ithorian Skull","object/tangible/loot/misc/loot_skull_ithorian.iff",
-				"A Thune Skull","object/tangible/loot/misc/loot_skull_thune.iff",
-				"A Voritor Lizard Skull","object/tangible/loot/misc/loot_skull_voritor.iff",
-				"Imperial Banner","object/tangible/furniture/all/event_flag_game_imp_banner.iff",
-				"Neutral Banner","object/tangible/furniture/all/event_flag_game_neut_banner.iff",
-				"Rebel Banner","object/tangible/furniture/all/event_flag_game_reb_banner.iff",
-				--990 Day Rewards
-				"Large Rectangular Rug (Style 1)","object/tangible/furniture/modern/rug_oval_lg_s01.iff",
-				"Large Rectangular Rug (Style 2)","object/tangible/furniture/modern/rug_rect_lg_s02.iff",
-				"Large Oval Rug","object/tangible/furniture/modern/rug_oval_lg_s01.iff",
-				"Large Round Rug","object/tangible/furniture/modern/rug_rnd_lg_s01.iff",
-				"Large Potted Plant (Style 2)","object/tangible/furniture/all/frn_all_plant_potted_lg_s2.iff",
-				"Large Potted Plant (Style 3)","object/tangible/furniture/all/frn_all_plant_potted_lg_s3.iff",
-				"Large Potted Plant (Style 4)","object/tangible/furniture/all/frn_all_plant_potted_lg_s4.iff",
-				--1080 Day Rewards
-				"Painting: Cast Wing in Flight","object/tangible/veteran_reward/one_year_anniversary/painting_01.iff",
-				"Painting: Decimator","object/tangible/veteran_reward/one_year_anniversary/painting_02.iff",
-				"Painting: Tatooine Dune Speeder","object/tangible/veteran_reward/one_year_anniversary/painting_03.iff",
-				"Painting: Weapon of War","object/tangible/veteran_reward/one_year_anniversary/painting_04.iff",
-				"Painting: Fighter Study","object/tangible/veteran_reward/one_year_anniversary/painting_05.iff",
-				"Painting: Hutt Greed","object/tangible/veteran_reward/one_year_anniversary/painting_06.iff",
-				"Painting: Smuggler's Run","object/tangible/veteran_reward/one_year_anniversary/painting_07.iff",
-				"Painting: Imperial Oppression (TIE Oppressor)","object/tangible/veteran_reward/one_year_anniversary/painting_08.iff",
-				"Painting: Emperor's Eyes (TIE Sentinel)","object/tangible/veteran_reward/one_year_anniversary/painting_09.iff",
-			},
 			"Furniture",
 			{	
 				"Trophies (NEW COMPLETE)",
@@ -2337,38 +2184,31 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Veteran Reward (Imperial TIE Oppressor)", "object/tangible/veteran_reward/one_year_anniversary/painting_08.iff",
 					"Veteran Reward (Emperor's Eyes TIE Sentinel)", "object/tangible/veteran_reward/one_year_anniversary/painting_09.iff"
 				},
+				"Veteran Rewards (INCOMPLETE)",
+				{
+					"YT-1300 Couch Corner", "object/tangible/veteran_reward/frn_couch_falcon_corner_s01.iff",
+					"YT-1300 Couch Section", "object/tangible/veteran_reward/frn_couch_falcon_section_s01.iff",
+					"Darth Vader Toy", "object/tangible/veteran_reward/frn_vet_darth_vader_toy.iff",
+					"Jabba the Hutt Toy", "object/tangible/veteran_reward/frn_vet_jabba_toy.iff",
+					"Protocol Droid Toy", "object/tangible/veteran_reward/frn_vet_protocol_droid_toy.iff",
+					"R2 Droid Toy", "object/tangible/veteran_reward/frn_vet_r2_toy.iff",
+					"Stormtrooper Toy", "object/tangible/veteran_reward/frn_vet_stormtrooper_toy.iff",
+					"TIE Fighter Toy", "object/tangible/veteran_reward/frn_vet_tie_fighter_toy.iff",
+					"X-Wing Toy", "object/tangible/veteran_reward/frn_vet_x_wing_toy.iff"				
+				},
 				"Lighting",
 				{
-					"Candle (Bestine)", "object/tangible/furniture/all/frn_all_lamp_candlestick_free_s01.iff",
-					"Candle (Bestine) Lit", "object/tangible/furniture/all/frn_all_lamp_candlestick_free_s01_lit.iff",
-					"Candle (Dearic)", "object/tangible/furniture/all/frn_all_lamp_candlestick_free_s02.iff",
-					"Candle (Dearic) Lit", "object/tangible/furniture/all/frn_all_lamp_candlestick_free_s02_lit.iff",
-					"Candle (Restus)", "object/tangible/furniture/all/frn_all_lamp_candlestick_tbl_s01.iff",
-					"Candle (Theed)", "object/tangible/furniture/all/frn_all_lamp_candlestick_tbl_s02.iff",
-					"Candle (Coronet)", "object/tangible/furniture/all/frn_all_lamp_candlestick_tbl_s03.iff",
-					"Desk Lamp (Bantha)", "object/tangible/furniture/all/frn_all_lamp_desk_s01.iff",
-					"Desk Lamp (Bantha) Lit", "object/tangible/furniture/all/frn_all_lamp_desk_s01_lit.iff",
-					"Desk Lamp (Rancor)", "object/tangible/furniture/all/frn_all_lamp_desk_s02.iff",
-					"Desk Lamp (Rancor) Lit", "object/tangible/furniture/all/frn_all_lamp_desk_s02_lit.iff",
-					"Free-standing Lamp (Blue-leaf)", "object/tangible/furniture/all/frn_all_lamp_free_s01.iff",
-					"Free-standing Lamp (Blue-leaf) Lit", "object/tangible/furniture/all/frn_all_lamp_free_s01_lit.iff",
-					"Free-standing Lamp (Razorcoil)", "object/tangible/furniture/all/frn_all_lamp_free_s02.iff",
-					"Free-standing Lamp (Razorcoil) Lit", "object/tangible/furniture/all/frn_all_lamp_free_s02_lit.iff",
-					"Free-standing Lamp (Tallbirch)", "object/tangible/furniture/all/frn_all_lamp_free_s03.iff",
-					"Free-standing Lamp (Tallbirch) Lit", "object/tangible/furniture/all/frn_all_lamp_free_s03_lit.iff",
-					"Free-standing Lamp (Azeron)", "object/tangible/furniture/all/frn_all_lamp_free_s04.iff",
-					"Free-standing Lamp (Azeron) Lit", "object/tangible/furniture/all/frn_all_lamp_free_s04_lit.iff",
-					"Table-top Lamp (Tatooine)", "object/tangible/furniture/all/frn_all_lamp_table_s01.iff",
-					"Table-top Lamp (Tatooine) Lit", "object/tangible/furniture/all/frn_all_lamp_tbl_s01_lit.iff",
-					"Table-top Lamp (Corellia)", "object/tangible/furniture/all/frn_all_lamp_table_s02.iff",
-					"Table-top Lamp (Corellia) Lit", "object/tangible/furniture/all/frn_all_lamp_tbl_s02_lit.iff",
-					"Table-top Lamp (Naboo)", "object/tangible/furniture/all/frn_all_lamp_table_s03.iff",
-					"Table-top Lamp (Naboo) Lit", "object/tangible/furniture/all/frn_all_lamp_tbl_s03_lit.iff",
-					"Table-top Lamp (Coruscant)", "object/tangible/furniture/all/frn_all_lamp_tatt_s01.iff",
-					"Table-top Lamp(Coruscant) Lit", "object/tangible/furniture/all/frn_all_lamp_tatt_s01_lit.iff",
-					
+					"Candle (Style 1)", "object/tangible/furniture/all/frn_all_lamp_candlestick_free_s01_lit.iff",
+					"Candle (Style 2)", "object/tangible/furniture/all/frn_all_lamp_candlestick_free_s02_lit.iff",
+					"Candle (Style 3)", "object/tangible/furniture/all/frn_all_lamp_candlestick_tbl_s01.iff",
+					"Candle (Style 4)", "object/tangible/furniture/all/frn_all_lamp_candlestick_tbl_s02.iff",
+					"Candle (Style 5)", "object/tangible/furniture/all/frn_all_lamp_candlestick_tbl_s03.iff",
+					"Desk Lamp (Style 1)", "object/tangible/furniture/all/frn_all_lamp_desk_s01_lit.iff",
+					"Desk Lamp (Style 2)", "object/tangible/furniture/all/frn_all_lamp_desk_s01_lit.iff",
+					"Freestannding Lamp", "object/tangible/furniture/all/frn_all_lamp_free_s01.iff",
+					"Free-Standing Lamp (Style 2)", "object/tangible/furniture/all/frn_all_lamp_free_s02.iff"
 				},				
-				"Rugs and Tapestry",
+				"Rugs",
 				{
 					"Large Rectangular Rug (Style 1)", "object/tangible/furniture/modern/rug_rect_lg_s01.iff",
 					"Large Rectangular Rug (Style 2)", "object/tangible/furniture/modern/rug_rect_lg_s02.iff",
@@ -2378,19 +2218,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Large Oval Rug (Style 2)", "object/tangible/furniture/modern/rug_oval_m_s02.iff",
 					"Large Square Rug", "object/tangible/furniture/modern/rug_sqr_m_s01.iff",
 					"Ornate Blue Rug", "object/tangible/loot/collectible/collectible_rewards/blue_rug.iff",
-					"Ornate Orange Rug", "object/tangible/loot/collectible/collectible_rewards/orange_rug.iff",
-					"Fine Woven Rug (Style 1)", "object/tangible/furniture/all/frn_all_rug_rectangle_large_style_01.iff",
-					"Fine Woven Rug (Style 2)", "object/tangible/furniture/all/frn_all_rug_rectangle_large_style_02.iff",
-					"Fine Woven Rug (Style 3)", "object/tangible/furniture/all/frn_all_rug_rectangle_large_style_03.iff",
-					"Fine Woven Rug (Style 4)", "object/tangible/furniture/all/frn_all_rug_rectangle_large_style_04.iff",
-					"Fine Woven Rug (Style 5)", "object/tangible/furniture/all/frn_all_rug_rectangle_large_style_05.iff",
-					"Tatooine Tapestry","object/tangible/furniture/decorative/tatooine_tapestry.iff",
-					-- The following do not generate an item, but are in the TRE files.
-					--"Bestine Rug","object/tangible/furniture/modern/bestine_quest_rug", 
-					--"Large Oval Rug (Style 3)","object/tangible/furniture/modern/rug_oval_lg_s01", 
-					--"Large Round Rug (Style 3)","object/tangible/furniture/modern/rug_rnd_m_s01", 
-					--"Small Rectangular Rug","object/tangible/furniture/modern/rug_rect_sml_s01", 
-					--"Medium Rectangular Rug","object/tangible/furniture/modern/rug_rect_m_s01", 
+					"Ornate Orange Rug", "object/tangible/loot/collectible/collectible_rewards/orange_rug.iff"
 				},
 				"Plants",
 				{
@@ -2402,14 +2230,10 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Small Potted Plant (Style 2)", "object/tangible/furniture/all/frn_all_potted_plants_sml_s02.iff",
 					"Small Potted Plant (Style 3)", "object/tangible/furniture/all/frn_all_potted_plants_sml_s03.iff",
 					"Small Potted Plant (Style 4)", "object/tangible/furniture/all/frn_all_potted_plants_sml_s04.iff",
-					"Small Potted Plant (Style 5)", "object/tangible/furniture/all/frn_all_potted_plants_sml_s05.iff",
 					"Potted Tree (Style 1)", "object/tangible/furniture/all/frn_all_tree_potted_s1.iff",
 					"Potted Tree (Style 2)", "object/tangible/furniture/all/frn_all_tree_potted_s2.iff",
-					"Hanging Planter","object/tangible/furniture/decorative/hanging_planter.iff",
-					"Small Aurilian Plant", "object/tangible/loot/plant_grow/plant_stage_1.iff",
-					"Aurilian Plant", "object/tangible/loot/plant_grow/plant_stage_2.iff",
-					"Large Aurilian Plant", "object/tangible/loot/plant_grow/plant_stage_3.iff",
-					"Dead Aurilian Plant", "object/tangible/loot/plant_grow/plant_stage_dead.iff"
+					"Fountain", "object/tangible/furniture/city/fountain_heroic.iff",
+					"Brazier", "object/tangible/furniture/city/fountain_brazier_round.iff"
 				},
 				"Miscellaneous Decorations",
 				{
@@ -2428,32 +2252,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Blowfish", "object/tangible/fishing/fish/blowfish.iff",
 					"Nabooian Sculpture", "object/tangible/loot/collectible/collectible_rewards/collectible_sculpture_s01.iff",
 					"Glass Table", "object/tangible/loot/collectible/collectible_rewards/collectible_table.iff",
-					"Large Bed (Style 1)", "object/tangible/furniture/all/frn_all_bed_lg_s1.iff",
-					"Large Bed (Style 2)", "object/tangible/furniture/all/frn_all_bed_lg_s2.iff",
-					"Small Bed (Style 1) Red", "object/tangible/furniture/all/frn_all_bed_sm_s1.iff",
-					"Small Bed (Style 2) Blue", "object/tangible/furniture/all/frn_all_bed_sm_s2.iff",
-					"Giant Bunker Table", "object/tangible/furniture/imperial/bunker_table_giant_style_01.iff",
-					"Decorative Campfire", "object/tangible/furniture/decorative/campfire.iff",
-					"Portable Stove", "object/tangible/furniture/decorative/portable_stove.iff",
-					"Spear Rack", "object/tangible/furniture/decorative/spear_rack.iff",
-					"Tanning Hide (Style 1)", "object/tangible/furniture/decorative/tanning_hide_s01.iff",
-					"Tanning Hide (Style 2)", "object/tangible/furniture/decorative/tanning_hide_s02.iff",
-					"Command Console", "object/tangible/furniture/all/frn_all_command_console.iff",
-					"Wooden Chair (Style 1) Orange", "object/tangible/furniture/all/frn_all_chair_wooden_s1.iff",
-					"Wooden Chair (Style 2) Orange", "object/tangible/furniture/all/frn_all_chair_wooden_s2.iff",
-					"Love Seat (Style 2)", "object/tangible/furniture/all/frn_all_couch_love_seat_s2.iff",
-					"A Piece of Art (Style 1)", "object/tangible/furniture/all/frn_all_decorative_sm_s1.iff",
-					"A Piece of Art (Style 2)", "object/tangible/furniture/all/frn_all_decorative_sm_s2.iff",
-					"A Piece of Art (Style 3)", "object/tangible/furniture/all/frn_all_decorative_sm_s3.iff",
-					"A Piece of Art (Style 4)", "object/tangible/furniture/all/frn_all_decorative_sm_s4.iff",
-					"Gaming Kiosk", "object/tangible/furniture/all/frn_all_gaming_kiosk_s01.iff",
-					"Technical Console (Style 1)", "object/tangible/furniture/all/frn_all_technical_console_s01.iff",
-					"Technical Console (Style 2)", "object/tangible/furniture/all/frn_all_technical_console_s02.iff",
-					"Large Toolchest", "object/tangible/furniture/all/frn_all_toolchest_lg_s01.iff",
-					"Small Toolchest", "object/tangible/furniture/all/frn_all_toolchest_med_s01.iff",
-					"Throwpillow (Red)", "object/tangible/furniture/all/frn_all_throwpillow_med_s01.iff",
-					"Throwpillow (Brown)", "object/tangible/furniture/all/frn_all_throwpillow_med_s02.iff",
-					"Throwpillow (Blue)", "object/tangible/furniture/all/frn_all_throwpillow_med_s03.iff"
+					"Bed", "object/tangible/furniture/all/frn_all_bed_lg_s1.iff"
 				},			
 				"Elegant Furniture (COMPLETE)",
 				{
@@ -2502,7 +2301,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Plain End Table", "object/tangible/furniture/plain/plain_end_table_s01.iff",
 					"Plain Love Seat", "object/tangible/furniture/plain/plain_love_seat_s01.iff"
 				},
-				"Modern Furniture (COMPLETE)",
+				"Modern Furniture (INCOMPLETE)",
 				{
 					"Modern Armoire", "object/tangible/furniture/modern/armoire_modern_style_01.iff",
 					"Modern Bookcase", "object/tangible/furniture/modern/bookcase_modern_style_01.iff",
@@ -2514,101 +2313,23 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Modern Couch (Style 2)", "object/tangible/furniture/modern/couch_modern_style_02.iff",
 					"Modern Dining Table", "object/tangible/furniture/modern/dining_table_modern_style_01.iff",
 					"Modern End Table", "object/tangible/furniture/modern/end_table_large_modern_style_01.iff",
-					"Modern Love Seat", "object/tangible/furniture/modern/love_seat_modern_style_01.iff",
-					"Modern Coffee Table (Style 2)", "object/tangible/furniture/modern/coffee_table_modern_style_02.iff",
-					"Modern End Table - Small", "object/tangible/furniture/modern/end_table_small_modern_style_01.iff",
-					"Modern Sofa Chair", "object/tangible/furniture/modern/sofa_chair_modern_style_01.iff",
-					"Modern Table", "object/tangible/furniture/modern/table_modern_style_01.iff"	
-				},
-				"Camp Furniture",
-				-- Commented items don't have a mouseover hit box, which makes them too difficult to interact with.
-				-- Uncomment them when the issue has been resolved.
-				{
-					--"Ashes","object/tangible/camp/campfire_logs_ash.iff",
-					--"Logs (Burnt)","object/tangible/camp/campfire_logs_burnt.iff",
-					--"Logs (Fresh)","object/tangible/camp/campfire_logs_fresh.iff",
-					--"Logs (Smoldering)","object/tangible/camp/campfire_logs_smoldering.iff",
-					"Chair (Style 1)","object/tangible/camp/camp_chair_s1.iff",
-					"Chair (Style 2)","object/tangible/camp/camp_chair_s2.iff",
-					"Chair (Style 3)","object/tangible/camp/camp_chair_s3.iff",
-					--"Cot (Style 1)","object/tangible/camp/camp_cot_s1.iff",
-					--"Cot (Style 2)","object/tangible/camp/camp_cot_s2.iff",
-					--"Cot (Style 3)","object/tangible/camp/camp_cot_s3.iff",
-					--"Crate","object/tangible/camp/camp_crate_s1.iff",
-					--"Lantern (Style 1)","object/tangible/camp/camp_lantern_s1.iff",
-					--"Lantern (Style 2)","object/tangible/camp/camp_lantern_s2.iff",
-					--"Lantern (Style 3)","object/tangible/camp/camp_lantern_s3.iff",
-					--"Torch (Tall)","object/tangible/camp/camp_light_s1.iff",
-					--"Light Post","object/tangible/camp/camp_light_s2.iff",
-					--"Light Post (Beacon)","object/tangible/camp/camp_light_s3.iff",
-					"Meat Skewer","object/tangible/camp/camp_spit_s1.iff",
-					"Camp Center (Small)","object/tangible/camp/camp_spit_s2.iff",
-					"Camp Center (Large)","object/tangible/camp/camp_spit_s3.iff",
-					--"Stool (Short)","object/tangible/camp/camp_stool_short.iff",
-					--"Stool (Tall)","object/tangible/camp/camp_stool_tall.iff",
-				},
-				"Jedi Furniture",
-				{
-					"Dark Banner", "object/tangible/furniture/jedi/frn_all_banner_dark.iff",
-					"Light Banner", "object/tangible/furniture/jedi/frn_all_banner_light.iff",
-					"Dark Chair (Style 1)", "object/tangible/furniture/jedi/frn_all_dark_chair_s01.iff",
-					"Dark Chair (Style 2)", "object/tangible/furniture/jedi/frn_all_dark_chair_s02.iff",
-					"Dark Throne", "object/tangible/furniture/jedi/frn_all_dark_throne.iff",
-					"Light Chair (Style 1)", "object/tangible/furniture/jedi/frn_all_light_chair_s01.iff",
-					"Light Chair (Style 2)", "object/tangible/furniture/jedi/frn_all_light_chair_s02.iff",
-					"Light Throne","object/tangible/furniture/jedi/frn_all_light_throne.iff",
-					"Dark Table (Style 1)", "object/tangible/furniture/jedi/frn_all_table_dark_01.iff",
-					"Dark Table (Style 2)", "object/tangible/furniture/jedi/frn_all_table_dark_02.iff",
-					"Light Table (Style 1)", "object/tangible/furniture/jedi/frn_all_table_light_01.iff",
-					"Light Table (Style 2)", "object/tangible/furniture/jedi/frn_all_table_light_02.iff",
-					"Jedi Council Seat", "object/tangible/furniture/all/frn_all_jedi_council_seat.iff",
-				},
-				"City Decorations",
-				{
-					"Brazier - Round", "object/tangible/furniture/city/fountain_brazier_round.iff",
-					"Brazier - Square", "object/tangible/furniture/city/fountain_brazier_square.iff",
-					"Circular Fountain", "object/tangible/furniture/city/fountain_circle.iff",
-					"Fountain of Contemplation", "object/tangible/furniture/city/fountain_contemplate.iff",
-					"Fountain (No Water)", "object/tangible/furniture/city/fountain_generic.iff",
-					"Fountain of Heroism", "object/tangible/furniture/city/fountain_heroic.iff",
-					"Retangular Fountain", "object/tangible/furniture/city/fountain_rectangle.iff",
-					"Gungan Head Statue", "object/tangible/furniture/city/statue_gungan_head.iff",
-					"Sentinel Statue", "object/tangible/furniture/city/statue_sentinel_01.iff",
-					"Regal Battle Statue", "object/tangible/furniture/city/statue_sentinel_02.iff",
-					"Tatooine Sun Symbol", "object/tangible/furniture/city/statue_tatooine_sunball.iff",
-					"Strange Statue", "object/tangible/furniture/city/statue_weird_01.iff",
-					"Weird Statue", "object/tangible/furniture/city/statue_weird_02.iff",
-					"Street Lamp (Style 1) White", "object/tangible/furniture/city/streetlamp_large_01.iff",
-					"Street Lamp (Style 2) White", "object/tangible/furniture/city/streetlamp_large_02.iff",
-					"Street Lamp (Style 3) White", "object/tangible/furniture/city/streetlamp_med_01.iff",
-					"Street Lamp (Style 4) White", "object/tangible/furniture/city/streetlamp_med_02.iff",
-					"Street Lamp (Style 1) Blue", "object/tangible/furniture/city/streetlamp_large_blue_01.iff",
-					"Street Lamp (Style 2) Blue", "object/tangible/furniture/city/streetlamp_large_blue_02.iff",
-					"Street Lamp (Style 3) Blue", "object/tangible/furniture/city/streetlamp_med_blue_01.iff",
-					"Street Lamp (Style 4) Blue", "object/tangible/furniture/city/streetlamp_med_blue_02.iff",
-					"Street Lamp (Style 1) Green", "object/tangible/furniture/city/streetlamp_large_green_01.iff",
-					"Street Lamp (Style 1) Green", "object/tangible/furniture/city/streetlamp_large_green_02.iff",
-					"Street Lamp (Style 3) Green", "object/tangible/furniture/city/streetlamp_med_green_01.iff",
-					"Street Lamp (Style 4) Green", "object/tangible/furniture/city/streetlamp_med_green_02.iff",
-					"Street Lamp (Style 1) Red", "object/tangible/furniture/city/streetlamp_large_red_01.iff",
-					"Street Lamp (Style 1) Red", "object/tangible/furniture/city/streetlamp_large_red_02.iff",
-					"Street Lamp (Style 3) Red", "object/tangible/furniture/city/streetlamp_med_red_01.iff",
-					"Street Lamp (Style 4) Red", "object/tangible/furniture/city/streetlamp_med_red_02.iff"
-				},
+					"Modern Love Seat", "object/tangible/furniture/modern/love_seat_modern_style_01.iff"
+				}
+				
 			},
-			--"Intruments",
-			--{
-				--"Bandfill", "object/tangible/instrument/bandfill.iff",
-				--"Fanfar", "object/tangible/instrument/fanfar.iff",
-				--"Fizz", "object/tangible/instrument/fizz.iff",
-				--"Flute Droopy", "object/tangible/instrument/flute_droopy.iff",
-				--"Kloo Horn", "object/tangible/instrument/kloo_horn.iff",
-				--"Mandoviol", "object/tangible/instrument/mandoviol.iff",
-				--"Nalargon", "object/tangible/instrument/nalargon.iff",
-				--"Ommni Box", "object/tangible/instrument/ommni_box.iff",
-				--"Slitherhorn", "object/tangible/instrument/slitherhorn.iff",
-				--"Traz", "object/tangible/instrument/traz.iff"
-			--},
+			"Intruments",
+			{
+				"Bandfill", "object/tangible/instrument/bandfill.iff",
+				"Fanfar", "object/tangible/instrument/fanfar.iff",
+				"Fizz", "object/tangible/instrument/fizz.iff",
+				"Flute Droopy", "object/tangible/instrument/flute_droopy.iff",
+				"Kloo Horn", "object/tangible/instrument/kloo_horn.iff",
+				"Mandoviol", "object/tangible/instrument/mandoviol.iff",
+				"Nalargon", "object/tangible/instrument/nalargon.iff",
+				"Ommni Box", "object/tangible/instrument/ommni_box.iff",
+				"Slitherhorn", "object/tangible/instrument/slitherhorn.iff",
+				"Traz", "object/tangible/instrument/traz.iff"
+			},
 			"Pharmaceutical",
 			{
 				"Small StimPack", "object/tangible/medicine/stimpack_sm_s1.iff",
@@ -2701,7 +2422,11 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Lightsaber Crafting Toolkit", "object/tangible/crafting/station/jedi_tool.iff",
 					"Starship Crafting Tool", "object/tangible/crafting/station/space_tool.iff",
 					"Structure and Furniture Crafting Tool", "object/tangible/crafting/station/structure_tool.iff",
-					"Weapon, Droid, and General Item Crafting Tool", "object/tangible/crafting/station/weapon_tool.iff"
+					"Weapon, Droid, and General Item Crafting Tool", "object/tangible/crafting/station/weapon_tool.iff",
+                    "Molecular Clamp", "object/tangible/slicing/slicing_molecular_clamp.iff",
+                    "Precision Laser Knife", "object/tangible/slicing/slicing_laser_knife.iff",
+                    "Weapon Upgrade Kit", "object/tangible/slicing/slicing_weapon_upgrade_kit.iff",
+                    "Armor Upgrade Kit", "object/tangible/slicing/slicing_armor_upgrade_kit.iff"
 				},
 				"Crafting Stations",
 				{

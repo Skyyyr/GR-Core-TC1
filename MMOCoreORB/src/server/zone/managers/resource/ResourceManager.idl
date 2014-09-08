@@ -77,7 +77,7 @@ class ResourceManager extends Observer implements Logger {
 	private transient int shiftInterval;
 	private transient Lua lua;
 	
-	public static final int RESOURCE_DEED_QUANTITY = 100000;
+	public static final int RESOURCE_DEED_QUANTITY = 30000;
 	
 	public ResourceManager(ZoneServer server, ZoneProcessServer impl, 
 			ObjectManager objectMan) {
@@ -127,6 +127,7 @@ class ResourceManager extends Observer implements Logger {
 	private native boolean loadConfigFile();
 	private native boolean loadConfigData();
 	private native void loadDefaultConfig();
+	private native void loadSurveyData();
 	
 	private native void startResourceSpawner();
 
@@ -145,6 +146,9 @@ class ResourceManager extends Observer implements Logger {
 	public native string dumpResources();
 	
 	public native string despawnResource(string resourceName);
+	
+	public native void addPlanetsToListBox(SuiListBox sui);
+	public native string getPlanetByIndex(int idx);
 
 }
 

@@ -2593,3 +2593,4 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 }
 
 ObjectTemplates:addTemplate(object_tangible_terminal_terminal_character_builder, "object/tangible/terminal/terminal_character_builder.iff")
+

@@ -1664,7 +1664,18 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 				"Backpacks",
 				{
 					"Travel Pack", "object/tangible/wearables/backpack/backpack_s01.iff"
-				}
+				},
+				"Crafting Aprons",
+				{
+					"Architect", "crafting_apron_architect",
+					"Armorsmith", "crafting_apron_armorsmith",
+					"Chef", "crafting_apron_chef",
+					"Combat Medic", "crafting_apron_combat_medic",
+					"Doctor", "crafting_apron_doctor",
+					"Droid Engineer", "crafting_apron_droid_engineer",
+					"Tailor", "crafting_apron_tailor",
+					"Weaponsmith", "crafting_apron_weaponsmith",
+				},
 			},
 			"Consumables",
 			{
@@ -1693,7 +1704,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Pikatta Pie", "object/tangible/food/crafted/dessert_pikatta_pie.iff",
 					--"Pkneb", "object/tangible/food/crafted/dessert_pkneb.iff",
 					--"Puffcake", "object/tangible/food/crafted/dessert_puffcake.iff",
-				        "Pyollian Cake", "object/tangible/food/crafted/dessert_pyollian_cake.iff",
+				        "Pyollian Cake", "object/tangible/food/crafted/dessert_pyollian_cake.iff"
 					--"Ryshcate", "object/tangible/food/crafted/dessert_ryshcate.iff",
 					--"Smugglers Delight", "object/tangible/food/crafted/dessert_smugglers_delight.iff",
 					--"Sweesonberry Rolls", "object/tangible/food/crafted/dessert_sweesonberry_rolls.iff",

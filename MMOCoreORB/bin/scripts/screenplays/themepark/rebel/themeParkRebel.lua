@@ -38,7 +38,7 @@ c3po_missions =
 		missionType = "escort", 
 		primarySpawns = 
 		{ 
-			{ npcTemplate = "theme_park_rebel_captain", planetName = "corellia", npcName = "Captain Taergle" } 
+			{ npcTemplate = "theme_park_rebel_captain", planetName = "corellia", npcName = "Captain Teargle" } 
 		}, 
 		secondarySpawns = {}, 
 		itemSpawns = {}, 
@@ -169,7 +169,7 @@ wedge_missions =
 		}
 	},
 	{ 
-		missionType = "assassinate",
+		missionType = "escort",
 	 	primarySpawns = 
 	 	{ 
 	 		{ npcTemplate = "theme_park_imperial_general_graise", planetName = "corellia", npcName = "General Graise" } 
@@ -587,10 +587,9 @@ mon_missions =
 	},
 	{
 		missionType = "escort", 
-		missionDescription = "MON MOTHMA needs you to ESCORT the CAPTAIN of the Corvette back to the REBEL BASE",
 		primarySpawns = 
 		{ 
-			{ npcTemplate = "theme_park_rebel_altapi_tmman", planetName = "dantooine", npcName = "Altapi T'mman" } 
+			{ npcTemplate = "theme_park_rebel_jeremes_kelton", planetName = "dantooine", npcName = "Altapi T'mman" } 
 		}, 
 		secondarySpawns = 
 		{
@@ -724,7 +723,6 @@ jan_missions =
 	},
 	{ 
 		missionType = "deliver", 
-		missionDescription = "GENERAL DODONNA needs you to DELIVER the INFORMATION to REBEL PILOT",
 		primarySpawns = 
 		{
 			{ npcTemplate = "theme_park_rebel_bothan_spy", planetName = "yavin4", npcName = "Pilot" } 
@@ -840,12 +838,6 @@ npcMapRebel =
 		missions = {} 
 	},
 	{ 
-		spawnData = { planetName = "corellia", npcTemplate = "record_keeper_rebel", x = 6.0, z = 7.00, y = -5.18, direction = 0, cellID = 8555480, position = STAND }, 
-		npcNumber = -2,  
-		stfFile = "",               
-		missions = {} 
-	},
-	{ 
 		spawnData = { planetName = "corellia", npcTemplate = "qualdo_herm", x = 14.91, z = 1.01, y = -6.68, direction = 0, cellID = 8555475, position = STAND }, 
 		worldPosition = { x = -6512.3, y = 6005.2 }, 
 		npcNumber = 2,   
@@ -954,15 +946,13 @@ permissionMapRebel = {
 				cells = { 3465380, 3465381, 3465382, 3465383, 3465384, 3465385, 3465386, 3465387, 3465388, 3465389 },
 				conditions = 
 				{
-					{ permissionType = "missionState", mission = "theme_park_rebel", missionState = 128 },
-					{ permissionType = "faction" }
+					 { permissionType = "faction" }
 				}
 			},
 			{
 				cells = { 3465390, 3465391, 3465392, 3465393, 3465394 },
 				conditions = 
-				{
-					{ permissionType = "missionState", mission = "theme_park_rebel", missionState = 256 },
+				{					
 					{ permissionType = "faction" }
 				}
 			}

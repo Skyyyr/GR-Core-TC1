@@ -4,7 +4,7 @@ dark_jedi_sentinel = Creature:new {
 	pvpFaction = "",
 	faction = "",
 	level = 300,
-	chanceHit = 300,
+	chanceHit = 30,
 	damageMin = 2645,
 	damageMax = 5000,
 	baseXp = 28532,
@@ -32,9 +32,18 @@ dark_jedi_sentinel = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "color_crystals", chance = 10000000}				
+				{group = "holocron_dark", chance = 600000},
+				{group = "holocron_light", chance = 600000},
+				{group = "crystals_premium", chance = 600000},
+				{group = "rifles", chance = 1300000},
+				{group = "pistols", chance = 1300000},
+				{group = "melee_weapons", chance = 1300000},
+				{group = "armor_attachments", chance = 1100000},
+				{group = "clothing_attachments", chance = 1100000},
+				{group = "carbines", chance = 1300000},
+				{group = "wearables_scarce", chance = 800000}				
 			},
-			lootChance = 9000000
+			lootChance = 8500000
 		}
 	},
 	weapons = {"dark_jedi_weapons_gen4"},

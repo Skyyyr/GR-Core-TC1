@@ -4,7 +4,7 @@ light_jedi_sentinel = Creature:new {
 	pvpFaction = "",
 	faction = "",
 	level = 301,
-	chanceHit = 300,
+	chanceHit = 30,
 	damageMin = 2645,
 	damageMax = 5000,
 	baseXp = 26845,
@@ -36,9 +36,9 @@ light_jedi_sentinel = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "color_crystals", chance = 10000000}
+				{group = "holocron_light", chance = 10000000}
 			},
-			lootChance = 9000000
+			lootChance = 500000
 		}
 	},
 	weapons = {"light_jedi_weapons"},

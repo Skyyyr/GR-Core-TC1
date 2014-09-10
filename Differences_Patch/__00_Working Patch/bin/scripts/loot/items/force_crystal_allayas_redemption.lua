@@ -10,7 +10,7 @@ force_crystal_allayas_redemption = {
 		{"maxdamage",85,85,0},
 		{"attackspeed",1,-1,5},
 		{"woundchance",4,8,5},
-		{"hitpoints",1500,1500,0},
+		{"hitpoints",100000,100000,0},
 		{"attackhealthcost",0,5,0},
 		{"attackactioncost",0,5,0},
 		{"attackmindcost",0,5,0},

@@ -4,7 +4,7 @@ death_watch_bloodguard = Creature:new {
 	pvpFaction = "",
 	faction = "",
 	level = 121,
-	chanceHit = 4,
+	chanceHit = 40,
 	damageMin = 745,
 	damageMax = 1200,
 	baseXp = 11390,
@@ -30,10 +30,9 @@ death_watch_bloodguard = Creature:new {
 	lootGroups = {
 		{
 			groups = {
-				{group = "death_watch_bunker_commoners", chance = 6000000},
-				{group = "death_watch_bunker_lieutenants", chance = 4000000}
+				{group = "death_watch_bunker_ingredient_protective", chance = 10000000},
 			},
-			lootChance = 1000000
+			lootChance = 9000000
 		}
 	},
 	weapons = {"pirate_weapons_heavy"},

@@ -35,3 +35,12 @@ includeFile("trainer/trainer_starfighter_engineer.lua")
 includeFile("trainer/trainer_tailor.lua")
 includeFile("trainer/trainer_unarmed.lua")
 includeFile("trainer/trainer_weaponsmith.lua")
+
+-- SWGGR FS/Jedi Trainers
+
+includeFile("trainer/trainer_fs.lua")
+includeFile("trainer/trainer_enhancer.lua")
+includeFile("trainer/trainer_healer.lua")
+includeFile("trainer/trainer_defender.lua")
+includeFile("trainer/trainer_lightsaber.lua")
+includeFile("trainer/trainer_powers.lua")

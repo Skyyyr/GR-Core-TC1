@@ -5,7 +5,7 @@ death_watch_overlord = Creature:new {
 	pvpFaction = "",
 	faction = "",
 	level = 221,
-	chanceHit = 19,
+	chanceHit = 190,
 	damageMin = 1245,
 	damageMax = 2200,
 	baseXp = 20948,
@@ -40,7 +40,7 @@ death_watch_overlord = Creature:new {
 				{group = "death_watch_bunker_overlord_shared", chance =  500000},
 				{group = "death_watch_bunker_overlord_quest", chance  = 9500000}
 			},
-			lootChance = 5000000
+			lootChance = 9000000
 		}
 	},
 	weapons = {"dark_trooper_weapons"},

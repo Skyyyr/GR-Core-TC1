@@ -1,0 +1,38 @@
+event_darth_vader = Creature:new {
+	objectName = "",
+	customName = "Vader",
+	socialGroup = "",
+	pvpFaction = "",
+	faction = "",
+	level = 300,
+	chanceHit = 300,
+	damageMin = 1645,
+	damageMax = 3000,
+	baseXp = 25000,
+	baseHAM = 385000,
+	baseHAMmax = 550000,
+	armor = 3,
+	resists = {0,0,0,0,0,0,0,-1},
+	meatType = "",
+	meatAmount = 0,
+	hideType = "",
+	hideAmount = 0,
+	boneType = "",
+	boneAmount = 0,
+	milk = 0,
+	tamingChance = 0,
+	ferocity = 3,
+	pvpBitmask = AGGRESSIVE + ATTACKABLE + ENEMY,
+	creatureBitmask = KILLER + STALKER,
+	optionsBitmask = 128,
+	diet = HERBIVORE,
+
+	templates = {"object/mobile/darth_vader.iff"},
+	scale = 3,
+	lootGroups = {},
+	weapons = {"dark_jedi_weapons_gen4"},
+	conversationTemplate = "",
+	attacks = merge(lightsabermaster,forcepowermaster)
+}
+
+CreatureTemplates:addCreatureTemplate(event_darth_vader, "event_darth_vader")

@@ -121,8 +121,9 @@ public:
 			player->sendSystemMessage("@bio_engineer:harvest_dna_target_baby");
 			return INVALIDTARGET;
 		}
-
+		// SOE Pathc notes Sept 4, 2003 all pet sampling disabled, added as radial to pet deed
 		if (cr->isPet()) {
+			// allow them to sample their own be pets
 			player->sendSystemMessage("@bio_engineer:harvest_dna_target_pet");
 			return INVALIDTARGET;
 		}

@@ -9,6 +9,7 @@
 #include "engine/engine.h"
 #include "FactionStatus.h"
 #include "server/zone/managers/crafting/schematicmap/SchematicMap.h"
+#include "server/zone/objects/tangible/deed/eventperk/EventPerkDeed.h"
 
 const char LuaPlayerObject::className[] = "LuaPlayerObject";
 
@@ -52,6 +53,9 @@ Luna<LuaPlayerObject>::RegType LuaPlayerObject::Register[] = {
 		{ "getExperience", &LuaPlayerObject::getExperience },
 		{ "getExperienceForType", &LuaPlayerObject::getExperienceForType},
 		{ "getExperienceType", &LuaPlayerObject::getExperienceType},
+		{ "addEventPerk", &LuaPlayerObject::addEventPerk},
+		{ "getEventPerkCount", &LuaPlayerObject::getEventPerkCount},
+		{ "getCharacterAgeInDays", &LuaPlayerObject::getCharacterAgeInDays},
 		{ 0, 0 }
 };
 
@@ -449,3 +453,31 @@ int LuaPlayerObject::setForceSensitiveUnlockedBranches(lua_State* L) {
 	return 0;
 }
 
+int LuaPlayerObject::getEventPerkCount(lua_State* L) {
+	lua_pushinteger(L, realObject->getEventPerkCount());
+
+	return 1;
+}
+
+int LuaPlayerObject::addEventPerk(lua_State* L) {
+	EventPerkDeed* perk = (EventPerkDeed*) lua_touserdata(L, -1);
+
+	if (perk == NULL) {
+		return 0;
+	}
+
+	ManagedReference<CreatureObject*> creature = dynamic_cast<CreatureObject*>(realObject->getParent().get().get());
+	if (creature != NULL) {
+		perk->setOwner(creature);
+	}
+
+	realObject->addEventPerk(perk);
+
+	return 0;
+}
+
+int LuaPlayerObject::getCharacterAgeInDays(lua_State* L) {
+	lua_pushinteger(L, realObject->getCharacterAgeInDays());
+
+	return 1;
+}

@@ -61,6 +61,9 @@ public:
 	int getExperience(lua_State* L);
 	int getExperienceForType(lua_State* L);
 	int getExperienceType(lua_State* L);
+	int addEventPerk(lua_State* L);
+	int getEventPerkCount(lua_State* L);
+	int getCharacterAgeInDays(lua_State* L);
 
 private:
 	// The pointer to the 'real object' defined in object.cc

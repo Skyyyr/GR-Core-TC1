@@ -16,6 +16,7 @@
 #include "server/zone/templates/mobile/CreatureTemplate.h"
 #include "server/zone/templates/tangible/DnaSampleTemplate.h"
 #include "server/zone/objects/tangible/component/dna/DnaComponent.h"
+#include "server/zone/objects/tangible/deed/pet/PetDeed.h"
 
 AtomicInteger DnaManager::loadedDnaData;
 
@@ -160,7 +161,70 @@ int DnaManager::addRange(lua_State* L) {
 
 	return 0;
 }
+void DnaManager::generationalSample(PetDeed* deed, CreatureObject* player,int quality) {
+	// We are making a generational sample rules are a little different.
+	// Reduce each stat by lets say 10% as the max to be on par with old docs
+	int cl = deed->getLevel();
+	int ferocity = 0;
+	int factor = (int)System::random(quality) - 7;
+	int reductionAmount = (factor + 20 + quality) ;
+	int cle = reduceByPercent(deed->getCleverness(),reductionAmount);
+	int cou = reduceByPercent(deed->getCourage(),reductionAmount);
+	int dep = reduceByPercent(deed->getDependency(),reductionAmount);
+	int dex = reduceByPercent(deed->getDexterity(),reductionAmount);
+	int end = reduceByPercent(deed->getEndurance(),reductionAmount);
+	int fie = reduceByPercent(deed->getFierceness(),reductionAmount);
+	int frt = reduceByPercent(deed->getFortitude(),reductionAmount);
+	int har = reduceByPercent(deed->getHardiness(),reductionAmount);
+	int ite = reduceByPercent(deed->getIntelligence(),reductionAmount);
+	int pow = reduceByPercent(deed->getPower(),reductionAmount);
 
+	// calculate rest of stats here
+	ManagedReference<DnaComponent*> prototype = player->getZoneServer()->createObject(qualityTemplates.get(quality), 1).castTo<DnaComponent*>();
+	if (prototype == NULL) {
+		return;
+	}
+	Locker clocker(prototype);
+	// Check Here for unique npcs
+	prototype->setSource(deed->getTemplateName());
+	prototype->setQuality(quality);
+	prototype->setLevel(cl);
+	String serial = player->getZoneServer()->getCraftingManager()->generateSerial();
+	prototype->setSerialNumber(serial);
+	prototype->setStats(cle,end,fie,pow,ite,cou,dep,dex,frt,har);
+	prototype->setStun(deed->getStun());
+	prototype->setKinetic(deed->getKinetic());
+	prototype->setEnergy(deed->getEnergy());
+	prototype->setBlast(deed->getBlast());
+	prototype->setHeat(deed->getHeat());
+	prototype->setCold(deed->getCold());
+	prototype->setElectric(deed->getElectric());
+	prototype->setAcid(deed->getAcid());
+	prototype->setSaber(deed->getSaber());
+	prototype->setRanged(deed->getRanged());
+	prototype->setArmorRating(deed->getArmor());
+	CreatureAttackMap* attackMap = deed->getAttacks();
+	if (attackMap->size() > 0) {
+		prototype->setSpecialAttackOne(String(attackMap->getCommand(0)));
+		if(attackMap->size() > 1) {
+			prototype->setSpecialAttackTwo(String(attackMap->getCommand(1)));
+		}
+	}
+
+	ManagedReference<SceneObject*> inventory = player->getSlottedObject("inventory");
+
+	if (inventory->hasFullContainerObjects()) {
+		StringIdChatParameter err("survey", "no_inv_space");
+		player->sendSystemMessage(err);
+		player->setPosture(CreaturePosture::UPRIGHT, true);
+		return;
+	}
+
+	Locker locker(inventory);
+	inventory->transferObject(prototype, -1, true,false);
+	inventory->broadcastObject(prototype, true);
+
+}
 void DnaManager::generateSample(Creature* creature, CreatureObject* player,int quality){
 	if (quality < 0 || quality > 7) {
 		return;

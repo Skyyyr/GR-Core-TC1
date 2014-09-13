@@ -362,6 +362,7 @@ function ThemeParkLogic:getMission(npcNumber, missionNumber)
 
 	if (npcData == nil) then
 		printf("null npcData in ThemeParkLogic:getMission for %s", self.className);
+		return nil
 	end
 
 	local missions = npcData.missions
@@ -1474,9 +1475,13 @@ function ThemeParkLogic:getMissionType(activeNpcNumber, pConversingPlayer)
 		return
 	end
 
-	local npcNumber = self:getActiveNpcNumber(pConversingPlayer)
-	local missionNumber = self:getCurrentMissionNumber(npcNumber, pConversingPlayer)
-	local mission = self:getMission(npcNumber, missionNumber)
+	local missionNumber = self:getCurrentMissionNumber(activeNpcNumber, pConversingPlayer)
+
+	if missionNumber == 0 then
+		return ""
+	end
+
+	local mission = self:getMission(activeNpcNumber, missionNumber)
 
 	return mission.missionType
 end
@@ -1489,6 +1494,23 @@ function ThemeParkLogic:escortedNpcCloseEnough(pConversingPlayer)
 	local pNpc = getSceneObject(objectID)
 
 	return pNpc ~= nil and SceneObject(pConversingPlayer):getDistanceTo(pNpc) < 64
+end
+
+function ThemeParkLogic:resetThemePark(pConversingPlayer)
+	-- reset currnt missions
+	self:resetCurrentMission(pConversingPlayer)
+	-- wipe all missions out
+	ObjectManager.withCreatureObject(pConversingPlayer, function(creature)
+		-- clear the root state
+		local state = creature:getScreenPlayState(self.screenPlayState)
+		creature:removeScreenPlayState(state, self.screenPlayState)
+		-- clear all missions	
+		for i = 1, #self.npcMap do
+			local name = self.npcMap[i].spawnData.npcTemplate
+			local npcState = creature:getScreenPlayState(self.screenPlayState .. "_mission_" .. name)
+			creature:removeScreenPlayState(npcState, self.screenPlayState .. "_mission_" .. name)
+		end
+	end)
 end
 
 function ThemeParkLogic:resetCurrentMission(pConversingPlayer)

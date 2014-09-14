@@ -1503,7 +1503,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 					"Master", "crafting_weaponsmith_master"
 				}
 			},
-			"Unlearn All Skills", "unlearn_all_skills",
+			--"Unlearn All Skills", "unlearn_all_skills",
 			--"Cleanse Character", "cleanse_character",
 			"Enhance Character", "enhance_character",
 			--"Learn Languages", "language",
@@ -1665,17 +1665,17 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 				{
 					"Travel Pack", "object/tangible/wearables/backpack/backpack_s01.iff"
 				},
-				"Crafting Aprons",
-				{
-					"Architect", "crafting_apron_architect",
-					"Armorsmith", "crafting_apron_armorsmith",
-					"Chef", "crafting_apron_chef",
-					"Combat Medic", "crafting_apron_combat_medic",
-					"Doctor", "crafting_apron_doctor",
-					"Droid Engineer", "crafting_apron_droid_engineer",
-					"Tailor", "crafting_apron_tailor",
-					"Weaponsmith", "crafting_apron_weaponsmith",
-				},
+				--"Crafting Aprons",
+				--{
+				--	"Architect", "crafting_apron_architect",
+				--  "Armorsmith", "crafting_apron_armorsmith",
+				--	"Chef", "crafting_apron_chef",
+				--	"Combat Medic", "crafting_apron_combat_medic",
+				--	"Doctor", "crafting_apron_doctor",
+				--	"Droid Engineer", "crafting_apron_droid_engineer",
+				--	"Tailor", "crafting_apron_tailor",
+				--	"Weaponsmith", "crafting_apron_weaponsmith",
+				--},
 			},
 			"Consumables",
 			{

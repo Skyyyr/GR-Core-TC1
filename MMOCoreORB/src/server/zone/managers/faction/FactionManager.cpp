@@ -122,13 +122,14 @@ void FactionManager::awardPvpFactionPoints(TangibleObject* killer, CreatureObjec
 		if (killer->isRebel() && destructedObject->isImperial()) {
 			ghost->increaseFactionStanding("rebel", 75);
 			ghost->decreaseFactionStanding("imperial", 75);
-
 			killedGhost->decreaseFactionStanding("imperial", 75); //TODO: find formulas
 		} else if (killer->isImperial() && destructedObject->isRebel()) {
 			ghost->increaseFactionStanding("imperial", 75);
 			ghost->decreaseFactionStanding("rebel", 75);
-
 			killedGhost->decreaseFactionStanding("rebel", 75);
+		//Needs testing.
+		} else if ((killerCreature->hasSkill("force_rank_dark_novice") || killerCreature->hasSkill("force_rank_light_novice")) && (destructedObject->hasSkill("force_rank_dark_novice") || destructedObject->hasSkill("force_rank_light_novice"))) {
+			ghost->addExperience("force_rank_xp", 500, true);
 		}
 	}
 }
